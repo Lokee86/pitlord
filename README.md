@@ -44,7 +44,7 @@ resolved from `PATH`.
 ## Install
 
 ```text
-go install github.com/Lokee86/pitlord/cmd/pitlord@v0.1.0
+go install github.com/Lokee86/pitlord/cmd/pitlord@v0.1.1
 ```
 
 ## Quick start
@@ -224,3 +224,7 @@ are resolved through Arcana rather than matched by source text.
 - Homunculus owns deterministic source mutations and their expected architecture deltas.
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the runtime and data-flow design.
+
+## License
+
+Pitlord is licensed under the [Apache License 2.0](LICENSE.md), consistent with the Warlock toolchain and its constituent projects.
