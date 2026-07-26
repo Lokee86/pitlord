@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "areas": [
+    {
+      "id": "api",
+      "description": "Transport and request handlers",
+      "paths": ["api"]
+    },
+    {
+      "id": "service",
+      "description": "Application behavior",
+      "paths": ["service"]
+    },
+    {
+      "id": "storage",
+      "description": "Persistence boundary",
+      "paths": ["storage"]
+    }
+  ],
+  "rules": [
+    {
+      "id": "api-must-not-access-storage",
+      "type": "forbid_dependency",
+      "message": "api must use the service layer instead of accessing storage directly",
+      "severity": "error",
+      "from_areas": ["api"],
+      "to_areas": ["storage"],
+      "relations": ["calls", "imports"]
+    },
+    {
+      "id": "source-files-must-have-one-owner",
+      "type": "require_ownership",
+      "scope_paths": ["."],
+      "source_kinds": ["file"]
+    },
+    {
+      "id": "layer-dependencies-must-be-acyclic",
+      "type": "forbid_area_cycles",
+      "areas": ["api", "service", "storage"],
+      "relations": ["calls", "imports"]
+    }
+  ]
+}

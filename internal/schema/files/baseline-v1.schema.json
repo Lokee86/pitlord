@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://warlock-toolchain.local/pitlord/baseline-v1.schema.json",
+  "title": "Pitlord Evidence Baseline v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "entries"],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fingerprint", "rule_id", "issue", "source"],
+        "properties": {
+          "fingerprint": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "rule_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "issue": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "type": "string"
+          },
+          "relation": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "areas": {
+            "type": "array",
+            "items": {"type": "string"},
+            "uniqueItems": true
+          },
+          "source_area": {
+            "type": "string"
+          },
+          "target_area": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

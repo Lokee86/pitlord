@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://warlock-toolchain.local/pitlord/policy-v1.schema.json",
+  "title": "Pitlord Policy v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "rules"],
+  "properties": {
+    "version": {"const": 1},
+    "includes": {"$ref": "#/$defs/stringList"},
+    "areas": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/area"}
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {"$ref": "#/$defs/forbidDependency"},
+          {"$ref": "#/$defs/requireOwnership"},
+          {"$ref": "#/$defs/forbidAreaCycles"},
+          {"$ref": "#/$defs/forbidContent"},
+          {"$ref": "#/$defs/requirePath"},
+          {"$ref": "#/$defs/forbidPath"}
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringList": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/nonEmptyString"},
+      "uniqueItems": true
+    },
+    "nonEmptyStringList": {
+      "allOf": [
+        {"$ref": "#/$defs/stringList"},
+        {"minItems": 1}
+      ]
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["error", "warning"]
+    },
+    "commonRuleFields": {
+      "type": "object",
+      "properties": {
+        "id": {"$ref": "#/$defs/nonEmptyString"},
+        "message": {"type": "string"},
+        "severity": {"$ref": "#/$defs/severity"}
+      }
+    },
+    "area": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "paths"],
+      "properties": {
+        "id": {"$ref": "#/$defs/nonEmptyString"},
+        "description": {"type": "string"},
+        "paths": {"$ref": "#/$defs/nonEmptyStringList"},
+        "exclude_paths": {"$ref": "#/$defs/stringList"},
+        "kinds": {"$ref": "#/$defs/stringList"}
+      }
+    },
+    "dependencyFields": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id"],
+      "properties": {
+        "id": {"$ref": "#/$defs/nonEmptyString"},
+        "type": {"type": "string", "enum": ["forbid_dependency"]},
+        "message": {"type": "string"},
+        "severity": {"$ref": "#/$defs/severity"},
+        "from_areas": {"$ref": "#/$defs/stringList"},
+        "to_areas": {"$ref": "#/$defs/stringList"},
+        "from_paths": {"$ref": "#/$defs/stringList"},
+        "to_paths": {"$ref": "#/$defs/stringList"},
+        "from_exclude_paths": {"$ref": "#/$defs/stringList"},
+        "to_exclude_paths": {"$ref": "#/$defs/stringList"},
+        "source_kinds": {"$ref": "#/$defs/stringList"},
+        "target_kinds": {"$ref": "#/$defs/stringList"},
+        "relations": {"$ref": "#/$defs/stringList"}
+      }
+    },
+    "forbidDependency": {
+      "allOf": [
+        {"$ref": "#/$defs/dependencyFields"},
+        {
+          "anyOf": [
+            {"required": ["from_areas"]},
+            {"required": ["from_paths"]}
+          ]
+        },
+        {
+          "anyOf": [
+            {"required": ["to_areas"]},
+            {"required": ["to_paths"]}
+          ]
+        }
+      ]
+    },
+    "requireOwnership": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "scope_paths"],
+      "properties": {
+        "id": {"$ref": "#/$defs/nonEmptyString"},
+        "type": {"const": "require_ownership"},
+        "message": {"type": "string"},
+        "severity": {"$ref": "#/$defs/severity"},
+        "scope_paths": {"$ref": "#/$defs/nonEmptyStringList"},
+        "scope_exclude_paths": {"$ref": "#/$defs/stringList"},
+        "source_kinds": {"$ref": "#/$defs/stringList"},
+        "allow_unowned": {"type": "boolean"},
+        "allow_overlaps": {"type": "boolean"}
+      },
+      "not": {
+        "properties": {
+          "allow_unowned": {"const": true},
+          "allow_overlaps": {"const": true}
+        },
+        "required": ["allow_unowned", "allow_overlaps"]
+      }
+    },
+    "forbidAreaCycles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type"],
+      "properties": {
+        "id": {"$ref": "#/$defs/nonEmptyString"},
+        "type": {"const": "forbid_area_cycles"},
+        "message": {"type": "string"},
+        "severity": {"$ref": "#/$defs/severity"},
+        "areas": {
+          "allOf": [
+            {"$ref": "#/$defs/stringList"},
+            {"minItems": 2}
+          ]
+        },
+        "source_kinds": {"$ref": "#/$defs/stringList"},
+        "target_kinds": {"$ref": "#/$defs/stringList"},
+        "relations": {"$ref": "#/$defs/stringList"}
+      }
+    },
+    "forbidContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "include_paths"],
+      "properties": {
+        "id": {"$ref": "#/$defs/nonEmptyString"},
+        "type": {"const": "forbid_content"},
+        "message": {"type": "string"},
+        "severity": {"$ref": "#/$defs/severity"},
+        "include_paths": {"$ref": "#/$defs/nonEmptyStringList"},
+        "exclude_paths": {"$ref": "#/$defs/stringList"},
+        "literal": {"$ref": "#/$defs/nonEmptyString"},
+        "regex": {"$ref": "#/$defs/nonEmptyString"},
+        "pattern": {"$ref": "#/$defs/nonEmptyString"},
+        "pattern_type": {"type": "string", "enum": ["literal", "regex"]}
+      },
+      "oneOf": [
+        {"required": ["literal"]},
+        {"required": ["regex"]},
+        {"required": ["pattern"]}
+      ]
+    },
+    "requirePath": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "path"],
+      "properties": {
+        "id": {"$ref": "#/$defs/nonEmptyString"},
+        "type": {"const": "require_path"},
+        "message": {"type": "string"},
+        "severity": {"$ref": "#/$defs/severity"},
+        "path": {"$ref": "#/$defs/nonEmptyString"}
+      }
+    },
+    "forbidPath": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "path"],
+      "properties": {
+        "id": {"$ref": "#/$defs/nonEmptyString"},
+        "type": {"const": "forbid_path"},
+        "message": {"type": "string"},
+        "severity": {"$ref": "#/$defs/severity"},
+        "path": {"$ref": "#/$defs/nonEmptyString"}
+      }
+    }
+  }
+}
