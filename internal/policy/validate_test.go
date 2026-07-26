@@ -52,6 +52,16 @@ func TestValidationDefaultsAreaCycleSelection(t *testing.T) {
 	if len(document.Rules[0].Relations) == 0 {
 		t.Fatal("expected default dependency relations")
 	}
+	foundDependsOn := false
+	for _, relation := range document.Rules[0].Relations {
+		if relation == "depends-on" {
+			foundDependsOn = true
+			break
+		}
+	}
+	if !foundDependsOn {
+		t.Fatalf("expected GDScript module dependency relation, got %v", document.Rules[0].Relations)
+	}
 }
 
 func TestValidationRejectsUnknownAreaCycleSelection(t *testing.T) {

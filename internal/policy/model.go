@@ -15,6 +15,7 @@ const (
 
 var defaultRelations = []string{
 	"imports",
+	"depends-on",
 	"calls",
 	"references",
 	"extends",

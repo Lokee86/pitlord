@@ -44,7 +44,7 @@ resolved from `PATH`.
 ## Install
 
 ```text
-go install github.com/Lokee86/pitlord/cmd/pitlord@v0.1.1
+go install github.com/Lokee86/pitlord/cmd/pitlord@v0.1.2
 ```
 
 ## Quick start
@@ -95,7 +95,7 @@ Exit codes:
       "type": "forbid_dependency",
       "from_areas": ["api"],
       "to_areas": ["storage"],
-      "relations": ["imports", "calls"]
+      "relations": ["imports", "depends-on", "calls"]
     },
     {
       "id": "source-must-have-one-owner",
@@ -106,7 +106,7 @@ Exit codes:
     {
       "id": "areas-must-be-acyclic",
       "type": "forbid_area_cycles",
-      "relations": ["imports", "calls"]
+      "relations": ["imports", "depends-on", "calls"]
     }
   ]
 }

@@ -169,6 +169,7 @@ Pitlord supplies a deterministic default message when one is omitted.
 Pitlord consumes Lexicon/Arcana relation names. Common dependency-like relations include:
 
 - `imports`;
+- `depends-on`;
 - `calls`;
 - `references`;
 - `extends`;
