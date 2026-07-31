@@ -13,6 +13,7 @@ Pitlord documentation separates exact policy and CLI contracts, implemented arch
 ## Direct files
 
 - [Architecture](ARCHITECTURE.md) — Implemented ownership, runtime flow, evaluation, snapshots, and mutation verification.
+- [Maintainer map](MAINTAINER_MAP.md) — Routes common changes to canonical documentation and primary implementation boundaries.
 - [Policy reference](POLICY.md) — Exact policy schema and rule semantics.
 - [Baselines and CI](BASELINES-AND-CI.md) — Evidence fingerprints, baselines, SARIF, and snapshot gating.
 - [Documentation policy](documentation-policy.md) — Pitlord-specific documentation ownership and required shapes.
