@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "profile": "cli-product",
+  "capabilities": ["stateful"],
+  "docs_root": "docs",
+  "root_index": "docs/INDEX.md",
+  "folder_index": "INDEX.md",
+  "required_paths": [
+    "README.md",
+    "AGENTS.md",
+    "docs/INDEX.md",
+    "docs/documentation-policy.md",
+    "docs/documentation-procedure.md",
+    "docs/planning/roadmap.md",
+    "docs/limits/current-limitations.md",
+    "docs/development/documentation-coverage.md",
+    "docs/development/behavioral-contract-matrix.md"
+  ],
+  "index_exempt_directories": ["stubs"],
+  "section_exemptions": ["docs/INDEX.md", "docs/**/INDEX.md"],
+  "required_sections": ["Purpose", "Overview", "Related docs", "Notes"],
+  "coverage": [
+    {
+      "paths": ["cmd/**", "internal/**"],
+      "docs": ["docs/development/documentation-coverage.md"]
+    }
+  ],
+  "change_rules": [
+    {
+      "paths": ["cmd/**", "internal/policy/**", "internal/schema/**"],
+      "docs": ["docs/POLICY.md", "docs/ARCHITECTURE.md", "docs/development/documentation-coverage.md"]
+    },
+    {
+      "paths": ["internal/baseline/**", "internal/report/**", "internal/snapshotdiff/**"],
+      "docs": ["docs/BASELINES-AND-CI.md", "docs/development/behavioral-contract-matrix.md"]
+    }
+  ]
+}

@@ -1,5 +1,13 @@
 # Baselines and CI
 
+Parent index: [Pitlord Documentation](INDEX.md)
+
+## Purpose
+
+This document defines Pitlord baseline, evidence-fingerprint, SARIF, snapshot-diff, and CI behavior.
+
+## Overview
+
 Pitlord baselines operate at evidence level. A baseline does not disable a rule or hide an
 entire diagnostic class; it suppresses only previously accepted source evidence while new
 evidence under the same rule still fails the check.
@@ -103,3 +111,13 @@ classes; SARIF contains introduced findings only.
 
 Pitlord evaluates immutable Arcana snapshots. CI should therefore record the snapshot
 identity alongside the policy and baseline revision used for the result.
+
+## Related docs
+
+- [Policy reference](POLICY.md)
+- [Architecture](ARCHITECTURE.md)
+- [Behavioral contract matrix](development/behavioral-contract-matrix.md)
+
+## Notes
+
+A baseline records accepted debt. It does not establish that a repository is compliant or that suppressed findings remain desirable.

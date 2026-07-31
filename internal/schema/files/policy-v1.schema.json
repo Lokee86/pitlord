@@ -21,6 +21,7 @@
           {"$ref": "#/$defs/requireOwnership"},
           {"$ref": "#/$defs/forbidAreaCycles"},
           {"$ref": "#/$defs/forbidContent"},
+          {"$ref": "#/$defs/requireContent"},
           {"$ref": "#/$defs/requirePath"},
           {"$ref": "#/$defs/forbidPath"}
         ]
@@ -154,6 +155,28 @@
       "properties": {
         "id": {"$ref": "#/$defs/nonEmptyString"},
         "type": {"const": "forbid_content"},
+        "message": {"type": "string"},
+        "severity": {"$ref": "#/$defs/severity"},
+        "include_paths": {"$ref": "#/$defs/nonEmptyStringList"},
+        "exclude_paths": {"$ref": "#/$defs/stringList"},
+        "literal": {"$ref": "#/$defs/nonEmptyString"},
+        "regex": {"$ref": "#/$defs/nonEmptyString"},
+        "pattern": {"$ref": "#/$defs/nonEmptyString"},
+        "pattern_type": {"type": "string", "enum": ["literal", "regex"]}
+      },
+      "oneOf": [
+        {"required": ["literal"]},
+        {"required": ["regex"]},
+        {"required": ["pattern"]}
+      ]
+    },
+    "requireContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "include_paths"],
+      "properties": {
+        "id": {"$ref": "#/$defs/nonEmptyString"},
+        "type": {"const": "require_content"},
         "message": {"type": "string"},
         "severity": {"$ref": "#/$defs/severity"},
         "include_paths": {"$ref": "#/$defs/nonEmptyStringList"},

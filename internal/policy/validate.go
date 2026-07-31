@@ -41,7 +41,7 @@ func (document *Document) NormalizeAndValidate() error {
 			if err := normalizeAreaCycleRule(rule, areas); err != nil {
 				return err
 			}
-		case RuleForbidContent:
+		case RuleForbidContent, RuleRequireContent:
 			if err := normalizeContentRule(rule); err != nil {
 				return err
 			}
@@ -171,7 +171,11 @@ func normalizeContentRule(rule *Rule) error {
 		}
 	}
 	if rule.Message == "" {
-		rule.Message = fmt.Sprintf("content matching %s is forbidden", contentPatternLabel(*rule))
+		if rule.Type == RuleRequireContent {
+			rule.Message = fmt.Sprintf("content matching %s is required in each selected file", contentPatternLabel(*rule))
+		} else {
+			rule.Message = fmt.Sprintf("content matching %s is forbidden", contentPatternLabel(*rule))
+		}
 	}
 	return nil
 }

@@ -1,5 +1,13 @@
 # Pitlord Policy v1
 
+Parent index: [Pitlord Documentation](INDEX.md)
+
+## Purpose
+
+This document defines the exact Pitlord policy v1 contract, normalization, validation, and rule semantics.
+
+## Overview
+
 A Pitlord policy is a JSON document with `version`, optional relative `includes`, optional
 named `areas`, and one or more `rules`. Unknown fields are rejected. Pitlord normalizes
 paths, names, kinds, globs, and relations before evaluation and rejects invalid or
@@ -46,6 +54,21 @@ Use exactly one of `literal`, `regex`, or the compatibility pair `pattern` plus 
 `pattern_type`. Repository-relative globs support `*`, `?`, character classes, and `**`.
 Pitlord skips nested worktrees, dependency caches, editor caches, and Warlock tool-state
 directories.
+
+`require_content` requires every selected file to contain at least one matching line:
+
+```json
+{
+  "id": "documentation-agent-rule",
+  "type": "require_content",
+  "literal": "Documentation is part of the implementation",
+  "include_paths": ["AGENTS.md"]
+}
+```
+
+Each selected file without a match produces `missing_content` evidence. When no file is
+selected, Pitlord reports the first include pattern as missing evidence. This makes the
+rule suitable for repository policy declarations, required notices, and agent guidance.
 
 `require_path` requires at least one matching file or directory. `forbid_path` rejects
 every matching file or directory:
@@ -192,3 +215,13 @@ pitlord schema --kind policy
 The embedded schema is Draft 2020-12. Runtime validation remains authoritative because it
 also resolves includes and checks cross-references, defaults, glob validity, regular
 expressions, and semantic no-op conditions.
+
+## Related docs
+
+- [Architecture](ARCHITECTURE.md)
+- [Baselines and CI](BASELINES-AND-CI.md)
+- [Documentation coverage](development/documentation-coverage.md)
+
+## Notes
+
+The embedded schema is a public contract, but runtime validation remains authoritative for composition and semantic checks that JSON Schema cannot express fully.

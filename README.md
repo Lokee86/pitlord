@@ -9,7 +9,7 @@ source code itself.
 
 Pitlord currently provides:
 
-- repository content and required/forbidden path rules that run without Arcana;
+- repository forbidden-content, required-content, and required/forbidden path rules that run without Arcana;
 - modular policies composed through relative `includes`;
 - named architecture areas with path, exclusion, and symbol-kind selectors;
 - forbidden direct dependencies between paths or areas;
@@ -224,6 +224,16 @@ are resolved through Arcana rather than matched by source text.
 - Homunculus owns deterministic source mutations and their expected architecture deltas.
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the runtime and data-flow design.
+
+## Documentation
+
+- [Documentation index](docs/INDEX.md)
+- [Policy reference](docs/POLICY.md)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Baselines and CI](docs/BASELINES-AND-CI.md)
+- [Documentation coverage](docs/development/documentation-coverage.md)
+- [Current limitations](docs/limits/current-limitations.md)
+- [Roadmap](docs/planning/roadmap.md)
 
 ## License
 

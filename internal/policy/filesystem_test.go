@@ -110,6 +110,57 @@ func TestRepositoryRulesSkipNestedWorktreesAndCaches(t *testing.T) {
 	}
 }
 
+func TestRequireContentReportsEachSelectedFileWithoutMatch(t *testing.T) {
+	root := t.TempDir()
+	writeTestFile(t, root, "AGENTS.md", "Documentation is part of the implementation.\n")
+	writeTestFile(t, root, "nested/AGENTS.md", "No documentation rule yet.\n")
+
+	document := Document{
+		Version: Version,
+		Rules: []Rule{{
+			ID:           "required-content",
+			Type:         RuleRequireContent,
+			Literal:      "Documentation is part of the implementation",
+			IncludePaths: []string{"**/AGENTS.md"},
+		}},
+	}
+	if err := document.NormalizeAndValidate(); err != nil {
+		t.Fatalf("normalize policy: %v", err)
+	}
+
+	diagnostics := Evaluate(document, arcana.Graph{}, root)
+	if len(diagnostics) != 1 {
+		t.Fatalf("expected 1 diagnostic, got %#v", diagnostics)
+	}
+	if diagnostics[0].RuleID != "required-content" || len(diagnostics[0].Evidence) != 1 {
+		t.Fatalf("unexpected diagnostic: %#v", diagnostics[0])
+	}
+	if diagnostics[0].Evidence[0].Issue != "missing_content" || diagnostics[0].Evidence[0].Source.Path != "nested/AGENTS.md" {
+		t.Fatalf("unexpected evidence: %#v", diagnostics[0].Evidence)
+	}
+}
+
+func TestRequireContentReportsWhenNoSelectedFileExists(t *testing.T) {
+	root := t.TempDir()
+	document := Document{
+		Version: Version,
+		Rules: []Rule{{
+			ID:           "required-content",
+			Type:         RuleRequireContent,
+			Literal:      "required phrase",
+			IncludePaths: []string{"docs/**/*.md"},
+		}},
+	}
+	if err := document.NormalizeAndValidate(); err != nil {
+		t.Fatalf("normalize policy: %v", err)
+	}
+
+	diagnostics := Evaluate(document, arcana.Graph{}, root)
+	if len(diagnostics) != 1 || diagnostics[0].Evidence[0].Source.Path != "docs/**/*.md" {
+		t.Fatalf("unexpected diagnostics: %#v", diagnostics)
+	}
+}
+
 func writeTestFile(t *testing.T, root, relative, contents string) {
 	t.Helper()
 	path := filepath.Join(root, filepath.FromSlash(relative))

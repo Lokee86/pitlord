@@ -1,0 +1,58 @@
+# Documentation Coverage
+
+Parent index: [Development Documentation](INDEX.md)
+
+## Purpose
+
+This document maps Pitlord production ownership to canonical current documentation.
+
+## Overview
+
+Coverage includes packages, public command families, machine-readable contracts, and independent stateful flows. A mapping is valid only when the linked document actually explains the relevant behavior.
+
+## Commands
+
+| Surface | Implementation | Canonical current owner |
+| --- | --- | --- |
+| `check`, policy execution | `cmd/pitlord/check.go`, `internal/checker`, `internal/policy` | [README](../../README.md), [Policy](../POLICY.md), [Architecture](../ARCHITECTURE.md) |
+| `validate`, embedded schemas | `cmd/pitlord/validate.go`, `internal/schema`, `internal/policy` | [Policy](../POLICY.md) |
+| `baseline` | `cmd/pitlord/baseline.go`, `internal/baseline` | [Baselines and CI](../BASELINES-AND-CI.md) |
+| `diff` | `cmd/pitlord/diff.go`, `internal/snapshotdiff` | [Architecture](../ARCHITECTURE.md), [Baselines and CI](../BASELINES-AND-CI.md) |
+| `inspect`, `analyze` | `cmd/pitlord/inspect.go`, `cmd/pitlord/analyze.go`, `internal/arcana`, `internal/report` | [README](../../README.md), [Architecture](../ARCHITECTURE.md) |
+| `generate`, Homunculus policy conversion | `cmd/pitlord/generate.go`, `internal/policy/homunculus.go` | [README](../../README.md), [Architecture](../ARCHITECTURE.md) |
+| `verify-mutation` | `cmd/pitlord/verify_mutation.go`, `internal/mutation` | [README](../../README.md), [Architecture](../ARCHITECTURE.md) |
+| `schema` | `cmd/pitlord/schema.go`, `internal/schema` | [Policy](../POLICY.md) |
+
+## Package ownership
+
+| Package | Responsibility | Canonical current owner |
+| --- | --- | --- |
+| `internal/policy` | Rule model, normalization, validation, repository and graph evaluation | [Policy](../POLICY.md), [Architecture](../ARCHITECTURE.md) |
+| `internal/arcana` | Bounded Arcana protocol queries and graph loading | [Architecture](../ARCHITECTURE.md) |
+| `internal/checker` | Check orchestration and report assembly | [Architecture](../ARCHITECTURE.md) |
+| `internal/baseline` | Evidence fingerprints and suppression | [Baselines and CI](../BASELINES-AND-CI.md) |
+| `internal/report` | Text, JSON, SARIF, and architecture reports | [README](../../README.md), [Baselines and CI](../BASELINES-AND-CI.md) |
+| `internal/schema` | Embedded policy and baseline schemas | [Policy](../POLICY.md) |
+| `internal/snapshot` | Snapshot resolution | [Architecture](../ARCHITECTURE.md) |
+| `internal/snapshotdiff` | Introduced, resolved, and persistent evidence comparison | [Baselines and CI](../BASELINES-AND-CI.md) |
+| `internal/mutation` | Exact Homunculus mutation-delta verification | [Architecture](../ARCHITECTURE.md) |
+
+## Stateful flows
+
+| Flow | Current owner |
+| --- | --- |
+| Policy include loading, normalization, and validation | [Policy](../POLICY.md) |
+| Repository traversal and direct content/path evaluation | [Architecture](../ARCHITECTURE.md), [Policy](../POLICY.md) |
+| Arcana snapshot resolution and paginated loading | [Architecture](../ARCHITECTURE.md) |
+| Evidence fingerprinting and baseline suppression | [Baselines and CI](../BASELINES-AND-CI.md) |
+| Snapshot-to-snapshot evidence classification | [Baselines and CI](../BASELINES-AND-CI.md) |
+| Mutation-manifest verification | [Architecture](../ARCHITECTURE.md) |
+
+## Related docs
+
+- [Behavioral contract matrix](behavioral-contract-matrix.md)
+- [Documentation policy](../documentation-policy.md)
+
+## Notes
+
+Update this map whenever an independent stateful flow, command family, machine-readable contract, or package responsibility changes.

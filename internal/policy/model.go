@@ -9,6 +9,7 @@ const (
 	RuleRequireOwnership = "require_ownership"
 	RuleForbidAreaCycles = "forbid_area_cycles"
 	RuleForbidContent    = "forbid_content"
+	RuleRequireContent   = "require_content"
 	RuleRequirePath      = "require_path"
 	RuleForbidPath       = "forbid_path"
 )

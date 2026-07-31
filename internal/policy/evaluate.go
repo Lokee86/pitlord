@@ -27,7 +27,7 @@ func RequiresGraph(document Document) bool {
 func RequiresRepository(document Document) bool {
 	for _, rule := range document.Rules {
 		switch rule.Type {
-		case RuleForbidContent, RuleRequirePath, RuleForbidPath:
+		case RuleForbidContent, RuleRequireContent, RuleRequirePath, RuleForbidPath:
 			return true
 		}
 	}
@@ -88,7 +88,7 @@ func Evaluate(document Document, graph arcana.Graph, repositoryRoots ...string) 
 			diagnostic = evaluateOwnershipRule(rule, areas, graph)
 		case RuleForbidAreaCycles:
 			diagnostic = evaluateAreaCycleRule(rule, areas, graph)
-		case RuleForbidContent:
+		case RuleForbidContent, RuleRequireContent:
 			diagnostic = evaluateContentRule(rule, repositoryRoot, repositoryFiles)
 		case RuleRequirePath, RuleForbidPath:
 			diagnostic = evaluatePathRule(rule, repositoryFiles)

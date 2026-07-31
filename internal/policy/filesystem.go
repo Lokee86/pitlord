@@ -30,24 +30,42 @@ func validateRepoGlob(value string) error {
 func evaluateContentRule(rule Rule, repositoryRoot string, entries []repositoryEntry) *Diagnostic {
 	matcher := contentMatcher(rule)
 	evidence := make([]Evidence, 0)
+	selectedFiles := 0
 	for _, entry := range entries {
 		if entry.dir || !matchesAnyGlobOrParent(entry.path, rule.IncludePaths) || matchesAnyGlobOrParent(entry.path, rule.ExcludePaths) {
 			continue
 		}
+		selectedFiles++
 		data, err := os.ReadFile(filepath.Join(repositoryRoot, filepath.FromSlash(entry.path)))
 		if err != nil {
 			continue
 		}
+		matched := false
 		for lineNumber, line := range strings.Split(string(data), "\n") {
 			line = strings.TrimSuffix(line, "\r")
 			if !matcher(line) {
 				continue
 			}
+			matched = true
+			if rule.Type == RuleForbidContent {
+				evidence = append(evidence, Evidence{
+					Issue:  "forbidden_content",
+					Source: arcanaNodeForPath(entry.path, lineNumber+1),
+				})
+			}
+		}
+		if rule.Type == RuleRequireContent && !matched {
 			evidence = append(evidence, Evidence{
-				Issue:  "forbidden_content",
-				Source: arcanaNodeForPath(entry.path, lineNumber+1),
+				Issue:  "missing_content",
+				Source: arcanaNodeForPath(entry.path, 0),
 			})
 		}
+	}
+	if rule.Type == RuleRequireContent && selectedFiles == 0 {
+		evidence = append(evidence, Evidence{
+			Issue:  "missing_content",
+			Source: arcanaNodeForPath(rule.IncludePaths[0], 0),
+		})
 	}
 	return diagnosticFromEvidence(rule, evidence)
 }
@@ -126,7 +144,7 @@ func repositorySearchRoots(document Document) []string {
 	roots := make(map[string]struct{})
 	for _, rule := range document.Rules {
 		switch rule.Type {
-		case RuleForbidContent:
+		case RuleForbidContent, RuleRequireContent:
 			for _, pattern := range rule.IncludePaths {
 				roots[repositorySearchRoot(pattern)] = struct{}{}
 			}

@@ -1,5 +1,13 @@
 # Architecture
 
+Parent index: [Pitlord Documentation](INDEX.md)
+
+## Purpose
+
+This document defines Pitlord's implemented ownership, data flow, evaluation model, snapshot use, and runtime boundaries.
+
+## Overview
+
 Pitlord is a standalone repository-policy evaluator. Lightweight content and path rules
 scan source files directly; semantic dependency, ownership, and cycle rules evaluate
 Arcana's immutable repository graph. Pitlord is not a parser, language server, graph store,
@@ -111,3 +119,14 @@ Pitlord is currently an on-demand CLI. It starts Arcana protocol processes for b
 queries and has no daemon state of its own. A future Warlock runtime may trigger Pitlord
 against changed snapshots, but Pitlord remains independently usable and owns its policy
 semantics.
+
+## Related docs
+
+- [Policy reference](POLICY.md)
+- [Baselines and CI](BASELINES-AND-CI.md)
+- [Documentation coverage](development/documentation-coverage.md)
+- [Current limitations](limits/current-limitations.md)
+
+## Notes
+
+Future Warlock integration must preserve Pitlord's independent CLI use and ownership of policy semantics.
