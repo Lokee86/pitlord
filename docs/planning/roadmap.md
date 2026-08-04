@@ -43,7 +43,7 @@ Each planned feature must preserve deterministic evidence, explicit ownership, r
 ## Implemented references
 
 - `require_content` is implemented and documented in [Policy reference](../POLICY.md).
-- Shared documentation governance is defined in [Engineering Standards](../../../engineering-standards/docs/INDEX.md).
+- Shared documentation governance is defined in the vendored [Engineering Standards snapshot](../../.standards/docs/INDEX.md).
 
 ## Related docs
 

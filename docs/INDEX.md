@@ -27,7 +27,7 @@ Pitlord documentation separates exact policy and CLI contracts, implemented arch
 
 ## Related docs
 
-- [Shared documentation standard](../../engineering-standards/docs/documentation-standard.md)
+- [Shared documentation standard](../.standards/docs/documentation-standard.md)
 - [README](../README.md)
 
 ## Notes
