@@ -54,6 +54,7 @@ jobs:
           go test ./... -count=1
           mkdir -p package
           go build -trimpath -ldflags "-s -w -X main.version=${VERSION}" -o "package/pitlord${{ matrix.exe }}" ./cmd/pitlord
+          cp LICENSE.md LICENSING.md package/
       - name: Package
         shell: python
         env:
