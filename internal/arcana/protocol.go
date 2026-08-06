@@ -22,7 +22,7 @@ type request struct {
 	Relation         string   `json:"relation,omitempty"`
 	Limit            int      `json:"limit,omitempty"`
 	Offset           int      `json:"offset,omitempty"`
-	NodeID           uint32   `json:"node_id,omitempty"`
+	NodeID           uint32   `json:"node_id"`
 	Direction        string   `json:"direction,omitempty"`
 	Relations        []string `json:"relations,omitempty"`
 	MinCommunitySize int      `json:"min_community_size,omitempty"`
