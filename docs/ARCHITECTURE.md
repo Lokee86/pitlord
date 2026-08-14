@@ -116,9 +116,11 @@ runtime integration; it does not yet avoid evaluating unchanged policy scopes.
 ## Runtime model
 
 Pitlord is currently an on-demand CLI. It starts Arcana protocol processes for bounded
-queries and has no daemon state of its own. A future Warlock runtime may trigger Pitlord
-against changed snapshots, but Pitlord remains independently usable and owns its policy
-semantics.
+queries and has no daemon state of its own. The caller context owns cancellation and any
+deadline; process, protocol, pagination, or response-completeness failure prevents a
+partial graph-backed compliance result. See [Arcana process boundary](ARCANA_PROCESS_BOUNDARY.md).
+A future Warlock runtime may trigger Pitlord against changed snapshots, but Pitlord remains
+independently usable and owns its policy semantics.
 
 ## Related docs
 

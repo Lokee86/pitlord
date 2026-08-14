@@ -13,6 +13,8 @@ Pitlord documentation separates exact policy and CLI contracts, implemented arch
 ## Direct files
 
 - [Architecture](ARCHITECTURE.md) — Implemented ownership, runtime flow, evaluation, snapshots, and mutation verification.
+- [Arcana process boundary](ARCANA_PROCESS_BOUNDARY.md) — Process ownership, deadlines, protocol compatibility, failure behavior, and observability.
+- [Architecture decisions](decisions/INDEX.md) — Consequential ownership, process, persistence, and compatibility decisions.
 - [Maintainer map](MAINTAINER_MAP.md) — Routes common changes to canonical documentation and primary implementation boundaries.
 - [Policy reference](POLICY.md) — Exact policy schema and rule semantics.
 - [Baselines and CI](BASELINES-AND-CI.md) — Evidence fingerprints, baselines, SARIF, and snapshot gating.
@@ -27,7 +29,7 @@ Pitlord documentation separates exact policy and CLI contracts, implemented arch
 
 ## Related docs
 
-- [Shared documentation standard](../.standards/docs/documentation-standard.md)
+- [Shared documentation standard](../../engineering-standards/docs/documentation-standard.md)
 - [README](../README.md)
 
 ## Notes

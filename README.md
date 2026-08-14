@@ -44,7 +44,7 @@ resolved from `PATH`.
 ## Install
 
 ```text
-go install github.com/Lokee86/pitlord/cmd/pitlord@v0.1.3
+go install github.com/Lokee86/pitlord/cmd/pitlord@v0.1.2
 ```
 
 ## Quick start

@@ -16,7 +16,8 @@ Use this map when the owner of a policy, analysis, baseline, mutation, or report
 | --- | --- | --- | --- |
 | CLI commands and check orchestration | [Architecture](ARCHITECTURE.md), [Policy reference](POLICY.md) | `cmd/pitlord/`, `internal/checker/` | CLI and checker tests |
 | Policy loading, validation, matching, ownership, and dependency rules | [Policy reference](POLICY.md), [Architecture](ARCHITECTURE.md) | `internal/policy/`, `internal/schema/` | Policy and schema tests |
-| Arcana graph loading and architecture analysis | [Architecture](ARCHITECTURE.md) | `internal/arcana/`, `internal/policy/analysis*.go` | Arcana and analysis tests |
+| Arcana process lifecycle, protocol validation, and graph loading | [Arcana process boundary](ARCANA_PROCESS_BOUNDARY.md), [Architecture](ARCHITECTURE.md) | `internal/arcana/` | Arcana process, pagination, and graph-loading tests |
+| Architecture analysis over Arcana evidence | [Architecture](ARCHITECTURE.md) | `internal/policy/analysis*.go` | Analysis and policy tests |
 | Baseline fingerprints and accepted findings | [Baselines and CI](BASELINES-AND-CI.md) | `internal/baseline/` | Baseline and fingerprint tests |
 | Snapshot selection and before/after comparison | [Baselines and CI](BASELINES-AND-CI.md), [Architecture](ARCHITECTURE.md) | `internal/snapshot/`, `internal/snapshotdiff/` | Snapshot and diff tests |
 | Mutation plans and post-mutation verification | [Architecture](ARCHITECTURE.md) | `internal/mutation/` | Mutation load and verification tests |

@@ -24,6 +24,12 @@ Pitlord can enforce required paths and content, but it does not understand Markd
 
 **Removal condition:** none currently planned; this is an explicit tool boundary rather than a defect.
 
+### Arcana deadline policy
+
+The Arcana process adapter honors caller cancellation through `exec.CommandContext`, but Pitlord does not yet define one product-wide default timeout. Callers using an unbounded context can therefore wait indefinitely for a stuck Arcana process.
+
+**Removal condition:** CLI and Warlock invocation contracts adopt an explicit bounded deadline policy with repository-size evidence and focused timeout tests.
+
 ### Runtime integration
 
 Pitlord has no independent daemon. Warlock may invoke it against changed snapshots, but central scheduling and UI compliance reporting are not yet integrated.

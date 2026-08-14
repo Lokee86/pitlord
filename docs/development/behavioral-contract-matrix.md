@@ -25,6 +25,9 @@ The matrix prevents durable safety and compatibility contracts from depending on
 | Snapshot diffs classify introduced, resolved, and persistent evidence by stable fingerprint | `internal/snapshotdiff/compare_test.go` |
 | Mutation verification requires exact absent/present transitions | `internal/mutation/verify_test.go` |
 | Arcana pagination fails closed on invalid or truncated responses | `internal/arcana/client_test.go`, `internal/arcana/pagination.go` coverage through graph-loading tests |
+| Arcana subprocesses terminate when the caller context expires | `internal/arcana/protocol_process_test.go` |
+| Incompatible Arcana protocol identifiers fail closed | `internal/arcana/protocol_process_test.go` |
+| Interrupted Arcana response streams cannot publish partial graph evidence | `internal/arcana/protocol_process_test.go` |
 | SARIF preserves evidence identity and locations | `internal/report/sarif_test.go` |
 
 ## Release gate

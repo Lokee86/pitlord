@@ -14,7 +14,7 @@ The public license permits use, modification, and redistribution for noncompetin
 
 The tag `pre-shield-2026-08-04` identifies the repository state immediately before this transition:
 
-`2a93e52474ce1cc8cafb2429a714910312899919`
+`f294efc338cda5797a082338a14dbc7f1f12422d`
 
 Versions available at or before that commit remain available under Apache License 2.0. Those previously granted rights are not revoked.
 
