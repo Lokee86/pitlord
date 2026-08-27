@@ -19,6 +19,17 @@ A baseline may distinguish real architectural pressure, intentional broad seams,
 - [jsoup](jsoup.md) — Manually adjudicated Java reference baseline covering HTTP, DOM, parser, safety, and selector package responsibilities.
 - [detekt](detekt.md) — Manually adjudicated Kotlin reference baseline covering core configuration validation, style-rule implementations, and test-source findings.
 - [Lexicanter](lexicanter.md) — Manually adjudicated Svelte/TypeScript and Rust reference baseline with known application-layout maintenance debt.
+- [Polly](polly.md) — C#/.NET resilience-library baseline covering strategy seams, state-machine pressure, compatibility APIs, tests, benchmarks, and snippets.
+- [Spectre.Console](spectre-console.md) — C# console/UI baseline covering partial public facades, prompt/rendering controllers, catalogs, widgets, and tests.
+- [Gson](gson.md) — Java serialization-library baseline covering public facades, reflection and adapter factories, registries, and test peers.
+- [HikariCP](hikaricp.md) — Java connection-pool baseline covering pool lifecycle/runtime ownership and test peers.
+- [JMH](jmh.md) — Java benchmark-framework baseline covering execution orchestrators and concentrated generator maintenance pressure.
+- [Apache Maven](maven.md) — Large Java multi-module baseline covering compatibility debt, model/project construction pressure, CLI, plugin, lifecycle, and testing-support seams.
+- [kotlinx.coroutines](kotlinx-coroutines.md) — Kotlin multiplatform concurrency baseline covering state machines, platform adapters, deprecated compatibility surfaces, and tests.
+- [Now in Android](now-in-android.md) — Kotlin/Android modular-application baseline separating theme composition from test-source breadth.
+- [DUnit LotusScript](dunit-lotusscript.md) — Small LotusScript testing-framework baseline with zero dependency-pressure findings and intentional runner seams.
+- [JSONParser LotusScript](jsonparser-lotusscript.md) — Single-file LotusScript parser baseline preserving intra-unit parser/container maintenance pressure despite zero graph findings.
+- [Volt MX LotusScript Toolkit](volt-mx-lotusscript-toolkit.md) — LotusScript integration baseline covering async workflow/state-contract maintenance pressure despite zero dependency-pressure findings.
 
 ## Baseline rules
 
