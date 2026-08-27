@@ -25,7 +25,7 @@ func runDiff(args []string, stdout, stderr io.Writer) int {
 	afterRepo := flags.String("repo", ".", "after repository root containing .arcana/CURRENT")
 	afterSnapshot := flags.String("after-snapshot", "", "explicit after Arcana snapshot directory")
 	policyPath := flags.String("policy", "", "Pitlord JSON policy")
-	arcanaCommand := flags.String("arcana", "arcana", "Arcana executable")
+	arcanaCommand := flags.String("arcana", "", "Arcana executable override")
 	format := flags.String("format", "text", "output format: text, json, or sarif")
 	timeout := flags.Duration("timeout", 4*time.Minute, "maximum comparison duration")
 	if err := flags.Parse(args); err != nil {

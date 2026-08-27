@@ -20,7 +20,7 @@ func runAnalyze(args []string, stdout, stderr io.Writer) int {
 	repo := flags.String("repo", ".", "repository root containing .arcana/CURRENT")
 	explicitSnapshot := flags.String("snapshot", "", "explicit Arcana snapshot directory")
 	policyPath := flags.String("policy", "", "Pitlord JSON policy with declared areas")
-	arcanaCommand := flags.String("arcana", "arcana", "Arcana executable")
+	arcanaCommand := flags.String("arcana", "", "Arcana executable override")
 	scopeList := flags.String("scope", ".", "comma-separated ownership coverage paths")
 	scopeExcludeList := flags.String("scope-exclude", "", "comma-separated excluded coverage paths")
 	ownershipKindList := flags.String("ownership-kinds", "file", "comma-separated node kinds checked for ownership")
@@ -60,9 +60,14 @@ func runAnalyze(args []string, stdout, stderr io.Writer) int {
 	scopePaths := splitCommaList(*scopeList)
 	areaPaths := policy.AreaPaths(document)
 	sourcePrefixes := uniqueStrings(append(append([]string(nil), scopePaths...), areaPaths...))
+	resolvedCommand, err := arcana.ResolveCommand(*repo, *arcanaCommand)
+	if err != nil {
+		fmt.Fprintln(stderr, err)
+		return 2
+	}
 	ctx, cancel := context.WithTimeout(context.Background(), *timeout)
 	defer cancel()
-	graph, err := (arcana.Client{Command: *arcanaCommand}).LoadGraphWithOptions(
+	graph, err := (arcana.Client{Command: resolvedCommand}).LoadGraphWithOptions(
 		ctx,
 		resolvedSnapshot,
 		arcana.LoadOptions{

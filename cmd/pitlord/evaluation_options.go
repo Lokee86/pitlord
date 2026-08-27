@@ -24,7 +24,7 @@ func bindEvaluationOptions(flags *flag.FlagSet) evaluationOptions {
 		snapshot:   flags.String("snapshot", "", "explicit Arcana snapshot directory"),
 		policy:     flags.String("policy", "", "Pitlord JSON policy"),
 		manifest:   flags.String("homunculus-manifest", "", "Homunculus manifest used as policy and expected diagnostics"),
-		arcana:     flags.String("arcana", "arcana", "Arcana executable"),
+		arcana:     flags.String("arcana", "", "Arcana executable override"),
 		timeout:    flags.Duration("timeout", 2*time.Minute, "maximum evaluation duration"),
 	}
 }

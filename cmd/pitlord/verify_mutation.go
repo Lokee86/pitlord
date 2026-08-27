@@ -7,6 +7,7 @@ import (
 	"io"
 	"time"
 
+	"github.com/Lokee86/pitlord/internal/arcana"
 	"github.com/Lokee86/pitlord/internal/mutation"
 	"github.com/Lokee86/pitlord/internal/snapshot"
 )
@@ -18,7 +19,7 @@ func runVerifyMutation(args []string, stdout, stderr io.Writer) int {
 	baselineSnapshot := flags.String("baseline-snapshot", "", "baseline Arcana snapshot directory")
 	mutatedRepo := flags.String("repo", ".", "mutated repository root containing .arcana/CURRENT")
 	mutatedSnapshot := flags.String("mutated-snapshot", "", "explicit mutated Arcana snapshot directory")
-	arcanaCommand := flags.String("arcana", "arcana", "Arcana executable")
+	arcanaCommand := flags.String("arcana", "", "Arcana executable override")
 	format := flags.String("format", "text", "output format: text or json")
 	timeout := flags.Duration("timeout", 2*time.Minute, "maximum verification duration")
 	if err := flags.Parse(args); err != nil {
@@ -46,13 +47,18 @@ func runVerifyMutation(args []string, stdout, stderr io.Writer) int {
 		fmt.Fprintln(stderr, err)
 		return 2
 	}
+	resolvedCommand, err := arcana.ResolveCommand(*mutatedRepo, *arcanaCommand)
+	if err != nil {
+		fmt.Fprintln(stderr, err)
+		return 2
+	}
 	ctx, cancel := context.WithTimeout(context.Background(), *timeout)
 	defer cancel()
 	result, err := mutation.Verify(ctx, mutation.VerifyRequest{
 		ManifestPath:     *manifestPath,
 		BaselineSnapshot: resolvedBaseline,
 		MutatedSnapshot:  resolvedMutated,
-		ArcanaCommand:    *arcanaCommand,
+		ArcanaCommand:    resolvedCommand,
 	})
 	if err != nil {
 		fmt.Fprintln(stderr, err)

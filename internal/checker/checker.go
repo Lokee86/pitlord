@@ -75,7 +75,11 @@ func Evaluate(
 ) (Result, error) {
 	graph := arcana.Graph{}
 	if policy.RequiresGraph(document) {
-		loaded, err := (arcana.Client{Command: arcanaCommand}).LoadGraphWithOptions(
+		resolvedCommand, err := arcana.ResolveCommand(repositoryRoot, arcanaCommand)
+		if err != nil {
+			return Result{}, err
+		}
+		loaded, err := (arcana.Client{Command: resolvedCommand}).LoadGraphWithOptions(
 			ctx,
 			snapshotPath,
 			arcana.LoadOptions{

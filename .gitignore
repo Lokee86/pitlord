@@ -4,3 +4,5 @@ evaluation/
 .lexicon/
 **/.arcana/
 **/.lexicon/
+.warlock/
+**/.warlock/

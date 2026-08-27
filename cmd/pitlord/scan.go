@@ -22,7 +22,7 @@ func runScanWithLoader(args []string, stdout, stderr io.Writer, loader scan.Grap
 	flags.SetOutput(stderr)
 	repo := flags.String("repo", ".", "repository root containing .arcana/CURRENT")
 	explicitSnapshot := flags.String("snapshot", "", "explicit Arcana snapshot directory")
-	arcanaCommand := flags.String("arcana", "arcana", "Arcana executable")
+	arcanaCommand := flags.String("arcana", "", "Arcana executable override")
 	pathPrefix := flags.String("path-prefix", ".", "repository-relative path prefix to scan")
 	format := flags.String("format", "text", "output format: text or json")
 	timeout := flags.Duration("timeout", 4*time.Minute, "maximum scan duration")
@@ -43,7 +43,12 @@ func runScanWithLoader(args []string, stdout, stderr io.Writer, loader scan.Grap
 		return 2
 	}
 	if loader == nil {
-		loader = arcana.Client{Command: *arcanaCommand}
+		resolvedCommand, resolveErr := arcana.ResolveCommand(*repo, *arcanaCommand)
+		if resolveErr != nil {
+			fmt.Fprintln(stderr, resolveErr)
+			return 2
+		}
+		loader = arcana.Client{Command: resolvedCommand}
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), *timeout)
 	defer cancel()

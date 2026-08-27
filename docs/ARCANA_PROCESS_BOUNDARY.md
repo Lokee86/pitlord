@@ -29,7 +29,21 @@ Arcana owns:
 - query semantics, graph traversal, pagination results, and protocol response payloads;
 - its process-local resources and clean exit after stdin completion or cancellation.
 
-The shell owns neither boundary. Pitlord invokes the configured Arcana executable directly with explicit arguments.
+The shell owns neither boundary. Pitlord resolves one Arcana executable, then invokes it directly with explicit arguments.
+
+## Executable discovery
+
+Graph-backed commands accept `--arcana` as an explicit override. Without that override, Pitlord resolves Arcana in deterministic order:
+
+1. `GRIMOIRE_ARCANA_COMMAND`;
+2. repository `.grimoire/providers.json` configuration;
+3. the Grimoire installation implied by `.lexicon/config.json` and its `adapter_root`;
+4. an Arcana executable adjacent to Pitlord;
+5. `GRIMOIRE_HOME`;
+6. an Arcana executable adjacent to a `grimoire` command on `PATH`;
+7. `arcana` on `PATH`.
+
+Repository-prepared state is preferred over a generic `PATH` match so a graph snapshot is normally read by the same Grimoire/Arcana installation family that prepared its Lexicon state. This avoids silently selecting an unrelated or stale Arcana executable when several toolchain builds exist on one machine. An unresolved explicit environment override fails instead of falling through to another provider.
 
 ## Deadline and cancellation contract
 
@@ -61,7 +75,7 @@ Pitlord does not silently downgrade a graph rule into a repository-only approxim
 
 Operational errors should preserve:
 
-- configured Arcana command;
+- resolved Arcana command;
 - immutable snapshot identity or path;
 - Pitlord operation and policy source;
 - cancellation or deadline state;

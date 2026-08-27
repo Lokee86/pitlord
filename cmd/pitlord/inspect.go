@@ -18,7 +18,7 @@ func runInspect(args []string, stdout, stderr io.Writer) int {
 	flags.SetOutput(stderr)
 	repo := flags.String("repo", ".", "repository root containing .arcana/CURRENT")
 	explicitSnapshot := flags.String("snapshot", "", "explicit Arcana snapshot directory")
-	arcanaCommand := flags.String("arcana", "arcana", "Arcana executable")
+	arcanaCommand := flags.String("arcana", "", "Arcana executable override")
 	pathPrefix := flags.String("path-prefix", ".", "repository path prefix to inspect")
 	relationList := flags.String("relations", "", "comma-separated normalized relationships")
 	minCommunitySize := flags.Int("min-community-size", 2, "minimum nodes in a returned community")
@@ -41,9 +41,14 @@ func runInspect(args []string, stdout, stderr io.Writer) int {
 		fmt.Fprintln(stderr, err)
 		return 2
 	}
+	resolvedCommand, err := arcana.ResolveCommand(*repo, *arcanaCommand)
+	if err != nil {
+		fmt.Fprintln(stderr, err)
+		return 2
+	}
 	ctx, cancel := context.WithTimeout(context.Background(), *timeout)
 	defer cancel()
-	summary, err := (arcana.Client{Command: *arcanaCommand}).InspectArchitecture(
+	summary, err := (arcana.Client{Command: resolvedCommand}).InspectArchitecture(
 		ctx,
 		snapshotPath,
 		*pathPrefix,
