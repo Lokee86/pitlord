@@ -63,6 +63,8 @@ Pitlord requires the exact protocol identifier `arcana.query.v1`. It rejects:
 - invalid pagination continuity or terminal state;
 - truncated legacy responses that provide no continuation offset.
 
+For `neighbors`, Pitlord explicitly requests Arcana's current protocol maximum of 10,000 relationships instead of accepting Arcana's 1,000-item default. Pitlord validates `returned` against the actual relationship array and fails closed when `truncated` is true or the reported count cannot be reconciled with the returned page. `arcana.query.v1` does not currently expose a neighbor continuation offset, so more than 10,000 matching relationships from one source remains a documented protocol limit rather than a silently partial graph.
+
 Pitlord does not infer compatibility from an Arcana executable version string. Protocol compatibility is established by successful exact request/response validation.
 
 ## Failure and degradation

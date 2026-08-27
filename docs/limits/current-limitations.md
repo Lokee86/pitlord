@@ -14,9 +14,11 @@ Pitlord is functional as an on-demand CLI, but several product and integration s
 
 ### Generalized architecture detectors
 
-`pitlord scan` currently implements one generalized detector: language-neutral outgoing cross-file dependency pressure. Dependency knots, boundary-coupling/cohesion anomalies, and blast-radius hotspots remain to be implemented. The detector is calibrated against Arcana-style modular, entangled, hub-heavy, layered, and dense-subsystem topology fixtures and has been smoke-tested against Pitlord's prepared Arcana snapshot. Broader calibration against large real repositories remains pending.
+`pitlord scan` currently implements one generalized detector: language-neutral outgoing cross-file dependency pressure. Dependency knots, boundary-coupling/cohesion anomalies, and blast-radius hotspots remain to be implemented. The detector is calibrated against Arcana-style modular, entangled, hub-heavy, layered, and dense-subsystem topology fixtures and has now been exercised across Pitlord plus representative C#, Java, Kotlin, Svelte/Rust, GDScript, and Go/polyglot repositories.
 
-**Removal condition:** the initial deterministic generalized detector set is implemented, calibrated against Arcana synthetic topology families, and validated across representative real repositories.
+Cross-repository calibration shows that the detector is portable but not yet ready for blocking use. Whole-repository medians can overstate pressure in large fine-grained repositories, tests and benchmarks currently share the production peer population, and central domain/entrypoint files can receive overly generic split recommendations. The detector therefore remains advisory while peer grouping, source-role handling, absolute/statistical floors, and remediation wording are refined.
+
+**Removal condition:** the initial deterministic generalized detector set is implemented, calibrated against Arcana synthetic topology families, and validated across representative real repositories with stable source-role peer groups and acceptable false-positive rates.
 
 ### Change-aware policy scope
 
@@ -30,11 +32,13 @@ Pitlord can enforce required paths and content, but it does not understand Markd
 
 **Removal condition:** none currently planned; this is an explicit tool boundary rather than a defect.
 
-### Arcana deadline policy
+### Arcana query bounds and deadline policy
 
 The Arcana process adapter honors caller cancellation through `exec.CommandContext`, but Pitlord does not yet define one product-wide default timeout. Callers using an unbounded context can therefore wait indefinitely for a stuck Arcana process.
 
-**Removal condition:** CLI and Warlock invocation contracts adopt an explicit bounded deadline policy with repository-size evidence and focused timeout tests.
+Pitlord requests Arcana's current maximum of 10,000 relationships for each `neighbors` query and fails closed if Arcana reports truncation. The current `arcana.query.v1` neighbor operation has no continuation offset, so a single source node with more than 10,000 matching neighbors cannot yet be loaded completely even though ordinary large repositories can exceed the protocol's 1,000-item default safely.
+
+**Removal condition:** CLI and Warlock invocation contracts adopt an explicit bounded deadline policy, and Arcana exposes continuation semantics for neighbor queries so Pitlord can load arbitrarily large bounded pages without truncation.
 
 ### Runtime integration
 

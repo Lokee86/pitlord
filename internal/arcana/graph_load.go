@@ -132,6 +132,7 @@ func loadOutgoingRelationships(
 			Op:        "neighbors",
 			NodeID:    node.NodeID,
 			Direction: "outgoing",
+			Limit:     maxResultLimit,
 		})
 	}
 	responses, err := run(ctx, command, snapshot, requests)
@@ -143,13 +144,8 @@ func loadOutgoingRelationships(
 		if err := json.Unmarshal(responses[current.ID].Result, &result); err != nil {
 			return fmt.Errorf("decode Arcana neighbors %q: %w", current.ID, err)
 		}
-		if result.Count != len(result.Relationships) {
-			return fmt.Errorf(
-				"Arcana neighbors %q reported %d relationships but returned %d",
-				current.ID,
-				result.Count,
-				len(result.Relationships),
-			)
+		if err := validateCompleteNeighbors(fmt.Sprintf("Arcana neighbors %q", current.ID), result); err != nil {
+			return err
 		}
 		graph.Outgoing[result.Node.NodeID] = result.Relationships
 		graph.Relationships += len(result.Relationships)

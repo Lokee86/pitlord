@@ -41,12 +41,13 @@ func TestHasQualifiedRelationship(t *testing.T) {
 			})
 			return map[string]response{current.ID: {OK: true, Result: payload}}, nil
 		}
-		if current.Op != "neighbors" || current.Relation != "calls" {
+		if current.Op != "neighbors" || current.Relation != "calls" || current.Limit != maxResultLimit {
 			t.Fatalf("unexpected neighbor request: %+v", current)
 		}
 		payload, _ := json.Marshal(neighborResult{
-			Node:  Node{NodeID: 1},
-			Count: 1,
+			Node:     Node{NodeID: 1},
+			Count:    1,
+			Returned: 1,
 			Relationships: []Relationship{
 				{Relation: "calls", Node: Node{NodeID: 2, Path: "storage/users.go", Name: "InsertUser"}},
 			},

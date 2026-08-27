@@ -80,6 +80,7 @@ func (client Client) HasQualifiedRelationship(
 			NodeID:    source.NodeID,
 			Direction: "outgoing",
 			Relation:  relation,
+			Limit:     maxResultLimit,
 		})
 	}
 	responses, err := run(ctx, command, snapshot, requests)
@@ -91,13 +92,8 @@ func (client Client) HasQualifiedRelationship(
 		if err := json.Unmarshal(responses[current.ID].Result, &result); err != nil {
 			return false, fmt.Errorf("decode Arcana qualified neighbors %q: %w", current.ID, err)
 		}
-		if result.Count != len(result.Relationships) {
-			return false, fmt.Errorf(
-				"Arcana qualified neighbors %q reported %d relationships but returned %d",
-				current.ID,
-				result.Count,
-				len(result.Relationships),
-			)
+		if err := validateCompleteNeighbors(fmt.Sprintf("Arcana qualified neighbors %q", current.ID), result); err != nil {
+			return false, err
 		}
 		for _, relationship := range result.Relationships {
 			if qualifiedNodeName(relationship.Node) == targetQualifiedName {

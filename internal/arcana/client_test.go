@@ -22,9 +22,13 @@ func TestClientLoadsPathScopedGraph(t *testing.T) {
 			results[requests[0].ID] = response{OK: true, Result: payload}
 			return results, nil
 		}
+		if requests[0].Limit != maxResultLimit {
+			t.Fatalf("neighbor limit = %d, want %d", requests[0].Limit, maxResultLimit)
+		}
 		payload, _ := json.Marshal(neighborResult{
-			Node:  Node{NodeID: 7, Path: "api/handler.go", Name: "CreateUser"},
-			Count: 1,
+			Node:     Node{NodeID: 7, Path: "api/handler.go", Name: "CreateUser"},
+			Count:    1,
+			Returned: 1,
 			Relationships: []Relationship{
 				{Relation: "calls", Node: Node{NodeID: 9, Path: "storage/users.go", Name: "InsertUser"}},
 			},
@@ -100,7 +104,10 @@ func TestClientLoadsOutgoingRelationshipsOnlyForSelectedPrefixes(t *testing.T) {
 		if len(requests) != 1 || requests[0].NodeID != 1 {
 			t.Fatalf("expected only api neighbors, got %+v", requests)
 		}
-		payload, _ := json.Marshal(neighborResult{Node: Node{NodeID: 1}, Count: 0})
+		if requests[0].Limit != maxResultLimit {
+			t.Fatalf("neighbor limit = %d, want %d", requests[0].Limit, maxResultLimit)
+		}
+		payload, _ := json.Marshal(neighborResult{Node: Node{NodeID: 1}, Count: 0, Returned: 0})
 		return map[string]response{requests[0].ID: {OK: true, Result: payload}}, nil
 	}
 
@@ -128,9 +135,13 @@ func TestClientPaginatesNodeLists(t *testing.T) {
 		if current.Op == "neighbors" {
 			results := make(map[string]response, len(requests))
 			for _, neighborRequest := range requests {
+				if neighborRequest.Limit != maxResultLimit {
+					t.Fatalf("neighbor limit = %d, want %d", neighborRequest.Limit, maxResultLimit)
+				}
 				payload, _ := json.Marshal(neighborResult{
-					Node:  Node{NodeID: neighborRequest.NodeID},
-					Count: 0,
+					Node:     Node{NodeID: neighborRequest.NodeID},
+					Count:    0,
+					Returned: 0,
 				})
 				results[neighborRequest.ID] = response{OK: true, Result: payload}
 			}
@@ -178,5 +189,35 @@ func TestClientFailsClosedOnTruncatedNodeList(t *testing.T) {
 	}
 	if _, err := (Client{Run: run}).LoadGraph(context.Background(), "snapshot", []string{"api"}); err == nil {
 		t.Fatal("expected truncation to fail")
+	}
+}
+
+func TestClientFailsClosedOnTruncatedNeighbors(t *testing.T) {
+	calls := 0
+	run := func(_ context.Context, _, _ string, requests []request) (map[string]response, error) {
+		calls++
+		current := requests[0]
+		if calls == 1 {
+			payload, _ := json.Marshal(nodeListResult{
+				Count:    1,
+				Returned: 1,
+				Nodes:    []Node{{NodeID: 1, Path: "api/a.go", Kind: "file"}},
+			})
+			return map[string]response{current.ID: {OK: true, Result: payload}}, nil
+		}
+		if current.Limit != maxResultLimit {
+			t.Fatalf("neighbor limit = %d, want %d", current.Limit, maxResultLimit)
+		}
+		payload, _ := json.Marshal(neighborResult{
+			Node:          Node{NodeID: 1},
+			Count:         2,
+			Returned:      1,
+			Truncated:     true,
+			Relationships: []Relationship{{Relation: "calls", Node: Node{NodeID: 2}}},
+		})
+		return map[string]response{current.ID: {OK: true, Result: payload}}, nil
+	}
+	if _, err := (Client{Run: run}).LoadGraph(context.Background(), "snapshot", []string{"api"}); err == nil {
+		t.Fatal("expected neighbor truncation to fail")
 	}
 }
