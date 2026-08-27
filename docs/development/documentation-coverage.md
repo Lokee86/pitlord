@@ -19,6 +19,7 @@ Coverage includes packages, public command families, machine-readable contracts,
 | `baseline` | `cmd/pitlord/baseline.go`, `internal/baseline` | [Baselines and CI](../BASELINES-AND-CI.md) |
 | `diff` | `cmd/pitlord/diff.go`, `internal/snapshotdiff` | [Architecture](../ARCHITECTURE.md), [Baselines and CI](../BASELINES-AND-CI.md) |
 | `inspect`, `analyze` | `cmd/pitlord/inspect.go`, `cmd/pitlord/analyze.go`, `internal/arcana`, `internal/report` | [README](../../README.md), [Architecture](../ARCHITECTURE.md) |
+| `scan`, policy-free generalized guard foundation | `cmd/pitlord/scan.go`, `internal/scan`, `internal/report` | [README](../../README.md), [Architecture](../ARCHITECTURE.md), [Current limitations](../limits/current-limitations.md) |
 | `generate`, Homunculus policy conversion | `cmd/pitlord/generate.go`, `internal/policy/homunculus.go` | [README](../../README.md), [Architecture](../ARCHITECTURE.md) |
 | `verify-mutation` | `cmd/pitlord/verify_mutation.go`, `internal/mutation` | [README](../../README.md), [Architecture](../ARCHITECTURE.md) |
 | `schema` | `cmd/pitlord/schema.go`, `internal/schema` | [Policy](../POLICY.md) |
@@ -29,6 +30,7 @@ Coverage includes packages, public command families, machine-readable contracts,
 | --- | --- | --- |
 | `internal/policy` | Rule model, normalization, validation, repository and graph evaluation | [Policy](../POLICY.md), [Architecture](../ARCHITECTURE.md) |
 | `internal/arcana` | Bounded Arcana protocol queries and graph loading | [Architecture](../ARCHITECTURE.md) |
+| `internal/scan` | Policy-free generalized finding contract, scope normalization, deterministic ordering, and scan result assembly | [Architecture](../ARCHITECTURE.md), [Current limitations](../limits/current-limitations.md) |
 | `internal/checker` | Check orchestration and report assembly | [Architecture](../ARCHITECTURE.md) |
 | `internal/baseline` | Evidence fingerprints and suppression | [Baselines and CI](../BASELINES-AND-CI.md) |
 | `internal/report` | Text, JSON, SARIF, and architecture reports | [README](../../README.md), [Baselines and CI](../BASELINES-AND-CI.md) |
@@ -44,6 +46,7 @@ Coverage includes packages, public command families, machine-readable contracts,
 | Policy include loading, normalization, and validation | [Policy](../POLICY.md) |
 | Repository traversal and direct content/path evaluation | [Architecture](../ARCHITECTURE.md), [Policy](../POLICY.md) |
 | Arcana snapshot resolution and paginated loading | [Architecture](../ARCHITECTURE.md) |
+| Policy-free generalized scan result assembly | [Architecture](../ARCHITECTURE.md), [Current limitations](../limits/current-limitations.md) |
 | Evidence fingerprinting and baseline suppression | [Baselines and CI](../BASELINES-AND-CI.md) |
 | Snapshot-to-snapshot evidence classification | [Baselines and CI](../BASELINES-AND-CI.md) |
 | Mutation-manifest verification | [Architecture](../ARCHITECTURE.md) |

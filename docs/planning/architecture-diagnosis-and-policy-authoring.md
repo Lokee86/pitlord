@@ -8,7 +8,7 @@ This document defines the planned expansion of Pitlord from primarily policy enf
 ## Overview
 Pitlord should grow from primarily enforcing known architecture rules into a workflow that can discover suspicious structures, help a developer decide whether they are intentional, and turn those decisions into durable guardrails without requiring direct JSON-schema authoring.
 ## Status
-Planned. This document is not a statement of shipped behavior.
+In progress. The policy-free `scan` command and deterministic `pitlord.scan.v1` finding envelope are implemented; the generalized detector families, disposition workflow, and policy-authoring flow remain planned. This document otherwise describes target behavior rather than shipped detector behavior.
 
 ## Problem
 Current Pitlord is strongest after architectural intent has already been encoded. `check` deterministically enforces repository-owned rules, `analyze` summarizes declared architecture areas, and `inspect` exposes Arcana architecture communities. Those foundations leave a missing first step:
@@ -17,32 +17,83 @@ Current Pitlord is strongest after architectural intent has already been encoded
 
 The JSON policy model is also too low-level to be the normal product interface. Users should not need to understand Pitlord's schema, area selectors, relationship arrays, or rule representation to create useful guardrails.
 ## Product direction
-Pitlord should support a complete architecture-governance loop:
+Pitlord should support a complete architecture-governance loop while also acting as an opinionated, zero-configuration complexity guard for coding agents:
 
 ```text
-inspect -> diagnose -> review -> codify or accept -> enforce -> detect regression
+agent changes code
+  -> deterministic structural analysis
+  -> deterministic generalized judgment
+  -> pass, or a finite set of bounded failures
+  -> agent repairs only those failures
+  -> deterministic verification
+  -> continue building
 ```
+
+The product objective is not merely to identify unusual architecture. Pitlord should help prevent repositories from degrading past the point where humans or coding agents can reliably understand and modify them. Its built-in opinions should encode broadly useful clean-code and clean-architecture principles such as avoiding dependency cycles, excessive coupling, weak cohesion, unstable dependency direction, oversized hubs, broad blast radius, incoherent boundaries, and other measurable forms of structural complexity.
 
 The concepts remain distinct:
 
 - **Inspect** exposes structural facts with minimal opinion.
-- **Diagnose** identifies policy-free architectural suspicions from repository structure.
+- **Diagnose** applies the generalized opinionated model without requiring repository policy and explains suspicious or unhealthy structure.
+- **Generalized guard evaluation** applies the same deterministic model as an immediate pass/fail safeguard for agent and CI workflows without first requiring repository-specific rules.
 - **Analyze** explains the repository relative to architecture areas already declared by the user.
-- **Check** deterministically enforces explicit policy.
+- **Check** deterministically enforces explicit repository policy in addition to any selected generalized guard profile.
 
-Diagnosis is the missing discovery layer in front of the existing policy engine, not a replacement for it.
+Repository-specific policy remains the mechanism for encoding local architectural intent. The generalized guard exists before that intent is authored and protects against common complexity failure modes by default.
+
+## Determinism as a product principle
+Pitlord must not become another autonomous agent supervising a coding agent. Open-ended review and remediation loops compound probabilistic errors, consume context, and create token churn. Pitlord's value is that the supervisory boundary is deterministic.
+
+The required control loop is:
+
+```text
+probabilistic implementation
+  -> deterministic observation
+  -> deterministic judgment
+  -> bounded agent action
+  -> deterministic verification
+```
+
+For the same repository snapshot, Pitlord version, configuration, and generalized rule profile, Pitlord should produce the same findings, ordering, severity, evidence, fingerprints, and exit status.
+
+A finding must define a stable target that an agent can satisfy rather than invite another round of architectural interpretation. For example, a dependency-cycle finding should identify the exact cycle and require that the cycle cease to exist. The coding agent retains freedom over how to repair the structure; Pitlord decides only whether the measurable condition remains true.
+
+This leads to a hard ownership rule:
+
+> LLMs may consume Pitlord findings and perform repairs. LLMs must not be required for Pitlord to determine whether architecture passes.
+
+Any optional natural-language explanation or remediation assistance must remain downstream of the deterministic finding and must never alter compliance semantics.
+
+## Immediate agent application
+The primary near-term consumer of the generalized guard is a coding agent operating in a repository over many successive changes. The guard should minimize the amount of reasoning the agent must spend on self-review by returning a bounded set of actionable failures with exact evidence and a required structural outcome.
+
+A useful machine-facing result should answer four questions deterministically:
+
+1. What condition failed?
+2. What exact evidence caused it to fail?
+3. What repository scope is implicated?
+4. What measurable condition must become false or return within bounds for the check to pass?
+
+Pitlord should not require a second model to decide whether a finding matters, locate the affected structure, or determine whether the repair succeeded. This is the mechanism by which Pitlord reduces autonomous-loop error compounding and token churn while allowing agents to keep building.
 
 ## Diagnosis semantics
-A diagnosis is a **candidate architectural concern**, not automatically a violation. Pitlord cannot know that every hub, deep chain, or cross-boundary dependency is wrong.
+A diagnosis is a **generalized architectural judgment backed by deterministic evidence**. Some diagnoses remain advisory because Pitlord cannot know that every unusual hub, deep chain, or cross-boundary dependency is wrong. Other detector classes can support an opinionated default failure when the condition is broadly and mechanically undesirable, such as newly introduced dependency cycles.
+
+The generalized engine should therefore distinguish detector disposition from detector evidence:
+
+- **advisory** — structurally suspicious and worth review, but not a default blocking failure;
+- **guard** — sufficiently general and mechanically defined to block continued agent work under the selected generalized profile; and
+- **repository policy** — explicit local intent authored by the repository and enforced independently of generalized defaults.
 
 Diagnosis should:
 
 - require no repository policy;
 - produce deterministic evidence and stable candidate identity where practical;
-- explain why a structure is unusual;
-- rank candidates relative to the repository or comparable peers;
-- avoid failing CI by default; and
-- support explicit human disposition.
+- explain why a structure is unhealthy or unusual;
+- rank relative findings against the repository or comparable peers;
+- make blocking versus advisory disposition explicit and deterministic;
+- support immediate machine consumption by coding agents; and
+- support explicit human disposition where architectural intent is genuinely ambiguous.
 
 Initial detectors should make measurable structural claims rather than vague judgments such as "this code is spaghetti."
 
@@ -163,22 +214,28 @@ Arcana's deterministic synthetic topology families provide controlled detector f
 Initial diagnosis should be tuned against those controlled topologies before evaluation against real Warlock, Continuity, Space Rocks, and other repositories. Thresholds and rankings should be justified by observed separation between known structures rather than chosen arbitrarily.
 
 ## Initial implementation direction
-1. Add a policy-free `diagnose` capability with the four initial detector families, deterministic machine-readable output, and enough evidence for Warlock presentation.
-2. Add explicit accepted-diagnosis persistence and disposition handling.
-3. Connect diagnosis candidates to human-readable policy proposals with current-repository impact preview and safe publication through the existing validation path.
+1. Build on the implemented policy-free `scan` seam and `pitlord.scan.v1` contract by adding the four initial detector families, stable evidence, severity, explicit advisory-versus-guard disposition, and mechanically verifiable required outcomes.
+2. Expose the engine through `diagnose` for explanation and through an immediate generalized guard path suitable for post-change agent verification and CI. Do not require repository policy for either path.
+3. Make every blocking finding a bounded mechanical target that an agent can repair and Pitlord can re-evaluate without model judgment.
+4. Calibrate deterministic thresholds and repository-relative statistics against Arcana's synthetic topology families before real-repository tuning.
+5. Add explicit accepted-diagnosis persistence only for genuinely ambiguous advisory structures; do not make acceptance a way to suppress mechanically defined guard failures casually.
+6. Connect appropriate diagnosis candidates to human-readable repository-specific policy proposals with current-repository impact preview and safe publication through the existing validation path.
 
-The current `check`, baseline, diff, report, and policy-validation machinery remains the downstream enforcement foundation.
+The current `check`, baseline, diff, report, and policy-validation machinery remains the downstream enforcement foundation. No implementation step should introduce an LLM dependency into pass/fail evaluation.
 
 ## Acceptance criteria
-A developer should be able to:
+A developer or coding agent should be able to:
 
 1. point Pitlord at an unfamiliar repository without first writing policy;
-2. receive a bounded, evidence-backed set of architectural suspicions;
-3. investigate why each suspicion was raised;
-4. explicitly accept intentional structures without abusing baselines;
-5. turn an undesirable suspicion into a guardrail without editing JSON;
-6. preview what the guardrail means and matches before saving it; and
-7. have later Pitlord checks deterministically enforce that decision.
+2. receive a bounded, evidence-backed set of generalized architectural judgments;
+3. distinguish advisory findings from deterministic generalized guard failures;
+4. obtain exact evidence, implicated scope, and a measurable passing condition for every blocking finding;
+5. repair a finding without requiring another model to reinterpret whether the problem exists or whether it is fixed;
+6. rerun Pitlord against the same state and receive reproducible findings, ordering, severity, evidence, and exit status;
+7. explicitly accept genuinely intentional advisory structures without abusing baselines;
+8. turn an undesirable advisory diagnosis into repository-specific policy without editing JSON;
+9. preview what the generated policy means and matches before saving it; and
+10. have later Pitlord checks deterministically enforce both generalized guardrails and repository-specific decisions.
 
 ## Open decisions
 - Exact persistence contract for accepted architectural decisions.

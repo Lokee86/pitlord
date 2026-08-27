@@ -12,6 +12,12 @@ Pitlord is functional as an on-demand CLI, but several product and integration s
 
 ## Limitations
 
+### Generalized architecture detectors
+
+`pitlord scan` currently provides the policy-free execution seam and `pitlord.scan.v1` machine-readable finding contract, but it intentionally emits no architectural judgments yet. Dependency knots, hub/bottleneck pressure, boundary-coupling/cohesion anomalies, and blast-radius hotspots remain to be implemented and calibrated.
+
+**Removal condition:** the initial deterministic generalized detector set is implemented, calibrated against Arcana synthetic topology families, and validated on real repositories.
+
 ### Change-aware policy scope
 
 Snapshot diff evaluates the full selected policy against both snapshots before comparing evidence. It does not yet restrict evaluation to changed policy scopes.
@@ -44,7 +50,7 @@ Pitlord has no independent daemon. Warlock may invoke it against changed snapsho
 
 ## Status
 
-All entries are current as of July 30, 2026.
+All entries are current as of August 27, 2026.
 
 ## Related docs
 

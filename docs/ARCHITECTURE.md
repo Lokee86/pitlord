@@ -8,10 +8,7 @@ This document defines Pitlord's implemented ownership, data flow, evaluation mod
 
 ## Overview
 
-Pitlord is a standalone repository-policy evaluator. Lightweight content and path rules
-scan source files directly; semantic dependency, ownership, and cycle rules evaluate
-Arcana's immutable repository graph. Pitlord is not a parser, language server, graph store,
-or source mutation engine.
+Pitlord is a standalone repository-policy evaluator and deterministic architecture-diagnostics CLI. Lightweight content and path rules scan source files directly; semantic dependency, ownership, and cycle rules evaluate Arcana's immutable repository graph. A policy-free generalized scan surface now owns a stable finding contract and repository-relative scope; its opinionated detectors are not implemented yet. Pitlord is not a parser, language server, graph store, or source mutation engine.
 
 ## Data flow
 
@@ -22,6 +19,11 @@ source repository
   -> optional immutable Lexicon and Arcana graph snapshots
   -> Pitlord semantic area projection and policy evaluation
   -> text, JSON, SARIF, or baseline output
+
+Arcana snapshot
+  -> Pitlord policy-free generalized scan contract
+  -> deterministic ordered findings
+  -> text or JSON output
 ```
 
 ## Component ownership
@@ -46,6 +48,8 @@ Pitlord owns:
 - modular policy composition;
 - named architecture areas;
 - repository-owned policy and rule semantics;
+- the generalized scan finding, advisory-versus-guard disposition, severity, scope, evidence, required-outcome, and ordering contract;
+- future opinionated generalized detector semantics;
 - area-graph projection;
 - ownership and cycle interpretation;
 - deterministic diagnostic evidence and fingerprints; and
@@ -56,10 +60,7 @@ calibrate Pitlord behavior.
 
 ## Repository and snapshot loading
 
-Repository content and path policies scan only the static roots implied by their globs and
-do not start Arcana. Graph policies resolve `.arcana/CURRENT` or accept an explicit
-immutable snapshot directory. Pitlord queries Arcana through `arcana.query.v1`; it does not
-read Arcana's storage files.
+Repository content and path policies scan only the static roots implied by their globs and do not start Arcana. Graph policies resolve `.arcana/CURRENT` or accept an explicit immutable snapshot directory. The policy-free `scan` command also requires a resolvable immutable snapshot so generalized findings are always tied to graph state. The current scan foundation does not yet issue Arcana graph queries because no generalized detectors are active. Pitlord queries Arcana through `arcana.query.v1`; it does not read Arcana's storage files.
 
 Node listings are paginated. Pitlord validates counts, offsets, page continuity, and
 terminal state, and fails closed when an older Arcana binary reports truncation without a

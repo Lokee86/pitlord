@@ -21,6 +21,7 @@ The matrix prevents durable safety and compatibility contracts from depending on
 | Embedded schema matches supported policy and baseline contracts | `internal/schema/schema_test.go`, `cmd/pitlord/schema_test.go` |
 | Includes are relative, recursive, deduplicated, and cycle-safe | `internal/policy/load_test.go` |
 | Evidence ordering and reporting are deterministic | `internal/policy/evaluate_test.go`, `internal/report/report_test.go` |
+| Generalized scans require no Pitlord policy and preserve deterministic finding ordering plus non-null finding/evidence arrays | `internal/scan/scan_test.go`, `cmd/pitlord/scan_test.go`, `internal/report/scan_test.go` |
 | Baselines suppress evidence rather than entire rules | `internal/baseline/baseline_test.go` |
 | Snapshot diffs classify introduced, resolved, and persistent evidence by stable fingerprint | `internal/snapshotdiff/compare_test.go` |
 | Mutation verification requires exact absent/present transitions | `internal/mutation/verify_test.go` |

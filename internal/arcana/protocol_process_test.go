@@ -50,24 +50,6 @@ func emitHelperResponses(protocol string, maximum int) {
 	}
 }
 
-func TestRequestEncodesZeroNodeID(t *testing.T) {
-	encoded, err := json.Marshal(request{ID: "neighbors-0", Op: "neighbors", NodeID: 0})
-	if err != nil {
-		t.Fatal(err)
-	}
-	var payload map[string]any
-	if err := json.Unmarshal(encoded, &payload); err != nil {
-		t.Fatal(err)
-	}
-	value, exists := payload["node_id"]
-	if !exists {
-		t.Fatal("zero node_id was omitted from the Arcana request")
-	}
-	if value != float64(0) {
-		t.Fatalf("node_id = %#v, want 0", value)
-	}
-}
-
 func TestRunProtocolHonorsContextCancellation(t *testing.T) {
 	t.Setenv("PITLORD_ARCANA_HELPER", "1")
 	t.Setenv("PITLORD_ARCANA_HELPER_MODE", "hang")

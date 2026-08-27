@@ -8,11 +8,13 @@ This document records planned Pitlord work and unresolved sequencing.
 
 ## Overview
 
-Pitlord remains independently usable while expanding from architecture-policy enforcement into a broader architecture diagnosis, decision, and repository-governance engine within Warlock.
+Pitlord remains independently usable while expanding from architecture-policy enforcement into a deterministic, opinionated architecture and complexity governor for coding agents. Its default generalized guard should enforce broadly useful clean-code and clean-architecture constraints without requiring repository-specific policy, while repository policy continues to encode local intent.
+
+The central product principle is deterministic supervision: coding agents may be probabilistic, but Pitlord's observation, judgment, evidence, and verification must be mechanically reproducible. Pitlord should prevent complexity accumulation without introducing another autonomous model-review loop around the agent.
 
 ## Current status
 
-Active planning.
+Implementation started. The policy-free `scan` command and deterministic `pitlord.scan.v1` finding contract are in place; generalized detectors remain the next milestone.
 
 ## Expected ownership
 
@@ -24,21 +26,24 @@ Active planning.
 
 ## Planned work
 
-1. Add policy-free architecture diagnosis over Arcana structural evidence, beginning with dependency knots, hub/bottleneck anomalies, boundary-coupling/cohesion anomalies, and impact hotspots.
-2. Add explicit human disposition for diagnoses: create a guardrail, accept the structure as intentional, or leave it unresolved.
-3. Add user-friendly policy authoring that can promote a diagnosis into validated policy without requiring JSON-schema knowledge, including a current-repository match preview before publication.
-4. Keep accepted architectural decisions semantically distinct from evidence baselines and define a durable repository-owned persistence contract for them.
-5. Calibrate diagnosis ranking against Arcana's deterministic modular, entangled, hub-heavy, layered, and dense-subsystem topologies before relying on real-repository tuning.
-6. Add reusable policy packs with explicit versioning and compatibility.
-7. Integrate shared documentation-policy results into Warlock repository health.
-8. Add change-aware evaluation planning without weakening full-policy correctness.
-9. Improve cross-snapshot, diagnosis-history, and baseline migration diagnostics.
+1. Add a policy-free generalized architecture scan over Arcana structural evidence, beginning with dependency knots, hub/bottleneck anomalies, boundary-coupling/cohesion anomalies, and impact hotspots.
+2. Classify generalized detectors explicitly as advisory or blocking guard conditions and make all blocking findings bounded, mechanically verifiable repair targets for coding agents.
+3. Add an immediate post-change guard workflow: agent changes code, Pitlord evaluates deterministically, the agent repairs the finite failures, and Pitlord verifies them without any model-based adjudication.
+4. Guarantee reproducible findings for the same snapshot, Pitlord version, configuration, and generalized profile, including finding identity, ordering, severity, evidence, and exit status.
+5. Add explicit human disposition for ambiguous advisory diagnoses: create a repository guardrail, accept the structure as intentional, or leave it unresolved.
+6. Add user-friendly policy authoring that can promote a diagnosis into validated policy without requiring JSON-schema knowledge, including a current-repository match preview before publication.
+7. Keep accepted architectural decisions semantically distinct from evidence baselines and define a durable repository-owned persistence contract for them.
+8. Calibrate generalized judgments against Arcana's deterministic modular, entangled, hub-heavy, layered, and dense-subsystem topologies before relying on real-repository tuning.
+9. Add reusable policy packs with explicit versioning and compatibility.
+10. Integrate shared documentation-policy results into Warlock repository health.
+11. Add change-aware evaluation planning without weakening full-policy correctness.
+12. Improve cross-snapshot, diagnosis-history, and baseline migration diagnostics.
 
 See [Architecture diagnosis and policy authoring](architecture-diagnosis-and-policy-authoring.md) for the product workflow and detector direction.
 
 ## Acceptance criteria
 
-Each planned feature must preserve deterministic evidence, explicit ownership, repository-only execution where applicable, schema validation, and independent CLI use. Diagnosis must remain distinguishable from enforcement: a suspicion is not automatically a CI violation, and accepted architecture is not an evidence baseline.
+Each planned feature must preserve deterministic evidence, explicit ownership, repository-only execution where applicable, schema validation, and independent CLI use. LLMs may consume Pitlord findings and perform repairs, but they must never be required to determine pass/fail state. Generalized advisory findings must remain distinguishable from blocking guard failures and repository-specific policy violations, and accepted architecture must remain distinct from an evidence baseline.
 
 ## Open decisions
 
@@ -51,6 +56,7 @@ Each planned feature must preserve deterministic evidence, explicit ownership, r
 
 ## Implemented references
 
+- The policy-free `scan` command and `pitlord.scan.v1` result envelope are implemented; detector output remains intentionally empty until calibrated generalized rules land.
 - `require_content` is implemented and documented in [Policy reference](../POLICY.md).
 - Shared documentation governance is defined in [Engineering Standards](../../../engineering-standards/docs/INDEX.md).
 

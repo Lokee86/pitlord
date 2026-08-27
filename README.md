@@ -19,6 +19,7 @@ Pitlord currently provides:
 - evidence-level baselines that suppress existing findings without hiding new ones;
 - text, JSON, and SARIF 2.1.0 output;
 - architecture-community inspection through Arcana;
+- a policy-free `scan` command with the deterministic `pitlord.scan.v1` finding envelope, repository-relative scope, severity counts, and text/JSON output; generalized detectors are not active yet;
 - direct Homunculus specimen-manifest conversion and expected-diagnostic validation;
 - exact Homunculus mutation verification across baseline and mutated snapshots;
 - snapshot-to-snapshot policy diffing with introduced, resolved, and persistent evidence;
@@ -123,6 +124,7 @@ pitlord validate
 pitlord schema
 pitlord verify-mutation
 pitlord diff
+pitlord scan
 pitlord inspect
 pitlord generate
 pitlord version
@@ -138,6 +140,15 @@ pitlord inspect \
   --repo /path/to/repository \
   --path-prefix services/game-server \
   --relations calls,imports,references
+```
+
+`pitlord scan` is the policy-free generalized-guard entry point. The current implementation establishes the stable finding contract and snapshot-scoped execution seam but intentionally emits no findings until the first deterministic detector is added:
+
+```text
+pitlord scan \
+  --repo /path/to/repository \
+  --path-prefix services/game-server \
+  --format json
 ```
 
 ## Baselines and CI
@@ -220,7 +231,7 @@ are resolved through Arcana rather than matched by source text.
 
 - Lexicon owns parsing, semantic resolution, normalized relationships, identities, and spans.
 - Arcana owns graph ingestion, immutable snapshots, adjacency, traversal, and graph algorithms.
-- Pitlord owns policy, area projection, rule evaluation, diagnostic identity, and presentation.
+- Pitlord owns policy, area projection, generalized scan judgments, rule evaluation, diagnostic identity, and presentation.
 - Homunculus owns deterministic source mutations and their expected architecture deltas.
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the runtime and data-flow design.
