@@ -1,6 +1,7 @@
 package scan
 
 import (
+	"fmt"
 	"strings"
 	"testing"
 
@@ -60,6 +61,28 @@ func TestDependencyPressureDeduplicatesSymbolEdgesByFile(t *testing.T) {
 	}
 }
 
+func TestDependencyPressureIgnoresVirtualAndPackagePaths(t *testing.T) {
+	graph := dependencyTestGraph(10)
+	graph.Sources = append(graph.Sources,
+		arcana.Node{NodeID: 90, Kind: "file", Path: "@stdlib/fmt", Name: "fmt"},
+		arcana.Node{NodeID: 91, Kind: "module", Path: "internal/shared", Name: "shared"},
+	)
+	for source := uint32(1); source <= 10; source++ {
+		graph.Outgoing[dependencySymbolID(source)] = append(graph.Outgoing[dependencySymbolID(source)],
+			arcana.Relationship{Relation: "imports", Node: arcana.Node{NodeID: 90, Kind: "file", Path: "@stdlib/fmt", Name: "fmt"}},
+			arcana.Relationship{Relation: "depends-on", Node: arcana.Node{NodeID: 91, Kind: "module", Path: "internal/shared", Name: "shared"}},
+		)
+		next := source + 1
+		if next > 10 {
+			next = 1
+		}
+		addDependency(&graph, source, next, "references")
+	}
+	if findings := detectDependencyPressure(graph, "."); len(findings) != 0 {
+		t.Fatalf("virtual/external and package-only paths must not enter repository file peer groups: %#v", findings)
+	}
+}
+
 func TestDependencyPressureIgnoresRepositoryStructureNodes(t *testing.T) {
 	graph := dependencyTestGraph(8)
 	graph.Sources = append(graph.Sources, arcana.Node{NodeID: 99, Kind: "directory", Path: "src", Name: "src"})
@@ -81,30 +104,25 @@ func dependencyTestGraph(fileCount uint32) arcana.Graph {
 	graph := arcana.Graph{Outgoing: map[uint32][]arcana.Relationship{}}
 	kinds := []string{"function", "type", "module", "symbol"}
 	for id := uint32(1); id <= fileCount; id++ {
-		graph.Sources = append(graph.Sources, arcana.Node{
-			NodeID: id,
-			Kind:   kinds[int(id)%len(kinds)],
-			Path:   filePath(id),
-			Name:   "node",
-		})
+		graph.Sources = append(graph.Sources,
+			arcana.Node{NodeID: id, Kind: "file", Path: filePath(id), Name: "file"},
+			arcana.Node{NodeID: dependencySymbolID(id), Kind: kinds[int(id)%len(kinds)], Path: filePath(id), Name: "node"},
+		)
 	}
 	return graph
 }
 
 func addDependency(graph *arcana.Graph, source, target uint32, relation string) {
-	graph.Outgoing[source] = append(graph.Outgoing[source], arcana.Relationship{
+	graph.Outgoing[dependencySymbolID(source)] = append(graph.Outgoing[dependencySymbolID(source)], arcana.Relationship{
 		Relation: relation,
-		Node:     arcana.Node{NodeID: target, Path: filePath(target), Kind: "symbol", Name: "target"},
+		Node:     arcana.Node{NodeID: dependencySymbolID(target), Path: filePath(target), Kind: "symbol", Name: "target"},
 	})
 }
 
-func filePath(id uint32) string {
-	return "src/file" + twoDigits(id) + ".any"
+func dependencySymbolID(fileID uint32) uint32 {
+	return 1_000 + fileID
 }
 
-func twoDigits(value uint32) string {
-	if value < 10 {
-		return "0" + string(rune('0'+value))
-	}
-	return "10"
+func filePath(id uint32) string {
+	return fmt.Sprintf("src/file%02d.any", id)
 }

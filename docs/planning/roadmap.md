@@ -14,7 +14,7 @@ The central product principle is deterministic supervision: coding agents may be
 
 ## Current status
 
-Implementation started. The policy-free `scan` command and deterministic `pitlord.scan.v1` finding contract are in place, along with the first language-neutral dependency-pressure detector. Dependency knots, boundary/cohesion analysis, blast-radius analysis, and broader calibration remain next.
+Implementation started. The policy-free `scan` command and deterministic `pitlord.scan.v1` finding contract are in place, along with the first language-neutral dependency-pressure detector. That detector now has Arcana-topology-family calibration and live Pitlord snapshot validation. Dependency knots, boundary/cohesion analysis, blast-radius analysis, and broader real-repository calibration remain next.
 
 ## Expected ownership
 
@@ -33,7 +33,7 @@ Implementation started. The policy-free `scan` command and deterministic `pitlor
 5. Add explicit human disposition for ambiguous advisory diagnoses: create a repository guardrail, accept the structure as intentional, or leave it unresolved.
 6. Add user-friendly policy authoring that can promote a diagnosis into validated policy without requiring JSON-schema knowledge, including a current-repository match preview before publication.
 7. Keep accepted architectural decisions semantically distinct from evidence baselines and define a durable repository-owned persistence contract for them.
-8. Calibrate generalized judgments against Arcana's deterministic modular, entangled, hub-heavy, layered, and dense-subsystem topologies before relying on real-repository tuning.
+8. Extend the shipped Arcana-topology-family calibration to each generalized detector, then tune against representative real repositories without weakening the synthetic separation cases.
 9. Add reusable policy packs with explicit versioning and compatibility.
 10. Integrate shared documentation-policy results into Warlock repository health.
 11. Add change-aware evaluation planning without weakening full-policy correctness.
@@ -57,7 +57,7 @@ Each planned feature must preserve deterministic evidence, explicit ownership, r
 ## Implemented references
 
 - The policy-free `scan` command and `pitlord.scan.v1` result envelope are implemented.
-- The first generalized detector, `dependency-pressure`, reports anomalous cross-file hubs from normalized Arcana relations without language-specific syntax assumptions.
+- The first generalized detector, `dependency-pressure`, reports anomalous outgoing cross-file dependency pressure from normalized Arcana relations without language-specific syntax assumptions. It uses explicit Arcana file nodes as the peer set, aggregates symbol/type/module relations onto those files, excludes virtual external namespaces, and is calibrated against all five Arcana topology-family shapes.
 - `require_content` is implemented and documented in [Policy reference](../POLICY.md).
 - Shared documentation governance is defined in [Engineering Standards](../../../engineering-standards/docs/INDEX.md).
 

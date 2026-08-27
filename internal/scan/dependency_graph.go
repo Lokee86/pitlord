@@ -17,40 +17,33 @@ type dependencyUnit struct {
 }
 
 func dependencyUnits(graph arcana.Graph) []dependencyUnit {
-	byPath := make(map[string]*dependencyUnit)
+	filePaths := repositoryFilePaths(graph.Sources)
+	if len(filePaths) == 0 {
+		return nil
+	}
+	byPath := make(map[string]*dependencyUnit, len(filePaths))
+	for filePath := range filePaths {
+		ensureDependencyUnit(byPath, filePath)
+	}
 	for _, source := range graph.Sources {
-		if !isDependencyUnitNode(source) {
-			continue
-		}
 		sourcePath := normalizedUnitPath(source.Path)
-		if sourcePath == "" {
+		if _, selected := filePaths[sourcePath]; !selected {
 			continue
 		}
-		unit := ensureDependencyUnit(byPath, sourcePath)
+		unit := byPath[sourcePath]
 		for _, relationship := range graph.Outgoing[source.NodeID] {
-			if _, selected := dependencyRelations[relationship.Relation]; !selected || !isDependencyUnitNode(relationship.Node) {
+			if _, selected := dependencyRelations[relationship.Relation]; !selected {
 				continue
 			}
 			targetPath := normalizedUnitPath(relationship.Node.Path)
-			if targetPath == "" || targetPath == sourcePath {
+			if targetPath == sourcePath {
+				continue
+			}
+			if _, selected := filePaths[targetPath]; !selected {
 				continue
 			}
 			unit.outgoing[targetPath] = struct{}{}
-		}
-	}
-	for _, source := range graph.Sources {
-		if !isDependencyUnitNode(source) {
-			continue
-		}
-		sourcePath := normalizedUnitPath(source.Path)
-		for _, relationship := range graph.Outgoing[source.NodeID] {
-			if _, selected := dependencyRelations[relationship.Relation]; !selected || !isDependencyUnitNode(relationship.Node) {
-				continue
-			}
-			targetPath := normalizedUnitPath(relationship.Node.Path)
-			if target, exists := byPath[targetPath]; exists && targetPath != sourcePath {
-				target.incoming[sourcePath] = struct{}{}
-			}
+			byPath[targetPath].incoming[sourcePath] = struct{}{}
 		}
 	}
 	units := make([]dependencyUnit, 0, len(byPath))
@@ -61,8 +54,19 @@ func dependencyUnits(graph arcana.Graph) []dependencyUnit {
 	return units
 }
 
-func isDependencyUnitNode(node arcana.Node) bool {
-	return node.Kind != "repository" && node.Kind != "directory"
+func repositoryFilePaths(nodes []arcana.Node) map[string]struct{} {
+	paths := make(map[string]struct{})
+	for _, node := range nodes {
+		if node.Kind != "file" {
+			continue
+		}
+		path := normalizedUnitPath(node.Path)
+		if path == "" || strings.HasPrefix(path, "@") {
+			continue
+		}
+		paths[path] = struct{}{}
+	}
+	return paths
 }
 
 func ensureDependencyUnit(units map[string]*dependencyUnit, path string) *dependencyUnit {
@@ -74,21 +78,10 @@ func ensureDependencyUnit(units map[string]*dependencyUnit, path string) *depend
 	return unit
 }
 
-func combinedDegree(unit dependencyUnit) int {
-	neighbors := make(map[string]struct{}, len(unit.incoming)+len(unit.outgoing))
-	for path := range unit.incoming {
-		neighbors[path] = struct{}{}
-	}
-	for path := range unit.outgoing {
-		neighbors[path] = struct{}{}
-	}
-	return len(neighbors)
-}
-
-func activeDegrees(units []dependencyUnit) []int {
+func activeOutgoingDegrees(units []dependencyUnit) []int {
 	values := make([]int, 0, len(units))
 	for _, unit := range units {
-		if degree := combinedDegree(unit); degree > 0 {
+		if degree := len(unit.outgoing); degree > 0 {
 			values = append(values, degree)
 		}
 	}

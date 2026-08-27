@@ -213,6 +213,10 @@ Arcana's deterministic synthetic topology families provide controlled detector f
 
 Initial diagnosis should be tuned against those controlled topologies before evaluation against real Warlock, Continuity, Space Rocks, and other repositories. Thresholds and rankings should be justified by observed separation between known structures rather than chosen arbitrarily.
 
+The first `dependency-pressure` detector now has this calibration seam. Its Arcana-family fixtures preserve the characteristic shapes of all five topology families at the same 64-node scale: modular and layered controls remain quiet; hub-heavy and entangled graphs surface their isolated hub files; and a dense subsystem is not mislabeled as a handful of individual hubs. To preserve that separation, the detector suppresses the isolated-hub diagnosis when more than 12.5% of repository files cross the same pressure threshold; that broader condition belongs to the boundary/cohesion detector.
+
+Live Pitlord calibration also established two important interpretation rules. Explicit Arcana `file` nodes define the repository peer population, while symbol/type/module relationships are aggregated onto those file paths; virtual namespaces such as `@stdlib/*` and package-only paths do not enter the peer set. The first detector judges anomalous outgoing dependency pressure rather than pure fan-in. High fan-in with little or no outgoing coupling is deferred to the impact/blast-radius detector instead of being treated as evidence that a stable shared model should be split.
+
 ## Initial implementation direction
 1. Build on the implemented policy-free `scan` seam and `pitlord.scan.v1` contract by adding the four initial detector families, stable evidence, severity, explicit advisory-versus-guard disposition, and mechanically verifiable required outcomes.
 2. Expose the engine through `diagnose` for explanation and through an immediate generalized guard path suitable for post-change agent verification and CI. Do not require repository policy for either path.

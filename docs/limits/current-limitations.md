@@ -14,9 +14,9 @@ Pitlord is functional as an on-demand CLI, but several product and integration s
 
 ### Generalized architecture detectors
 
-`pitlord scan` currently implements one generalized detector: language-neutral cross-file dependency pressure. Dependency knots, boundary-coupling/cohesion anomalies, and blast-radius hotspots remain to be implemented. The current hub threshold is deliberately conservative and has unit-level synthetic coverage, but full calibration against Arcana's topology families and large real repositories is still pending.
+`pitlord scan` currently implements one generalized detector: language-neutral outgoing cross-file dependency pressure. Dependency knots, boundary-coupling/cohesion anomalies, and blast-radius hotspots remain to be implemented. The detector is calibrated against Arcana-style modular, entangled, hub-heavy, layered, and dense-subsystem topology fixtures and has been smoke-tested against Pitlord's prepared Arcana snapshot. Broader calibration against large real repositories remains pending.
 
-**Removal condition:** the initial deterministic generalized detector set is implemented, calibrated against Arcana synthetic topology families, and validated on real repositories.
+**Removal condition:** the initial deterministic generalized detector set is implemented, calibrated against Arcana synthetic topology families, and validated across representative real repositories.
 
 ### Change-aware policy scope
 

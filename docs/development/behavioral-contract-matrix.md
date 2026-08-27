@@ -22,7 +22,7 @@ The matrix prevents durable safety and compatibility contracts from depending on
 | Includes are relative, recursive, deduplicated, and cycle-safe | `internal/policy/load_test.go` |
 | Evidence ordering and reporting are deterministic | `internal/policy/evaluate_test.go`, `internal/report/report_test.go` |
 | Generalized scans require no Pitlord policy and preserve deterministic finding ordering plus non-null finding/evidence arrays | `internal/scan/scan_test.go`, `cmd/pitlord/scan_test.go`, `internal/report/scan_test.go` |
-| Dependency-pressure detection is language-neutral at the Pitlord layer, deduplicates symbol edges by repository path, ignores non-dependency containment edges, and keeps balanced graphs quiet | `internal/scan/dependency_pressure_test.go` |
+| Dependency-pressure detection uses explicit Arcana file nodes as language-neutral peers, aggregates semantic edges by file, excludes virtual/package-only paths, judges outgoing pressure, and separates isolated hubs from dense regional pressure | `internal/scan/dependency_pressure_test.go`, `internal/scan/dependency_pressure_calibration_test.go` |
 | Baselines suppress evidence rather than entire rules | `internal/baseline/baseline_test.go` |
 | Snapshot diffs classify introduced, resolved, and persistent evidence by stable fingerprint | `internal/snapshotdiff/compare_test.go` |
 | Mutation verification requires exact absent/present transitions | `internal/mutation/verify_test.go` |
