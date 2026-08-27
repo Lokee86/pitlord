@@ -6,3 +6,5 @@ evaluation/
 **/.lexicon/
 .warlock/
 **/.warlock/
+.grimoire/
+**/.grimoire/
