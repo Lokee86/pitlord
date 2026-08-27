@@ -16,6 +16,7 @@ A baseline may distinguish real architectural pressure, intentional broad seams,
 
 - [Space Rocks Clean Control v1](space-rocks-clean-v1.md) — Human-adjudicated dependency-pressure baseline for the frozen multi-language Space Rocks control.
 - [Dapper](dapper.md) — Human-adjudicated C#/.NET baseline covering project boundaries, partial types, and the central `SqlMapper` aggregate.
+- [jsoup](jsoup.md) — Human-adjudicated Java baseline covering HTTP, DOM, parser, safety, and selector package responsibilities.
 
 ## Baseline rules
 
