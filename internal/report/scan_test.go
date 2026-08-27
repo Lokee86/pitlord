@@ -9,10 +9,7 @@ import (
 )
 
 func TestWriteScanTextReportsEmptyResult(t *testing.T) {
-	result, err := scan.Run(scan.Input{SnapshotPath: "snapshot"})
-	if err != nil {
-		t.Fatal(err)
-	}
+	result := scan.Result{Schema: scan.Schema, Scope: scan.Scope{Kind: "repository", Path: "."}, Findings: []scan.Finding{}}
 	var output bytes.Buffer
 	if err := WriteScanText(&output, result); err != nil {
 		t.Fatal(err)
@@ -23,10 +20,7 @@ func TestWriteScanTextReportsEmptyResult(t *testing.T) {
 }
 
 func TestWriteScanJSONPreservesEmptyFindingsArray(t *testing.T) {
-	result, err := scan.Run(scan.Input{SnapshotPath: "snapshot"})
-	if err != nil {
-		t.Fatal(err)
-	}
+	result := scan.Result{Schema: scan.Schema, Scope: scan.Scope{Kind: "repository", Path: "."}, Findings: []scan.Finding{}}
 	var output bytes.Buffer
 	if err := WriteScanJSON(&output, result); err != nil {
 		t.Fatal(err)

@@ -19,7 +19,8 @@ Pitlord currently provides:
 - evidence-level baselines that suppress existing findings without hiding new ones;
 - text, JSON, and SARIF 2.1.0 output;
 - architecture-community inspection through Arcana;
-- a policy-free `scan` command with the deterministic `pitlord.scan.v1` finding envelope, repository-relative scope, severity counts, and text/JSON output; generalized detectors are not active yet;
+- a policy-free `scan` command with the deterministic `pitlord.scan.v1` finding envelope, repository-relative scope, severity counts, and text/JSON output;
+- a language-neutral dependency-pressure detector that aggregates normalized Arcana relationships by repository file path, deduplicates symbol-level edges into unique file neighbors, and reports anomalous cross-file hubs relative to active peers;
 - direct Homunculus specimen-manifest conversion and expected-diagnostic validation;
 - exact Homunculus mutation verification across baseline and mutated snapshots;
 - snapshot-to-snapshot policy diffing with introduced, resolved, and persistent evidence;
@@ -142,7 +143,7 @@ pitlord inspect \
   --relations calls,imports,references
 ```
 
-`pitlord scan` is the policy-free generalized-guard entry point. The current implementation establishes the stable finding contract and snapshot-scoped execution seam but intentionally emits no findings until the first deterministic detector is added:
+`pitlord scan` is the policy-free generalized-guard entry point. Its first detector reports unusually broad cross-file dependency pressure using Arcana's language-neutral normalized relationship taxonomy. The detector is advisory: it identifies likely hubs and gives a mechanically checkable reduction target without claiming that every hub is architecturally wrong:
 
 ```text
 pitlord scan \

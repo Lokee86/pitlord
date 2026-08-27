@@ -14,7 +14,7 @@ The central product principle is deterministic supervision: coding agents may be
 
 ## Current status
 
-Implementation started. The policy-free `scan` command and deterministic `pitlord.scan.v1` finding contract are in place; generalized detectors remain the next milestone.
+Implementation started. The policy-free `scan` command and deterministic `pitlord.scan.v1` finding contract are in place, along with the first language-neutral dependency-pressure detector. Dependency knots, boundary/cohesion analysis, blast-radius analysis, and broader calibration remain next.
 
 ## Expected ownership
 
@@ -56,7 +56,8 @@ Each planned feature must preserve deterministic evidence, explicit ownership, r
 
 ## Implemented references
 
-- The policy-free `scan` command and `pitlord.scan.v1` result envelope are implemented; detector output remains intentionally empty until calibrated generalized rules land.
+- The policy-free `scan` command and `pitlord.scan.v1` result envelope are implemented.
+- The first generalized detector, `dependency-pressure`, reports anomalous cross-file hubs from normalized Arcana relations without language-specific syntax assumptions.
 - `require_content` is implemented and documented in [Policy reference](../POLICY.md).
 - Shared documentation governance is defined in [Engineering Standards](../../../engineering-standards/docs/INDEX.md).
 

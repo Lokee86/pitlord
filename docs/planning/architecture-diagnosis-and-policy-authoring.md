@@ -8,7 +8,7 @@ This document defines the planned expansion of Pitlord from primarily policy enf
 ## Overview
 Pitlord should grow from primarily enforcing known architecture rules into a workflow that can discover suspicious structures, help a developer decide whether they are intentional, and turn those decisions into durable guardrails without requiring direct JSON-schema authoring.
 ## Status
-In progress. The policy-free `scan` command and deterministic `pitlord.scan.v1` finding envelope are implemented; the generalized detector families, disposition workflow, and policy-authoring flow remain planned. This document otherwise describes target behavior rather than shipped detector behavior.
+In progress. The policy-free `scan` command, deterministic `pitlord.scan.v1` finding envelope, and first language-neutral `dependency-pressure` detector are implemented. The remaining generalized detector families, disposition workflow, and policy-authoring flow remain planned. This document otherwise describes target behavior rather than shipped detector behavior.
 
 ## Problem
 Current Pitlord is strongest after architectural intent has already been encoded. `check` deterministically enforces repository-owned rules, `analyze` summarizes declared architecture areas, and `inspect` exposes Arcana architecture communities. Those foundations leave a missing first step:
@@ -99,7 +99,7 @@ Initial detectors should make measurable structural claims rather than vague jud
 
 ### Initial detector set
 1. **Dependency knots and cyclic clusters** — strongly connected or mutually dependent regions ranked by size, density, and architectural significance.
-2. **Hub and bottleneck candidates** — nodes, files, packages, or communities with anomalously high fan-in, fan-out, or both.
+2. **Hub and bottleneck candidates** — nodes, files, packages, or communities with anomalously high fan-in, fan-out, or both. The first shipped detector covers file-level cross-file dependency pressure; package/community aggregation remains follow-on work.
 3. **Boundary-coupling and cohesion anomalies** — regions with unusually high cross-boundary relationships or weak internal cohesion relative to peers.
 4. **Impact and blast-radius hotspots** — nodes whose transitive dependents cover an unusually large portion of the repository or subsystem.
 

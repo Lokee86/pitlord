@@ -1,42 +1,49 @@
 package scan
 
-import "testing"
+import (
+	"context"
+	"testing"
 
-func TestRunCreatesPolicyFreeEmptyResult(t *testing.T) {
-	result, err := Run(Input{SnapshotPath: "snapshot", PathPrefix: "."})
+	"github.com/Lokee86/pitlord/internal/arcana"
+)
+
+type fakeGraphLoader struct {
+	graph   arcana.Graph
+	options arcana.LoadOptions
+}
+
+func (loader *fakeGraphLoader) LoadGraphWithOptions(_ context.Context, _ string, options arcana.LoadOptions) (arcana.Graph, error) {
+	loader.options = options
+	return loader.graph, nil
+}
+
+func TestEngineRunsWithoutPolicyAndScopesGraphLoad(t *testing.T) {
+	loader := &fakeGraphLoader{graph: arcana.Graph{Outgoing: map[uint32][]arcana.Relationship{}}}
+	result, err := (Engine{Loader: loader}).Run(context.Background(), Input{SnapshotPath: "snapshot", PathPrefix: "./src/service/"})
 	if err != nil {
 		t.Fatal(err)
 	}
-	if result.Schema != Schema {
-		t.Fatalf("unexpected schema %q", result.Schema)
+	if result.Schema != Schema || result.Scope.Path != "src/service" {
+		t.Fatalf("unexpected result: %+v", result)
 	}
-	if result.Scope.Kind != "repository" || result.Scope.Path != "." {
-		t.Fatalf("unexpected scope: %+v", result.Scope)
+	if len(loader.options.SourcePrefixes) != 1 || loader.options.SourcePrefixes[0] != "src/service" {
+		t.Fatalf("unexpected graph load scope: %+v", loader.options)
 	}
-	if result.Findings == nil || len(result.Findings) != 0 {
-		t.Fatalf("expected non-nil empty findings, got %#v", result.Findings)
-	}
-	if result.Summary.FindingCount != 0 {
-		t.Fatalf("unexpected summary: %+v", result.Summary)
+	if result.Findings == nil {
+		t.Fatal("findings must be non-nil")
 	}
 }
 
-func TestRunNormalizesRepositoryRelativeScope(t *testing.T) {
-	result, err := Run(Input{SnapshotPath: "snapshot", PathPrefix: "./src/service/"})
-	if err != nil {
-		t.Fatal(err)
-	}
-	if result.Scope.Path != "src/service" {
-		t.Fatalf("unexpected normalized path %q", result.Scope.Path)
-	}
-}
-
-func TestRunRejectsMissingSnapshotAndEscapingScope(t *testing.T) {
-	if _, err := Run(Input{}); err == nil {
+func TestEngineRejectsMissingSnapshotEscapingScopeAndLoader(t *testing.T) {
+	loader := &fakeGraphLoader{}
+	if _, err := (Engine{Loader: loader}).Run(context.Background(), Input{}); err == nil {
 		t.Fatal("expected missing snapshot failure")
 	}
-	if _, err := Run(Input{SnapshotPath: "snapshot", PathPrefix: "../outside"}); err == nil {
+	if _, err := (Engine{Loader: loader}).Run(context.Background(), Input{SnapshotPath: "snapshot", PathPrefix: "../outside"}); err == nil {
 		t.Fatal("expected escaping scope failure")
+	}
+	if _, err := (Engine{}).Run(context.Background(), Input{SnapshotPath: "snapshot"}); err == nil {
+		t.Fatal("expected missing loader failure")
 	}
 }
 

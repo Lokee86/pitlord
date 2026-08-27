@@ -1,22 +1,31 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"io"
+	"time"
 
+	"github.com/Lokee86/pitlord/internal/arcana"
 	"github.com/Lokee86/pitlord/internal/report"
 	"github.com/Lokee86/pitlord/internal/scan"
 	"github.com/Lokee86/pitlord/internal/snapshot"
 )
 
 func runScan(args []string, stdout, stderr io.Writer) int {
+	return runScanWithLoader(args, stdout, stderr, nil)
+}
+
+func runScanWithLoader(args []string, stdout, stderr io.Writer, loader scan.GraphLoader) int {
 	flags := flag.NewFlagSet("scan", flag.ContinueOnError)
 	flags.SetOutput(stderr)
 	repo := flags.String("repo", ".", "repository root containing .arcana/CURRENT")
 	explicitSnapshot := flags.String("snapshot", "", "explicit Arcana snapshot directory")
+	arcanaCommand := flags.String("arcana", "arcana", "Arcana executable")
 	pathPrefix := flags.String("path-prefix", ".", "repository-relative path prefix to scan")
 	format := flags.String("format", "text", "output format: text or json")
+	timeout := flags.Duration("timeout", 4*time.Minute, "maximum scan duration")
 	if err := flags.Parse(args); err != nil {
 		return 2
 	}
@@ -24,12 +33,21 @@ func runScan(args []string, stdout, stderr io.Writer) int {
 		fmt.Fprintf(stderr, "unsupported format %q\n", *format)
 		return 2
 	}
+	if *timeout <= 0 {
+		fmt.Fprintln(stderr, "--timeout must be positive")
+		return 2
+	}
 	resolvedSnapshot, err := snapshot.Resolve(*repo, *explicitSnapshot)
 	if err != nil {
 		fmt.Fprintln(stderr, err)
 		return 2
 	}
-	result, err := scan.Run(scan.Input{
+	if loader == nil {
+		loader = arcana.Client{Command: *arcanaCommand}
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), *timeout)
+	defer cancel()
+	result, err := (scan.Engine{Loader: loader}).Run(ctx, scan.Input{
 		SnapshotPath: resolvedSnapshot,
 		PathPrefix:   *pathPrefix,
 	})

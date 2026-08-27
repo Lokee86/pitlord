@@ -1,10 +1,13 @@
 package scan
 
 import (
+	"context"
 	"fmt"
 	"path"
 	"path/filepath"
 	"strings"
+
+	"github.com/Lokee86/pitlord/internal/arcana"
 )
 
 type Input struct {
@@ -12,7 +15,15 @@ type Input struct {
 	PathPrefix   string
 }
 
-func Run(input Input) (Result, error) {
+type GraphLoader interface {
+	LoadGraphWithOptions(context.Context, string, arcana.LoadOptions) (arcana.Graph, error)
+}
+
+type Engine struct {
+	Loader GraphLoader
+}
+
+func (engine Engine) Run(ctx context.Context, input Input) (Result, error) {
 	if strings.TrimSpace(input.SnapshotPath) == "" {
 		return Result{}, fmt.Errorf("Arcana snapshot is required")
 	}
@@ -20,14 +31,29 @@ func Run(input Input) (Result, error) {
 	if err != nil {
 		return Result{}, err
 	}
+	if engine.Loader == nil {
+		return Result{}, fmt.Errorf("Arcana graph loader is required")
+	}
+	graph, err := engine.Loader.LoadGraphWithOptions(ctx, input.SnapshotPath, arcana.LoadOptions{
+		SourcePrefixes:   []string{pathPrefix},
+		OutgoingPrefixes: []string{pathPrefix},
+	})
+	if err != nil {
+		return Result{}, err
+	}
+	return analyzeGraph(pathPrefix, graph), nil
+}
+
+func analyzeGraph(pathPrefix string, graph arcana.Graph) Result {
+	findings := detectDependencyPressure(graph, pathPrefix)
 	return finalize(Result{
 		Schema: Schema,
 		Scope: Scope{
 			Kind: "repository",
 			Path: pathPrefix,
 		},
-		Findings: []Finding{},
-	}), nil
+		Findings: findings,
+	})
 }
 
 func normalizePathPrefix(value string) (string, error) {
