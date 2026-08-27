@@ -18,6 +18,7 @@ A baseline may distinguish real architectural pressure, intentional broad seams,
 - [Dapper](dapper.md) — Manually adjudicated C#/.NET reference baseline covering project boundaries, partial types, and the central `SqlMapper` aggregate.
 - [jsoup](jsoup.md) — Manually adjudicated Java reference baseline covering HTTP, DOM, parser, safety, and selector package responsibilities.
 - [detekt](detekt.md) — Manually adjudicated Kotlin reference baseline covering core configuration validation, style-rule implementations, and test-source findings.
+- [Lexicanter](lexicanter.md) — Manually adjudicated Svelte/TypeScript and Rust reference baseline with known application-layout maintenance debt.
 
 ## Baseline rules
 
