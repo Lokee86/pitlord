@@ -17,6 +17,7 @@ A baseline may distinguish real architectural pressure, intentional broad seams,
 - [Space Rocks Clean Control v1](space-rocks-clean-v1.md) — Manually adjudicated dependency-pressure reference baseline for the frozen multi-language Space Rocks control.
 - [Dapper](dapper.md) — Manually adjudicated C#/.NET reference baseline covering project boundaries, partial types, and the central `SqlMapper` aggregate.
 - [jsoup](jsoup.md) — Manually adjudicated Java reference baseline covering HTTP, DOM, parser, safety, and selector package responsibilities.
+- [detekt](detekt.md) — Manually adjudicated Kotlin reference baseline covering core configuration validation, style-rule implementations, and test-source findings.
 
 ## Baseline rules
 
