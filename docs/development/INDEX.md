@@ -15,6 +15,10 @@ Development documentation maps implementation boundaries to canonical documents 
 - [Documentation coverage](documentation-coverage.md) — Production packages, commands, stateful flows, and their current owners.
 - [Behavioral contract matrix](behavioral-contract-matrix.md) — Critical invariants and the tests that protect them.
 
+## Direct folders
+
+- [Diagnosis calibration baselines](calibration/INDEX.md) — Human-adjudicated real-world architecture ground truth used to tune generalized detectors.
+
 ## Related docs
 
 - [Architecture](../ARCHITECTURE.md)
