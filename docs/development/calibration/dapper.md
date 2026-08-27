@@ -4,7 +4,7 @@ Parent index: [Diagnosis Calibration Baselines](INDEX.md)
 
 ## Purpose
 
-This document freezes the human-adjudicated architecture state of the Dapper corpus used for Pitlord dependency-pressure calibration.
+This document freezes the manually adjudicated reference architecture state of the Dapper corpus used for Pitlord dependency-pressure calibration.
 
 ## Overview
 
@@ -30,7 +30,7 @@ A repository-wide dependency-pressure scan reports 12 advisory findings: 7 produ
 
 The difference between repository-wide and project-scoped output is preserved as an observation, not treated here as ground truth.
 
-## Human-adjudicated production state
+## Manually adjudicated production state
 
 | Scope | Expected interpretation | Notes |
 | --- | --- | --- |

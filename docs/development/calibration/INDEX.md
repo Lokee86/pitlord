@@ -4,7 +4,7 @@ Parent index: [Development Documentation](../INDEX.md)
 
 ## Purpose
 
-This index owns human-adjudicated architecture ground truth used to calibrate Pitlord's generalized diagnosis detectors.
+This index owns manually adjudicated reference architecture ground truth produced by calibration audits and used to calibrate Pitlord's generalized diagnosis detectors.
 
 ## Overview
 
@@ -14,14 +14,14 @@ A baseline may distinguish real architectural pressure, intentional broad seams,
 
 ## Direct files
 
-- [Space Rocks Clean Control v1](space-rocks-clean-v1.md) — Human-adjudicated dependency-pressure baseline for the frozen multi-language Space Rocks control.
-- [Dapper](dapper.md) — Human-adjudicated C#/.NET baseline covering project boundaries, partial types, and the central `SqlMapper` aggregate.
-- [jsoup](jsoup.md) — Human-adjudicated Java baseline covering HTTP, DOM, parser, safety, and selector package responsibilities.
+- [Space Rocks Clean Control v1](space-rocks-clean-v1.md) — Manually adjudicated dependency-pressure reference baseline for the frozen multi-language Space Rocks control.
+- [Dapper](dapper.md) — Manually adjudicated C#/.NET reference baseline covering project boundaries, partial types, and the central `SqlMapper` aggregate.
+- [jsoup](jsoup.md) — Manually adjudicated Java reference baseline covering HTTP, DOM, parser, safety, and selector package responsibilities.
 
 ## Baseline rules
 
 - Pin an exact source commit or immutable specimen identity.
-- Keep human adjudication separate from current Pitlord output.
+- Keep reference adjudication separate from current Pitlord output.
 - Record why an expected finding is meaningful or why a graph outlier should be suppressed.
 - Preserve legitimate pre-existing debt as baseline truth rather than modifying the corpus to make it appear clean.
 - Treat tests, benchmarks, generated sources, composition roots, routers, orchestrators, and language/package structure as potentially distinct peer classes.

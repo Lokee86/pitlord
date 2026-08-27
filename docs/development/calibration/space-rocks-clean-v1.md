@@ -4,7 +4,7 @@ Parent index: [Diagnosis Calibration Baselines](INDEX.md)
 
 ## Purpose
 
-This document freezes the human-adjudicated architecture baseline for the Space Rocks clean control used to tune Pitlord's generalized dependency-pressure diagnosis.
+This document freezes the manually adjudicated reference architecture baseline for the Space Rocks clean control used to tune Pitlord's generalized dependency-pressure diagnosis.
 
 ## Overview
 
@@ -18,7 +18,7 @@ Pitlord must be calibrated against these judgments rather than against the curre
 - Source checkout: `workspace/corpus/space-rocks-clean-v1`
 - Pinned commit: `361dcdb4054725c8f1bb58727ff402fcfedf6d18`
 - Commit subject: `feat(gameplay): add deathmatch spawn profiles`
-- Human adjudication frozen: 2026-08-27
+- Reference adjudication frozen: 2026-08-27
 - Primary detector under calibration: `dependency-pressure`
 
 Generated Grimoire, Lexicon, Arcana, Warlock, build, and test state does not redefine this source identity.
@@ -135,4 +135,4 @@ For this baseline, tuning quality should be measured by labelled judgment rather
 
 ## Notes
 
-This is human-adjudicated tuning ground truth for the pinned source revision. A later Space Rocks commit requires a new baseline identity or an explicit requalification; it must not silently replace this one.
+This is manually adjudicated reference tuning ground truth for the pinned source revision. A later Space Rocks commit requires a new baseline identity or an explicit requalification; it must not silently replace this one.
