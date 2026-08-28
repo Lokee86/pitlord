@@ -40,6 +40,81 @@ func TestBoundaryCohesionFindsOutwardFacingWeakRegion(t *testing.T) {
 	}
 }
 
+func TestBoundaryCohesionKeepsSharedTargetCatalogQuiet(t *testing.T) {
+	graph := dependencyTestGraph(32)
+	addCalibrationNamespaceRegions(&graph, 8)
+
+	for region := uint32(0); region < 4; region++ {
+		start := region*8 + 1
+		for offset := uint32(0); offset < 8; offset++ {
+			source := start + offset
+			addDependency(&graph, source, start+(offset+1)%8, "references")
+			addDependency(&graph, source, start+(offset+2)%8, "depends-on")
+		}
+	}
+	for source := uint32(1); source <= 8; source++ {
+		graph.Outgoing[dependencySymbolID(source)] = nil
+		addDependency(&graph, source, 9+(source-1)%8, "depends-on")
+		addDependency(&graph, source, 17+(source-1)%8, "depends-on")
+	}
+
+	if findings := detectBoundaryCohesion(graph, "."); len(findings) != 0 {
+		t.Fatalf("catalog-like region reaching a bounded shared target set should remain quiet: %#v", findings)
+	}
+}
+
+func TestBoundaryCohesionRequiresAbsolutelyWeakInternalSupport(t *testing.T) {
+	graph := dependencyTestGraph(32)
+	addCalibrationNamespaceRegions(&graph, 8)
+
+	for region := uint32(0); region < 4; region++ {
+		start := region*8 + 1
+		for offset := uint32(0); offset < 8; offset++ {
+			source := start + offset
+			addDependency(&graph, source, start+(offset+1)%8, "references")
+			addDependency(&graph, source, start+(offset+2)%8, "depends-on")
+		}
+	}
+	for source := uint32(1); source <= 8; source++ {
+		graph.Outgoing[dependencySymbolID(source)] = nil
+		for region := uint32(1); region < 4; region++ {
+			addDependency(&graph, source, region*8+source, "depends-on")
+		}
+		addDependency(&graph, source, 1+source%8, "calls")
+	}
+
+	if findings := detectBoundaryCohesion(graph, "."); len(findings) != 0 {
+		t.Fatalf("region with one internal support relationship per member is not absolutely weak: %#v", findings)
+	}
+}
+
+func TestBoundaryCohesionCountsRuntimeCollaborationAsInternalSupport(t *testing.T) {
+	graph := dependencyTestGraph(32)
+	addCalibrationNamespaceRegions(&graph, 8)
+
+	for region := uint32(0); region < 4; region++ {
+		start := region*8 + 1
+		for offset := uint32(0); offset < 8; offset++ {
+			source := start + offset
+			addDependency(&graph, source, start+(offset+1)%8, "references")
+			addDependency(&graph, source, start+(offset+2)%8, "depends-on")
+		}
+	}
+	for source := uint32(1); source <= 8; source++ {
+		graph.Outgoing[dependencySymbolID(source)] = nil
+		for region := uint32(1); region < 4; region++ {
+			addDependency(&graph, source, region*8+source, "depends-on")
+		}
+		for offset := uint32(1); offset <= 3; offset++ {
+			addDependency(&graph, source, 1+(source-1+offset)%8, "calls")
+		}
+	}
+
+	if findings := detectBoundaryCohesion(graph, "."); len(findings) != 0 {
+		t.Fatalf("runtime collaboration inside the region should establish cohesion support: %#v", findings)
+	}
+}
+
 func TestBoundaryCohesionKeepsIncomingSharedHubRegionQuiet(t *testing.T) {
 	graph := directionalizeCalibrationReferences(hubHeavyCalibrationGraph())
 	addCalibrationNamespaceRegions(&graph, 8)
