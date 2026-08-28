@@ -1,0 +1,11 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"java-gson",
+  "source_revision":"aebc51a56ca0793c13b841c29f73433b82446695",
+  "detector":"boundary-cohesion",
+  "expectations":[
+    {"id":"sql-adapter-family","path":"gson/src/main/java/com/google/gson/internal/sql/SqlDateTypeAdapter.java","class":"cohesive-adapter-family","finding":"absent"},
+    {"id":"annotation-api","path":"gson/src/main/java/com/google/gson/annotations/Expose.java","class":"declarative-api-catalog","finding":"absent"},
+    {"id":"reflect-api","path":"gson/src/main/java/com/google/gson/reflect/TypeToken.java","class":"high-fan-in-public-api","finding":"absent"}
+  ]
+}

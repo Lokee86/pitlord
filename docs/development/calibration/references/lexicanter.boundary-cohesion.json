@@ -1,0 +1,9 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"lexicanter",
+  "source_revision":"eac754788b3cf18a930c085c1c49f8f353e18107",
+  "detector":"boundary-cohesion",
+  "expectations":[
+    {"id":"layout-directory","path":"src/app/layouts/Changelog.svelte","class":"physical-presentation-bucket","finding":"absent"}
+  ]
+}

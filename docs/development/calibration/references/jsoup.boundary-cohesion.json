@@ -1,0 +1,10 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"java-jsoup",
+  "source_revision":"d24b16d952530f3aefe87e91c344b23fe4b8a7fc",
+  "detector":"boundary-cohesion",
+  "expectations":[
+    {"id":"safety-subsystem","path":"src/main/java/org/jsoup/safety/Cleaner.java","class":"cohesive-layered-subsystem","finding":"absent"},
+    {"id":"public-facade-package","path":"src/main/java/org/jsoup/Connection.java","class":"public-facade-seam","finding":"absent"}
+  ]
+}

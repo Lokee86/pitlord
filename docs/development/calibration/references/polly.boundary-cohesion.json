@@ -1,0 +1,10 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"cs-polly",
+  "source_revision":"9fd716c1e84288a6a8a1c7ad9426fb8a8e66942d",
+  "detector":"boundary-cohesion",
+  "expectations":[
+    {"id":"hedging-strategy-family","path":"src/Polly.Core/Hedging/Controller/TaskExecution.cs","class":"cohesive-strategy-family","finding":"absent"},
+    {"id":"legacy-wrapper-adapters","path":"src/Polly/Utilities/Wrappers/ResilienceContextFactory.cs","class":"compatibility-wrapper-seam","finding":"absent"}
+  ]
+}

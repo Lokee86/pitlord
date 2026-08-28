@@ -1,0 +1,12 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"java-maven",
+  "source_revision":"b646a7a38e920f7590e7b25fb43b5756d8bf2b4d",
+  "detector":"boundary-cohesion",
+  "expectations":[
+    {"id":"core-it-plugin-support","path":"its/core-it-support/core-it-plugins/maven-it-plugin-active-collection/src/main/java/org/apache/maven/plugin/coreit/CheckMojo.java","class":"integration-test-support-catalog","finding":"absent"},
+    {"id":"model-spi","path":"api/maven-api-spi/src/main/java/org/apache/maven/api/services/model/DependencyManagementImporter.java","class":"high-fan-in-service-api","finding":"absent"},
+    {"id":"mvn-cli-invoker","path":"impl/maven-cli/src/main/java/org/apache/maven/cling/invoker/mvn/CommonsCliMavenOptions.java","class":"composition-and-invocation-seam","finding":"absent"},
+    {"id":"lifecycle-builder","path":"impl/maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/Builder.java","class":"orchestration-builder-seam","finding":"absent"}
+  ]
+}

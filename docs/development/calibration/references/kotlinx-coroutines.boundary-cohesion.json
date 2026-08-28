@@ -1,0 +1,10 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"kotlin-coroutines",
+  "source_revision":"04ada74fae2e8914ae92ece34e06e80bb15385e9",
+  "detector":"boundary-cohesion",
+  "expectations":[
+    {"id":"common-internal-runtime","path":"kotlinx-coroutines-core/common/src/internal/Concurrent.common.kt","class":"multiplatform-internal-runtime","finding":"absent"},
+    {"id":"rx3-adapter-module","path":"reactive/kotlinx-coroutines-rx3/src/RxAwait.kt","class":"platform-adapter-module","finding":"absent"}
+  ]
+}

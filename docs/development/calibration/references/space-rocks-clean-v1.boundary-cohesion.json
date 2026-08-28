@@ -1,0 +1,11 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"space-rocks-clean-v1",
+  "source_revision":"361dcdb4054725c8f1bb58727ff402fcfedf6d18",
+  "detector":"boundary-cohesion",
+  "expectations":[
+    {"id":"client-shell-composition","path":"client/scripts/shell/app_entry.gd","class":"composition-shell","finding":"absent"},
+    {"id":"client-networking-seam","path":"client/scripts/networking/client_connection_service.gd","class":"cohesive-networking-seam","finding":"absent"},
+    {"id":"game-package-decomposition","path":"services/game-server/internal/game/asteroid_destruction.go","class":"same-package-decomposition","finding":"absent"}
+  ]
+}

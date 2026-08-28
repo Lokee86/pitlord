@@ -1,0 +1,10 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"kotlin-detekt",
+  "source_revision":"f9e1d5cc239ab740ce499b1edb36b872012648e2",
+  "detector":"boundary-cohesion",
+  "expectations":[
+    {"id":"ktlint-wrapper-rule-catalog","path":"detekt-rules-ktlint-wrapper/src/main/kotlin/dev/detekt/rules/ktlintwrapper/wrappers/AnnotationOnSeparateLine.kt","class":"independent-rule-catalog","finding":"absent"},
+    {"id":"style-rule-catalog","path":"detekt-rules-style/src/main/kotlin/dev/detekt/rules/style/AbstractClassCanBeConcreteClass.kt","class":"independent-rule-catalog","finding":"absent"}
+  ]
+}

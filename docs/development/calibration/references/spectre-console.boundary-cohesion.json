@@ -1,0 +1,10 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"cs-spectre",
+  "source_revision":"555a00ae317abc9b7a49100cda3251584b0a8861",
+  "detector":"boundary-cohesion",
+  "expectations":[
+    {"id":"rendering-subsystem","path":"src/Spectre.Console/Rendering/Borders/Boxes/AsciiBoxBorder.cs","class":"cohesive-rendering-subsystem","finding":"absent"},
+    {"id":"ci-enricher-catalog","path":"src/Spectre.Console/Enrichment/CI/AzurePipelinesEnricher.cs","class":"independent-implementation-catalog","finding":"absent"}
+  ]
+}
