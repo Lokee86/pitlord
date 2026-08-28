@@ -1,0 +1,11 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"lexicanter",
+  "source_revision":"eac754788b3cf18a930c085c1c49f8f353e18107",
+  "detector":"dependency-knots",
+  "expectations":[
+    {"id":"app-root","path":"src/app/App.svelte","class":"intentional-composition-root","finding":"absent"},
+    {"id":"file-layout","path":"src/app/layouts/File.svelte","class":"non-cyclic-maintenance-debt","finding":"absent"},
+    {"id":"settings-layout","path":"src/app/layouts/Settings.svelte","class":"non-cyclic-structural-debt","finding":"absent"}
+  ]
+}

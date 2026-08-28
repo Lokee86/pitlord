@@ -15,7 +15,8 @@ A baseline may distinguish real architectural pressure, intentional broad seams,
 ## Direct files
 
 - [Calibration evaluation harness](HARNESS.md) — Machine-readable `pitlord.calibration.v1` references, pinned-revision verification, labelled scoring, and command usage.
-- [Calibration references](references/INDEX.md) — The 16 machine-readable detector scoring projections for the frozen corpora.
+- [Calibration references](references/INDEX.md) — The 32 machine-readable detector scoring projections for the 16 frozen corpora across dependency pressure and dependency knots.
+- [Dependency-knot baseline](dependency-knots.md) — First real-corpus knot audit, including required package knots, allowed cyclic seams, and false callback/directory cycles.
 - [Space Rocks Clean Control v1](space-rocks-clean-v1.md) — Manually adjudicated dependency-pressure reference baseline for the frozen multi-language Space Rocks control.
 - [Dapper](dapper.md) — Manually adjudicated C#/.NET reference baseline covering project boundaries, partial types, and the central `SqlMapper` aggregate.
 - [jsoup](jsoup.md) — Manually adjudicated Java reference baseline covering HTTP, DOM, parser, safety, and selector package responsibilities.

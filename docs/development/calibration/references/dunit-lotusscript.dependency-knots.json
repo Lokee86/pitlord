@@ -1,0 +1,10 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"dunit-lotusscript",
+  "source_revision":"e013a21cc511fcadc93afa1e9095ac9da0b50984",
+  "detector":"dependency-knots",
+  "expectations":[
+    {"id":"dunit-core","path":"ODP/Code/ScriptLibraries/ru.livescripts.dunit.core.lss","class":"clean","finding":"absent"},
+    {"id":"test-runner","path":"ODP/Code/Agents/TestRunner.lsa","class":"intentional-orchestration","finding":"absent"}
+  ]
+}

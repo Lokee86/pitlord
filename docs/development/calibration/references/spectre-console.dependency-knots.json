@@ -1,0 +1,14 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"cs-spectre",
+  "source_revision":"555a00ae317abc9b7a49100cda3251584b0a8861",
+  "detector":"dependency-knots",
+  "expectations":[
+    {"id":"ansi-same-namespace-cycle","path":"src/Spectre.Console.Ansi/AnsiCapabilities.cs","class":"directory-granularity-false-positive","finding":"absent"},
+    {"id":"box-border-catalog","path":"src/Spectre.Console/BoxBorder.Known.cs","class":"intentional-catalog-cycle","finding":"allowed","max_severity":"warning"},
+    {"id":"table-border-catalog","path":"src/Spectre.Console/Rendering/Borders/Tables/Ascii2TableBorder.cs","class":"intentional-catalog-cycle","finding":"allowed","max_severity":"warning"},
+    {"id":"tree-node-contract","path":"src/Spectre.Console/IHasTreeNodes.cs","class":"recursive-domain-contract","finding":"allowed","max_severity":"warning"},
+    {"id":"tree-guide-catalog","path":"src/Spectre.Console/Rendering/Tree/AsciiTreeGuide.cs","class":"intentional-catalog-cycle","finding":"allowed","max_severity":"warning"},
+    {"id":"tests","path_prefix":"test","class":"peer-class-exception","finding":"absent"}
+  ]
+}

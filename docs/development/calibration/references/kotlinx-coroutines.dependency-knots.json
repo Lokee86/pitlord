@@ -1,0 +1,14 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"kotlin-coroutines",
+  "source_revision":"04ada74fae2e8914ae92ece34e06e80bb15385e9",
+  "detector":"dependency-knots",
+  "expectations":[
+    {"id":"dispatcher-internal-cycle","path":"kotlinx-coroutines-core/common/src/CoroutineDispatcher.kt","class":"intentional-public-internal-runtime-cycle","finding":"allowed","max_severity":"warning"},
+    {"id":"scope-internal-cycle","path":"kotlinx-coroutines-core/common/src/CoroutineScope.kt","class":"intentional-public-internal-runtime-cycle","finding":"allowed","max_severity":"warning"},
+    {"id":"flow-context-cycle","path":"kotlinx-coroutines-core/common/src/flow/Flow.kt","class":"cohesive-flow-cycle","finding":"allowed","max_severity":"warning"},
+    {"id":"shared-state-flow-cycle","path":"kotlinx-coroutines-core/common/src/flow/SharedFlow.kt","class":"cohesive-algorithmic-cycle","finding":"allowed","max_severity":"warning"},
+    {"id":"thread-context-cycle","path":"kotlinx-coroutines-core/jvm/src/ThreadContextElement.kt","class":"cohesive-runtime-cycle","finding":"allowed","max_severity":"warning"},
+    {"id":"tests","path_prefix":"kotlinx-coroutines-core/jvm/test","class":"peer-class-exception","finding":"absent"}
+  ]
+}

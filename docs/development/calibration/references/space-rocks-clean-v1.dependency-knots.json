@@ -1,0 +1,15 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"space-rocks-clean-v1",
+  "source_revision":"361dcdb4054725c8f1bb58727ff402fcfedf6d18",
+  "detector":"dependency-knots",
+  "expectations":[
+    {"id":"inbound-dispatch-cycle","path":"services/game-server/internal/networking/inbound/auth.go","class":"interface-dispatch-false-cycle","finding":"absent"},
+    {"id":"gut-addon","path":"client/addons/gut/gui/editor_globals.gd","class":"vendored-tool-peer-exception","finding":"absent"},
+    {"id":"gameplay-composition-callback","path":"client/scripts/gameplay/gameplay_composition.gd","class":"composition-callback-false-cycle","finding":"absent"},
+    {"id":"realtime-session-callback","path":"client/scripts/networking/client_connection_service.gd","class":"callback-dispatch-false-cycle","finding":"absent"},
+    {"id":"profile-auth-adapter","path":"services/game-server/cmd/game-server/player_data_http.go","class":"interface-dispatch-false-cycle","finding":"absent"},
+    {"id":"local-store-factory","path":"services/game-server/cmd/game-server/player_data_local_store_dev.go","class":"factory-callback-false-cycle","finding":"absent"},
+    {"id":"packet-router-callback","path":"services/game-server/internal/networking/client_packet_router.go","class":"function-callback-false-cycle","finding":"absent"}
+  ]
+}

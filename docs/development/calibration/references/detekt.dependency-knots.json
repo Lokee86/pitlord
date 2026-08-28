@@ -1,0 +1,11 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"kotlin-detekt",
+  "source_revision":"f9e1d5cc239ab740ce499b1edb36b872012648e2",
+  "detector":"dependency-knots",
+  "expectations":[
+    {"id":"config-validation","path":"detekt-core/src/main/kotlin/dev/detekt/core/config/validation/ConfigValidation.kt","class":"clean-orchestration","finding":"absent"},
+    {"id":"unused-private-function","path":"detekt-rules-style/src/main/kotlin/dev/detekt/rules/style/UnusedPrivateFunction.kt","class":"clean-rule-implementation","finding":"absent"},
+    {"id":"tests","path_prefix":"detekt-core/src/test","class":"peer-class-exception","finding":"absent"}
+  ]
+}

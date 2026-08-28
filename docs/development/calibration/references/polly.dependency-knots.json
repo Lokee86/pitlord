@@ -1,0 +1,13 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"cs-polly",
+  "source_revision":"9fd716c1e84288a6a8a1c7ad9426fb8a8e66942d",
+  "detector":"dependency-knots",
+  "expectations":[
+    {"id":"circuit-state-controller","path":"src/Polly.Core/CircuitBreaker/Controller/CircuitStateController.cs","class":"non-cyclic-maintenance-watch","finding":"absent"},
+    {"id":"pipeline-component-factory","path":"src/Polly.Core/Utils/Pipeline/PipelineComponentFactory.cs","class":"intentional-composition","finding":"absent"},
+    {"id":"legacy-circuit","path":"src/Polly/CircuitBreaker/CircuitBreakerPolicy.cs","class":"compatibility-watch","finding":"absent"},
+    {"id":"tests","path_prefix":"test","class":"peer-class-exception","finding":"absent"},
+    {"id":"benchmarks","path_prefix":"bench","class":"peer-class-exception","finding":"absent"}
+  ]
+}

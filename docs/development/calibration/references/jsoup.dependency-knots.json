@@ -1,0 +1,10 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"java-jsoup",
+  "source_revision":"d24b16d952530f3aefe87e91c344b23fe4b8a7fc",
+  "detector":"dependency-knots",
+  "expectations":[
+    {"id":"core-package-knot","path":"src/main/java/org/jsoup/Connection.java","class":"structural-package-knot","finding":"required","min_severity":"warning","max_severity":"high"},
+    {"id":"tests","path_prefix":"src/test","class":"peer-class-exception","finding":"absent"}
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"java-maven",
+  "source_revision":"b646a7a38e920f7590e7b25fb43b5756d8bf2b4d",
+  "detector":"dependency-knots",
+  "expectations":[
+    {"id":"compat-artifact-knot","path":"compat/maven-artifact/src/main/java/org/apache/maven/artifact/Artifact.java","class":"compatibility-package-knot","finding":"required","min_severity":"warning","max_severity":"high"},
+    {"id":"lifecycle-plan-knot","path":"impl/maven-core/src/main/java/org/apache/maven/lifecycle/MavenExecutionPlan.java","class":"structural-package-knot","finding":"required","min_severity":"warning","max_severity":"high"},
+    {"id":"session-service-api-cycle","path":"api/maven-api-core/src/main/java/org/apache/maven/api/Session.java","class":"intentional-public-api-cycle","finding":"allowed","max_severity":"warning"},
+    {"id":"project-artifact-factory-knot","path":"impl/maven-core/src/main/java/org/apache/maven/lifecycle/internal/DefaultProjectArtifactFactory.java","class":"project-lifecycle-package-knot","finding":"required","min_severity":"warning","max_severity":"warning"},
+    {"id":"injector-implementation-cycle","path":"impl/maven-di/src/main/java/org/apache/maven/di/Injector.java","class":"intentional-api-implementation-cycle","finding":"allowed","max_severity":"warning"},
+    {"id":"testing-support","path_prefix":"impl/maven-testing/src/main","class":"peer-class-exception","finding":"absent"}
+  ]
+}

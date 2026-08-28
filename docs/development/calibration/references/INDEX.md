@@ -8,9 +8,18 @@ This folder contains the machine-readable `pitlord.calibration.v1` scoring proje
 
 ## Overview
 
-Each JSON reference pins one exact corpus revision and translates its manually adjudicated architecture baseline into detector-specific `required`, `absent`, or `allowed` expectations. The human-readable Markdown baseline remains the source of architectural rationale.
+Each JSON reference pins one exact corpus revision and translates its manually adjudicated architecture baseline into detector-specific `required`, `absent`, or `allowed` expectations. The Markdown calibration baseline remains the source of architectural rationale.
+
+The 16 frozen corpora currently have two projections each:
+
+- `<corpus>.json` — calibrated `dependency-pressure` projection;
+- `<corpus>.dependency-knots.json` — frozen `dependency-knots` projection used to measure the initial knot detector before tuning.
+
+The two projections intentionally need not classify the same architectural condition as required. A real source-concentration problem, for example, can be outside both dependency-pressure and dependency-knot ownership.
 
 ## Direct files
+
+### Dependency pressure
 
 - `space-rocks-clean-v1.json`
 - `dapper.json`
@@ -29,11 +38,31 @@ Each JSON reference pins one exact corpus revision and translates its manually a
 - `jsonparser-lotusscript.json`
 - `volt-mx-lotusscript-toolkit.json`
 
+### Dependency knots
+
+- `space-rocks-clean-v1.dependency-knots.json`
+- `dapper.dependency-knots.json`
+- `jsoup.dependency-knots.json`
+- `detekt.dependency-knots.json`
+- `lexicanter.dependency-knots.json`
+- `polly.dependency-knots.json`
+- `spectre-console.dependency-knots.json`
+- `gson.dependency-knots.json`
+- `hikaricp.dependency-knots.json`
+- `jmh.dependency-knots.json`
+- `maven.dependency-knots.json`
+- `kotlinx-coroutines.dependency-knots.json`
+- `now-in-android.dependency-knots.json`
+- `dunit-lotusscript.dependency-knots.json`
+- `jsonparser-lotusscript.dependency-knots.json`
+- `volt-mx-lotusscript-toolkit.dependency-knots.json`
+
 ## Related docs
 
 - [Calibration evaluation harness](../HARNESS.md)
+- [Dependency-knot baseline](../dependency-knots.md)
 - [Diagnosis calibration baselines](../INDEX.md)
 
 ## Notes
 
-Reference files are versioned ground truth. Detector tuning must not rewrite them merely to improve scores.
+Reference files are versioned reference ground truth. Detector tuning must not rewrite them merely to improve scores.

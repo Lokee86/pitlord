@@ -1,0 +1,9 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"jsonparser-ls",
+  "source_revision":"2406bc4431225ef83276700bda853ae247bd9cfd",
+  "detector":"dependency-knots",
+  "expectations":[
+    {"id":"json-parser","path":"json.ls","class":"single-unit-maintenance-watch","finding":"absent"}
+  ]
+}

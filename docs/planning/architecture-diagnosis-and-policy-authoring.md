@@ -8,7 +8,7 @@ This document defines the planned expansion of Pitlord from primarily policy enf
 ## Overview
 Pitlord should grow from primarily enforcing known architecture rules into a workflow that can discover suspicious structures, help a developer decide whether they are intentional, and turn those decisions into durable guardrails without requiring direct JSON-schema authoring.
 ## Status
-In progress. The policy-free `scan` command, deterministic `pitlord.scan.v1` finding envelope, calibrated language-neutral `dependency-pressure` detector, and initial language-neutral `dependency-knots` detector are implemented. Knot real-corpus calibration, the remaining generalized detector families, disposition workflow, and policy-authoring flow remain planned. This document otherwise describes target behavior rather than shipped detector behavior.
+In progress. The policy-free `scan` command, deterministic `pitlord.scan.v1` finding envelope, calibrated language-neutral `dependency-pressure` detector, and initial language-neutral `dependency-knots` detector are implemented. The knot detector now has a frozen 16-corpus detector-specific baseline and is ready for tuning; the remaining generalized detector families, disposition workflow, and policy-authoring flow remain planned. This document otherwise describes target behavior rather than shipped detector behavior.
 
 ## Problem
 Current Pitlord is strongest after architectural intent has already been encoded. `check` deterministically enforces repository-owned rules, `analyze` summarizes declared architecture areas, and `inspect` exposes Arcana architecture communities. Those foundations leave a missing first step:

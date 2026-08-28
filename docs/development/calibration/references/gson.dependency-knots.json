@@ -1,0 +1,13 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"java-gson",
+  "source_revision":"aebc51a56ca0793c13b841c29f73433b82446695",
+  "detector":"dependency-knots",
+  "expectations":[
+    {"id":"json-tree-stream-knot","path":"gson/src/main/java/com/google/gson/FormattingStyle.java","class":"structural-package-knot","finding":"required","min_severity":"warning","max_severity":"high"},
+    {"id":"gson-core-bind-knot","path":"gson/src/main/java/com/google/gson/Gson.java","class":"structural-package-knot","finding":"required","min_severity":"warning","max_severity":"high"},
+    {"id":"reflection-filter-helper","path":"gson/src/main/java/com/google/gson/ReflectionAccessFilter.java","class":"public-internal-helper-cycle","finding":"allowed","max_severity":"warning"},
+    {"id":"tests","path_prefix":"gson/src/test","class":"peer-class-exception","finding":"absent"},
+    {"id":"shrinker-tests","path_prefix":"test-shrinker","class":"peer-class-exception","finding":"absent"}
+  ]
+}

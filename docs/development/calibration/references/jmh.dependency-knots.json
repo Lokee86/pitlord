@@ -1,0 +1,11 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"java-jmh",
+  "source_revision":"a194eead0136bb66e5e59e4fdb2e18543e730929",
+  "detector":"dependency-knots",
+  "expectations":[
+    {"id":"benchmark-generator","path":"jmh-core/src/main/java/org/openjdk/jmh/generators/core/BenchmarkGenerator.java","class":"non-cyclic-structural-pressure","finding":"absent"},
+    {"id":"state-object-handler","path":"jmh-core/src/main/java/org/openjdk/jmh/generators/core/StateObjectHandler.java","class":"non-cyclic-structural-pressure","finding":"absent"},
+    {"id":"samples","path_prefix":"jmh-samples","class":"peer-class-exception","finding":"absent"}
+  ]
+}
