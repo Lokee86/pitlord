@@ -15,10 +15,11 @@ A baseline may distinguish real architectural pressure, intentional broad seams,
 ## Direct files
 
 - [Calibration evaluation harness](HARNESS.md) — Machine-readable `pitlord.calibration.v1` references, pinned-revision verification, labelled scoring, and command usage.
-- [Calibration references](references/INDEX.md) — The 64 machine-readable detector scoring projections for the 16 frozen corpora across dependency pressure, dependency knots, boundary/cohesion, and hub/bottleneck analysis.
+- [Calibration references](references/INDEX.md) — The 80 machine-readable detector scoring projections for the 16 frozen corpora across dependency pressure, dependency knots, boundary/cohesion, hub/bottleneck, and impact/blast-radius analysis.
 - [Dependency-knot baseline](dependency-knots.md) — First real-corpus knot audit, including required package knots, allowed cyclic seams, and false callback/directory cycles.
 - [Boundary/cohesion baseline](boundary-cohesion.md) — First real-corpus boundary/cohesion audit, including the untouched zero-output failure, 30 negative controls, and the limits of positive-corpus coverage.
 - [Hub/bottleneck baseline](hub-bottleneck.md) — Centrality audit and tuning record: one required real-world maintenance gravity well, 33 labelled untouched false positives, and the tuned many-to-many behavioral-waist projection at 1 TP / 43 TN / 0 FP / 0 FN.
+- [Impact/blast-radius baseline](impact-blast-radius.md) — First transitive-impact audit: 74 untouched findings, all frozen absent because file-level closure inherited downstream reach from catalogs, contracts, and shared foundations; synthetic topology supplies the current positive control.
 - [Space Rocks Clean Control v1](space-rocks-clean-v1.md) — Manually adjudicated dependency-pressure reference baseline for the frozen multi-language Space Rocks control.
 - [Dapper](dapper.md) — Manually adjudicated C#/.NET reference baseline covering project boundaries, partial types, and the central `SqlMapper` aggregate.
 - [jsoup](jsoup.md) — Manually adjudicated Java reference baseline covering HTTP, DOM, parser, safety, and selector package responsibilities.

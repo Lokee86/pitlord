@@ -10,14 +10,15 @@ This folder contains the machine-readable `pitlord.calibration.v1` scoring proje
 
 Each JSON reference pins one exact corpus revision and translates its manually adjudicated architecture baseline into detector-specific `required`, `absent`, or `allowed` expectations. The Markdown calibration baseline remains the source of architectural rationale.
 
-The 16 frozen corpora currently have four projections each:
+The 16 frozen corpora currently have five projections each:
 
 - `<corpus>.json` — calibrated `dependency-pressure` projection;
 - `<corpus>.dependency-knots.json` — frozen `dependency-knots` projection used to measure the initial knot detector before tuning;
 - `<corpus>.boundary-cohesion.json` — frozen `boundary-cohesion` projection used to constrain real-corpus false positives while synthetic topology supplies the current positive control; and
-- `<corpus>.hub-bottleneck.json` — frozen `hub-bottleneck` projection separating genuine central maintenance gravity from healthy shared abstractions and data/contracts.
+- `<corpus>.hub-bottleneck.json` — frozen `hub-bottleneck` projection separating genuine central maintenance gravity from healthy shared abstractions and data/contracts; and
+- `<corpus>.impact-blast-radius.json` — frozen `impact-blast-radius` projection constraining inherited transitive closure through catalogs, contracts, and shared foundations.
 
-The projections intentionally need not classify the same architectural condition as required. A real source-concentration problem, for example, can be outside dependency-pressure, dependency-knot, boundary/cohesion, and hub/bottleneck ownership.
+The projections intentionally need not classify the same architectural condition as required. A real source-concentration problem, for example, can be outside dependency-pressure, dependency-knot, boundary/cohesion, hub/bottleneck, and impact/blast-radius ownership.
 
 ## Direct files
 
@@ -78,6 +79,25 @@ The projections intentionally need not classify the same architectural condition
 - `jsonparser-lotusscript.boundary-cohesion.json`
 - `volt-mx-lotusscript-toolkit.boundary-cohesion.json`
 
+### Impact / blast radius
+
+- `space-rocks-clean-v1.impact-blast-radius.json`
+- `dapper.impact-blast-radius.json`
+- `jsoup.impact-blast-radius.json`
+- `detekt.impact-blast-radius.json`
+- `lexicanter.impact-blast-radius.json`
+- `polly.impact-blast-radius.json`
+- `spectre-console.impact-blast-radius.json`
+- `gson.impact-blast-radius.json`
+- `hikaricp.impact-blast-radius.json`
+- `jmh.impact-blast-radius.json`
+- `maven.impact-blast-radius.json`
+- `kotlinx-coroutines.impact-blast-radius.json`
+- `now-in-android.impact-blast-radius.json`
+- `dunit-lotusscript.impact-blast-radius.json`
+- `jsonparser-lotusscript.impact-blast-radius.json`
+- `volt-mx-lotusscript-toolkit.impact-blast-radius.json`
+
 ### Hub / bottleneck
 
 - `space-rocks-clean-v1.hub-bottleneck.json`
@@ -103,6 +123,7 @@ The projections intentionally need not classify the same architectural condition
 - [Dependency-knot baseline](../dependency-knots.md)
 - [Boundary/cohesion baseline](../boundary-cohesion.md)
 - [Hub/bottleneck baseline](../hub-bottleneck.md)
+- [Impact/blast-radius baseline](../impact-blast-radius.md)
 - [Diagnosis calibration baselines](../INDEX.md)
 
 ## Notes

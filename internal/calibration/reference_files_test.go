@@ -11,8 +11,8 @@ func TestRepositoryCalibrationReferencesDecode(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(files) != 64 {
-		t.Fatalf("reference files = %d, want 64", len(files))
+	if len(files) != 80 {
+		t.Fatalf("reference files = %d, want 80", len(files))
 	}
 	for _, filename := range files {
 		filename := filename

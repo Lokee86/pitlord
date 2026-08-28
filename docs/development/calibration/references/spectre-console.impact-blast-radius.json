@@ -1,0 +1,128 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "cs-spectre",
+  "source_revision": "555a00ae317abc9b7a49100cda3251584b0a8861",
+  "detector": "impact-blast-radius",
+  "expectations": [
+    {
+      "id": "candidate-01",
+      "path": "src/Spectre.Console/BoxBorder.Known.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-02",
+      "path": "src/Spectre.Console/BoxBorder.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-03",
+      "path": "src/Spectre.Console/Extensions/Bcl/StringExtensions.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-04",
+      "path": "src/Spectre.Console/Internal/Cell.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-05",
+      "path": "src/Spectre.Console/Internal/Text/StringBuffer.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-06",
+      "path": "src/Spectre.Console/Rendering/Borders/BoxBorderPart.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-07",
+      "path": "src/Spectre.Console/Rendering/Borders/Boxes/AsciiBoxBorder.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-08",
+      "path": "src/Spectre.Console/Rendering/Borders/Boxes/BeveledBoxBorder.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-09",
+      "path": "src/Spectre.Console/Rendering/Borders/Boxes/DashedBoxBorder.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-10",
+      "path": "src/Spectre.Console/Rendering/Borders/Boxes/DashedWideBoxBorder.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-11",
+      "path": "src/Spectre.Console/Rendering/Borders/Boxes/DottedBoxBorder.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-12",
+      "path": "src/Spectre.Console/Rendering/Borders/Boxes/DoubleBoxBorder.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-13",
+      "path": "src/Spectre.Console/Rendering/Borders/Boxes/DoubleHorizontalBoxBorder.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-14",
+      "path": "src/Spectre.Console/Rendering/Borders/Boxes/DoubleVerticalBoxBorder.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-15",
+      "path": "src/Spectre.Console/Rendering/Borders/Boxes/HeavyBoxBorder.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-16",
+      "path": "src/Spectre.Console/Rendering/Borders/Boxes/HeavyDashedBoxBorder.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-17",
+      "path": "src/Spectre.Console/Rendering/Borders/Boxes/HeavyDashedWideBoxBorder.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-18",
+      "path": "src/Spectre.Console/Rendering/Borders/Boxes/HeavyDottedBoxBorder.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-19",
+      "path": "src/Spectre.Console/Rendering/Borders/Boxes/HeavyHorizontalBoxBorder.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-20",
+      "path": "src/Spectre.Console/Rendering/Borders/Boxes/HeavyVerticalBoxBorder.cs",
+      "class": "inherited-rendering-foundation",
+      "finding": "absent"
+    }
+  ]
+}

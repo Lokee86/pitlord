@@ -1,0 +1,32 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "java-jsoup",
+  "source_revision": "d24b16d952530f3aefe87e91c344b23fe4b8a7fc",
+  "detector": "impact-blast-radius",
+  "expectations": [
+    {
+      "id": "candidate-01",
+      "path": "src/main/java/org/jsoup/helper/ValidationException.java",
+      "class": "shared-parser-runtime-utility",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-02",
+      "path": "src/main/java/org/jsoup/internal/SharedConstants.java",
+      "class": "shared-parser-runtime-utility",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-03",
+      "path": "src/main/java/org/jsoup/internal/SimpleBufferedInput.java",
+      "class": "shared-parser-runtime-utility",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-04",
+      "path": "src/main/java/org/jsoup/internal/SoftPool.java",
+      "class": "shared-parser-runtime-utility",
+      "finding": "absent"
+    }
+  ]
+}

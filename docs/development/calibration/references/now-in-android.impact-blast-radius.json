@@ -1,0 +1,14 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "kotlin-nowinandroid",
+  "source_revision": "7d45eae4f8720a0c77f507712ba2437ff974b6ed",
+  "detector": "impact-blast-radius",
+  "expectations": [
+    {
+      "id": "clean-control",
+      "path": "core/designsystem/src/main/kotlin/com/google/samples/apps/nowinandroid/core/designsystem/theme/Theme.kt",
+      "class": "clean-control",
+      "finding": "absent"
+    }
+  ]
+}

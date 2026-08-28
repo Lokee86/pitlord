@@ -1,0 +1,26 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "java-hikaricp",
+  "source_revision": "a4d93f4f85517f90e632b795486d7102e933d7ff",
+  "detector": "impact-blast-radius",
+  "expectations": [
+    {
+      "id": "candidate-01",
+      "path": "src/main/java/com/zaxxer/hikari/util/ClockSource.java",
+      "class": "shared-runtime-contract-or-utility",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-02",
+      "path": "src/main/java/com/zaxxer/hikari/metrics/IMetricsTracker.java",
+      "class": "shared-runtime-contract-or-utility",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-03",
+      "path": "src/main/java/com/zaxxer/hikari/metrics/PoolStats.java",
+      "class": "shared-runtime-contract-or-utility",
+      "finding": "absent"
+    }
+  ]
+}

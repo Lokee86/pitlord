@@ -1,0 +1,68 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "java-gson",
+  "source_revision": "aebc51a56ca0793c13b841c29f73433b82446695",
+  "detector": "impact-blast-radius",
+  "expectations": [
+    {
+      "id": "candidate-01",
+      "path": "gson/src/main/java/com/google/gson/JsonIOException.java",
+      "class": "shared-core-contract-or-utility",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-02",
+      "path": "gson/src/main/java/com/google/gson/JsonParseException.java",
+      "class": "shared-core-contract-or-utility",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-03",
+      "path": "gson/src/main/java/com/google/gson/JsonSyntaxException.java",
+      "class": "shared-core-contract-or-utility",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-04",
+      "path": "gson/src/main/java/com/google/gson/internal/LazilyParsedNumber.java",
+      "class": "shared-core-contract-or-utility",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-05",
+      "path": "gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java",
+      "class": "shared-core-contract-or-utility",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-06",
+      "path": "gson/src/main/java/com/google/gson/internal/NonNullElementWrapperList.java",
+      "class": "shared-core-contract-or-utility",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-07",
+      "path": "gson/src/main/java/com/google/gson/internal/NumberLimits.java",
+      "class": "shared-core-contract-or-utility",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-08",
+      "path": "gson/src/main/java/com/google/gson/internal/TroubleshootingGuide.java",
+      "class": "shared-core-contract-or-utility",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-09",
+      "path": "gson/src/main/java/com/google/gson/stream/JsonScope.java",
+      "class": "shared-core-contract-or-utility",
+      "finding": "absent"
+    },
+    {
+      "id": "candidate-10",
+      "path": "gson/src/main/java/com/google/gson/stream/JsonToken.java",
+      "class": "shared-core-contract-or-utility",
+      "finding": "absent"
+    }
+  ]
+}
