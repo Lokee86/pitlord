@@ -1,0 +1,9 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"java-hikaricp",
+  "source_revision":"a4d93f4f85517f90e632b795486d7102e933d7ff",
+  "detector":"hub-bottleneck",
+  "expectations":[
+    {"id":"micrometer-adapter","path":"src/main/java/com/zaxxer/hikari/metrics/micrometer/MicrometerMetricsTracker.java","class":"metrics-provider-adapter","finding":"absent"}
+  ]
+}

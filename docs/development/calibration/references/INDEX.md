@@ -10,13 +10,14 @@ This folder contains the machine-readable `pitlord.calibration.v1` scoring proje
 
 Each JSON reference pins one exact corpus revision and translates its manually adjudicated architecture baseline into detector-specific `required`, `absent`, or `allowed` expectations. The Markdown calibration baseline remains the source of architectural rationale.
 
-The 16 frozen corpora currently have three projections each:
+The 16 frozen corpora currently have four projections each:
 
 - `<corpus>.json` — calibrated `dependency-pressure` projection;
 - `<corpus>.dependency-knots.json` — frozen `dependency-knots` projection used to measure the initial knot detector before tuning;
-- `<corpus>.boundary-cohesion.json` — frozen `boundary-cohesion` projection used to constrain real-corpus false positives while synthetic topology supplies the current positive control.
+- `<corpus>.boundary-cohesion.json` — frozen `boundary-cohesion` projection used to constrain real-corpus false positives while synthetic topology supplies the current positive control; and
+- `<corpus>.hub-bottleneck.json` — frozen `hub-bottleneck` projection separating genuine central maintenance gravity from healthy shared abstractions and data/contracts.
 
-The projections intentionally need not classify the same architectural condition as required. A real source-concentration problem, for example, can be outside dependency-pressure, dependency-knot, and boundary/cohesion ownership.
+The projections intentionally need not classify the same architectural condition as required. A real source-concentration problem, for example, can be outside dependency-pressure, dependency-knot, boundary/cohesion, and hub/bottleneck ownership.
 
 ## Direct files
 
@@ -77,11 +78,31 @@ The projections intentionally need not classify the same architectural condition
 - `jsonparser-lotusscript.boundary-cohesion.json`
 - `volt-mx-lotusscript-toolkit.boundary-cohesion.json`
 
+### Hub / bottleneck
+
+- `space-rocks-clean-v1.hub-bottleneck.json`
+- `dapper.hub-bottleneck.json`
+- `jsoup.hub-bottleneck.json`
+- `detekt.hub-bottleneck.json`
+- `lexicanter.hub-bottleneck.json`
+- `polly.hub-bottleneck.json`
+- `spectre-console.hub-bottleneck.json`
+- `gson.hub-bottleneck.json`
+- `hikaricp.hub-bottleneck.json`
+- `jmh.hub-bottleneck.json`
+- `maven.hub-bottleneck.json`
+- `kotlinx-coroutines.hub-bottleneck.json`
+- `now-in-android.hub-bottleneck.json`
+- `dunit-lotusscript.hub-bottleneck.json`
+- `jsonparser-lotusscript.hub-bottleneck.json`
+- `volt-mx-lotusscript-toolkit.hub-bottleneck.json`
+
 ## Related docs
 
 - [Calibration evaluation harness](../HARNESS.md)
 - [Dependency-knot baseline](../dependency-knots.md)
 - [Boundary/cohesion baseline](../boundary-cohesion.md)
+- [Hub/bottleneck baseline](../hub-bottleneck.md)
 - [Diagnosis calibration baselines](../INDEX.md)
 
 ## Notes

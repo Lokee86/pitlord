@@ -1,0 +1,11 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"java-jsoup",
+  "source_revision":"d24b16d952530f3aefe87e91c344b23fe4b8a7fc",
+  "detector":"hub-bottleneck",
+  "expectations":[
+    {"id":"document-root","path":"src/main/java/org/jsoup/nodes/Document.java","class":"intentional-domain-root","finding":"absent"},
+    {"id":"element-api","path":"src/main/java/org/jsoup/nodes/Element.java","class":"central-domain-api-maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"node-base","path":"src/main/java/org/jsoup/nodes/Node.java","class":"shared-domain-base-abstraction","finding":"absent"}
+  ]
+}

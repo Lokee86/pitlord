@@ -1,0 +1,11 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"java-gson",
+  "source_revision":"aebc51a56ca0793c13b841c29f73433b82446695",
+  "detector":"hub-bottleneck",
+  "expectations":[
+    {"id":"gson-engine","path":"gson/src/main/java/com/google/gson/Gson.java","class":"central-engine-maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"type-adapter-contract","path":"gson/src/main/java/com/google/gson/TypeAdapter.java","class":"shared-extension-abstraction","finding":"absent"},
+    {"id":"json-reader","path":"gson/src/main/java/com/google/gson/stream/JsonReader.java","class":"streaming-api-abstraction","finding":"absent"}
+  ]
+}

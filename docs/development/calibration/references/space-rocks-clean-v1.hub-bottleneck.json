@@ -1,0 +1,11 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"space-rocks-clean-v1",
+  "source_revision":"361dcdb4054725c8f1bb58727ff402fcfedf6d18",
+  "detector":"hub-bottleneck",
+  "expectations":[
+    {"id":"logging-facade","path":"services/game-server/internal/logging/logger.go","class":"intentional-cross-cutting-logging-facade","finding":"absent"},
+    {"id":"client-connection-gravity-well","path":"client/scripts/networking/client_connection_service.gd","class":"central-maintenance-gravity-well","finding":"required","min_severity":"warning","max_severity":"high"},
+    {"id":"asteroid-domain-entity","path":"services/game-server/internal/game/runtime/asteroid.go","class":"cohesive-domain-entity","finding":"absent"}
+  ]
+}

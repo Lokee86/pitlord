@@ -1,0 +1,28 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"java-maven",
+  "source_revision":"b646a7a38e920f7590e7b25fb43b5756d8bf2b4d",
+  "detector":"hub-bottleneck",
+  "expectations":[
+    {"id":"api-remote-repository","path":"api/maven-api-core/src/main/java/org/apache/maven/api/RemoteRepository.java","class":"shared-api-value-contract","finding":"absent"},
+    {"id":"api-session","path":"api/maven-api-core/src/main/java/org/apache/maven/api/Session.java","class":"central-public-facade-maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"api-type","path":"api/maven-api-core/src/main/java/org/apache/maven/api/Type.java","class":"shared-api-type-contract","finding":"absent"},
+    {"id":"builder-problem","path":"api/maven-api-core/src/main/java/org/apache/maven/api/services/BuilderProblem.java","class":"problem-value-contract","finding":"absent"},
+    {"id":"message-builder-factory","path":"api/maven-api-core/src/main/java/org/apache/maven/api/services/MessageBuilderFactory.java","class":"service-factory-contract","finding":"absent"},
+    {"id":"model-builder-request","path":"api/maven-api-core/src/main/java/org/apache/maven/api/services/ModelBuilderRequest.java","class":"request-contract","finding":"absent"},
+    {"id":"xml-node","path":"api/maven-api-xml/src/main/java/org/apache/maven/api/xml/XmlNode.java","class":"xml-model-contract","finding":"absent"},
+    {"id":"compat-artifact","path":"compat/maven-artifact/src/main/java/org/apache/maven/artifact/Artifact.java","class":"legacy-artifact-contract","finding":"absent"},
+    {"id":"compat-artifact-repository","path":"compat/maven-artifact/src/main/java/org/apache/maven/artifact/repository/ArtifactRepository.java","class":"legacy-repository-contract","finding":"absent"},
+    {"id":"compat-model-building-request","path":"compat/maven-model-builder/src/main/java/org/apache/maven/model/building/ModelBuildingRequest.java","class":"legacy-request-contract","finding":"absent"},
+    {"id":"mojo-descriptor","path":"compat/maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java","class":"plugin-descriptor-model","finding":"absent"},
+    {"id":"plugin-descriptor","path":"compat/maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java","class":"plugin-descriptor-model","finding":"absent"},
+    {"id":"repository-utils","path":"impl/maven-core/src/main/java/org/apache/maven/RepositoryUtils.java","class":"shared-conversion-utility","finding":"absent"},
+    {"id":"execution-request","path":"impl/maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java","class":"execution-request-contract","finding":"absent"},
+    {"id":"maven-session","path":"impl/maven-core/src/main/java/org/apache/maven/execution/MavenSession.java","class":"shared-session-context","finding":"absent"},
+    {"id":"maven-project","path":"impl/maven-core/src/main/java/org/apache/maven/project/MavenProject.java","class":"central-project-domain-model","finding":"absent"},
+    {"id":"internal-session","path":"impl/maven-impl/src/main/java/org/apache/maven/impl/InternalSession.java","class":"session-implementation-seam","finding":"absent"},
+    {"id":"api-artifact","path":"api/maven-api-core/src/main/java/org/apache/maven/api/Artifact.java","class":"artifact-contract","finding":"absent"},
+    {"id":"model-problem-collector","path":"api/maven-api-core/src/main/java/org/apache/maven/api/services/ModelProblemCollector.java","class":"collector-contract","finding":"absent"},
+    {"id":"abstract-mojo","path":"compat/maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojo.java","class":"plugin-base-abstraction","finding":"absent"}
+  ]
+}

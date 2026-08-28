@@ -1,0 +1,11 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"cs-polly",
+  "source_revision":"9fd716c1e84288a6a8a1c7ad9426fb8a8e66942d",
+  "detector":"hub-bottleneck",
+  "expectations":[
+    {"id":"strategy-telemetry","path":"src/Polly.Core/Telemetry/ResilienceStrategyTelemetry.cs","class":"focused-cross-cutting-telemetry","finding":"absent"},
+    {"id":"async-policy-fragment","path":"src/Polly/AsyncPolicy.ContextAndKeys.cs","class":"partial-api-granularity","finding":"absent"},
+    {"id":"policy-base","path":"src/Polly/PolicyBase.cs","class":"shared-base-abstraction","finding":"absent"}
+  ]
+}

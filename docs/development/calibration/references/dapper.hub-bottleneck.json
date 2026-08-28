@@ -1,0 +1,10 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"cs-dapper",
+  "source_revision":"72a54c475f75e18cb93cba0809d00a5e6e49efd9",
+  "detector":"hub-bottleneck",
+  "expectations":[
+    {"id":"sqlmapper-aggregate","path":"Dapper/SqlMapper.cs","class":"central-aggregate-maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"command-definition","path":"Dapper/CommandDefinition.cs","class":"shared-value-contract","finding":"absent"}
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"java-jmh",
+  "source_revision":"a194eead0136bb66e5e59e4fdb2e18543e730929",
+  "detector":"hub-bottleneck",
+  "expectations":[
+    {"id":"benchmark-params","path":"jmh-core/src/main/java/org/openjdk/jmh/infra/BenchmarkParams.java","class":"shared-runtime-parameter-model","finding":"absent"},
+    {"id":"benchmark-result","path":"jmh-core/src/main/java/org/openjdk/jmh/results/BenchmarkResult.java","class":"result-model","finding":"absent"},
+    {"id":"iteration-result","path":"jmh-core/src/main/java/org/openjdk/jmh/results/IterationResult.java","class":"result-model","finding":"absent"},
+    {"id":"result-base","path":"jmh-core/src/main/java/org/openjdk/jmh/results/Result.java","class":"result-abstraction","finding":"absent"}
+  ]
+}
