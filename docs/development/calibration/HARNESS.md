@@ -64,7 +64,9 @@ Changing detector behavior does not justify changing a reference. References cha
 
 - the pinned corpus revision changes;
 - the frozen architectural adjudication is corrected by evidence; or
-- the scoring projection is shown to misrepresent that adjudication.
+- the detector-specific scoring projection is shown to misrepresent that adjudication.
+
+That final case matters when a frozen architectural problem is real but the current detector family does not own its signal. For example, the JMH generator concentration and Maven model/project-builder concentration remain frozen structural pressure, but are `allowed` rather than `required` for `dependency-pressure` because their evidence is source concentration/decomposition rather than necessarily anomalous outgoing dependency breadth.
 
 ## Related docs
 

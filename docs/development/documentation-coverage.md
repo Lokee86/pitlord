@@ -31,7 +31,7 @@ Coverage includes packages, public command families, machine-readable contracts,
 | --- | --- | --- |
 | `internal/policy` | Rule model, normalization, validation, repository and graph evaluation | [Policy](../POLICY.md), [Architecture](../ARCHITECTURE.md) |
 | `internal/arcana` | Arcana provider discovery, bounded protocol queries, and graph loading | [Architecture](../ARCHITECTURE.md), [Arcana process boundary](../ARCANA_PROCESS_BOUNDARY.md) |
-| `internal/scan` | Policy-free generalized finding contract, scope normalization, deterministic ordering, and scan result assembly | [Architecture](../ARCHITECTURE.md), [Current limitations](../limits/current-limitations.md) |
+| `internal/scan` | Policy-free generalized finding contract, source-role peer classification, dependency-pressure boundary/role judgment, scope normalization, deterministic ordering, and scan result assembly | [Architecture](../ARCHITECTURE.md), [Current limitations](../limits/current-limitations.md) |
 | `internal/calibration` | Strict calibration reference loading, pinned revision verification, labelled detector scoring, severity bounds, and unlabelled-finding accounting | [Calibration harness](calibration/HARNESS.md), [Architecture](../ARCHITECTURE.md) |
 | `internal/checker` | Check orchestration and report assembly | [Architecture](../ARCHITECTURE.md) |
 | `internal/baseline` | Evidence fingerprints and suppression | [Baselines and CI](../BASELINES-AND-CI.md) |
@@ -48,7 +48,7 @@ Coverage includes packages, public command families, machine-readable contracts,
 | Policy include loading, normalization, and validation | [Policy](../POLICY.md) |
 | Repository traversal and direct content/path evaluation | [Architecture](../ARCHITECTURE.md), [Policy](../POLICY.md) |
 | Arcana executable discovery, snapshot resolution, and paginated loading | [Architecture](../ARCHITECTURE.md), [Arcana process boundary](../ARCANA_PROCESS_BOUNDARY.md) |
-| Policy-free generalized scan result assembly | [Architecture](../ARCHITECTURE.md), [Current limitations](../limits/current-limitations.md) |
+| Policy-free generalized scan peer classification, dependency-pressure judgment, and result assembly | [Architecture](../ARCHITECTURE.md), [Current limitations](../limits/current-limitations.md) |
 | Pinned-corpus calibration reference verification and labelled detector scoring | [Calibration harness](calibration/HARNESS.md), [Architecture](../ARCHITECTURE.md) |
 | Evidence fingerprinting and baseline suppression | [Baselines and CI](../BASELINES-AND-CI.md) |
 | Snapshot-to-snapshot evidence classification | [Baselines and CI](../BASELINES-AND-CI.md) |

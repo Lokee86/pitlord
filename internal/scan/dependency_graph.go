@@ -61,7 +61,7 @@ func repositoryFilePaths(nodes []arcana.Node) map[string]struct{} {
 			continue
 		}
 		path := normalizedUnitPath(node.Path)
-		if path == "" || strings.HasPrefix(path, "@") {
+		if path == "" || strings.HasPrefix(path, "@") || classifySourceRole(path) != sourceRoleProduction {
 			continue
 		}
 		paths[path] = struct{}{}

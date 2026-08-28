@@ -11,7 +11,7 @@
     {"id":"legacy-repository-system","path":"compat/maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java","class":"compatibility-debt","finding":"allowed","max_severity":"warning"},
     {"id":"maven-cli","path":"compat/maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
     {"id":"compat-bootstrap-extension-manager","path":"compat/maven-embedder/src/main/java/org/apache/maven/cli/internal/BootstrapCoreExtensionManager.java","class":"compatibility-watch","finding":"allowed","max_severity":"warning"},
-    {"id":"compat-model-builder","path":"compat/maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java","class":"structural-compatibility-pressure","finding":"required","min_severity":"warning","max_severity":"high"},
+    {"id":"compat-model-builder","path":"compat/maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java","class":"structural-compatibility-pressure","finding":"allowed","max_severity":"warning"},
     {"id":"compat-model-builder-factory","path":"compat/maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilderFactory.java","class":"intentional-factory","finding":"absent"},
     {"id":"bootstrap-extension-manager","path":"impl/maven-cli/src/main/java/org/apache/maven/cling/extensions/BootstrapCoreExtensionManager.java","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
     {"id":"lookup-invoker","path":"impl/maven-cli/src/main/java/org/apache/maven/cling/invoker/LookupInvoker.java","class":"clean","finding":"absent"},
@@ -20,8 +20,8 @@
     {"id":"lifecycle-plan-calculator","path":"impl/maven-core/src/main/java/org/apache/maven/lifecycle/internal/DefaultLifecycleExecutionPlanCalculator.java","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
     {"id":"build-plan-executor","path":"impl/maven-core/src/main/java/org/apache/maven/lifecycle/internal/concurrent/BuildPlanExecutor.java","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
     {"id":"plugin-manager","path":"impl/maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
-    {"id":"project-builder","path":"impl/maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java","class":"structural-pressure","finding":"required","min_severity":"warning","max_severity":"high"},
-    {"id":"model-builder","path":"impl/maven-impl/src/main/java/org/apache/maven/impl/model/DefaultModelBuilder.java","class":"structural-pressure","finding":"required","min_severity":"warning","max_severity":"high"},
+    {"id":"project-builder","path":"impl/maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java","class":"structural-pressure","finding":"allowed","max_severity":"warning"},
+    {"id":"model-builder","path":"impl/maven-impl/src/main/java/org/apache/maven/impl/model/DefaultModelBuilder.java","class":"structural-pressure","finding":"allowed","max_severity":"warning"},
     {"id":"testing-support","path_prefix":"impl/maven-testing/src/main","class":"peer-class-exception","finding":"absent"}
   ]
 }

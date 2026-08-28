@@ -29,8 +29,60 @@ func TestDependencyPressureFindsLanguageNeutralFileHub(t *testing.T) {
 	if finding.Disposition != DispositionAdvisory || finding.Severity != SeverityHigh {
 		t.Fatalf("unexpected judgment: %+v", finding)
 	}
-	if !strings.Contains(finding.RequiredOutcome, "below") || len(finding.Evidence) != 4 {
+	if !strings.Contains(finding.RequiredOutcome, "below") || len(finding.Evidence) != 5 {
 		t.Fatalf("finding is not mechanically actionable: %+v", finding)
+	}
+}
+
+func TestDependencyPressureClassifiesConventionalCompositionSeams(t *testing.T) {
+	for _, filePath := range []string{
+		"cmd/service/main.go",
+		"src/app/App.svelte",
+		"client/scripts/shell/app_entry.gd",
+		"client/scripts/gameplay/gameplay_composition.gd",
+		"client/scripts/gameplay/runtime/gameplay_flow_composer.gd",
+		"src/build/DefaultModelBuilderFactory.java",
+		"app/controllers/DiscordController.rb",
+		"cli/LookupInvoker.java",
+	} {
+		if !isConventionalCompositionSeam(filePath) {
+			t.Errorf("expected %q to be a composition seam", filePath)
+		}
+	}
+	for _, filePath := range []string{
+		"src/app/layouts/Settings.svelte",
+		"src/service/session.go",
+		"src/parser/Parser.java",
+	} {
+		if isConventionalCompositionSeam(filePath) {
+			t.Errorf("did not expect %q to be a composition seam", filePath)
+		}
+	}
+}
+
+func TestDependencyPressureRecognizesCompatibilityPaths(t *testing.T) {
+	for _, filePath := range []string{"compat/LegacyBridge.java", "src/legacy/adapter.go", "deprecated/OldApi.kt"} {
+		if !isCompatibilityPath(filePath) {
+			t.Errorf("expected %q to be a compatibility path", filePath)
+		}
+	}
+	if isCompatibilityPath("src/main/service.go") {
+		t.Fatal("production source must not be classified as compatibility")
+	}
+}
+
+func TestDependencyPressureDefersHighlyReusedCentralHubs(t *testing.T) {
+	central := dependencyUnit{path: "internal/game/game.go", incoming: stringSet(30), outgoing: stringSet(25)}
+	if !isHighlyReusedCentralHub(central) {
+		t.Fatal("expected highly reused central hub to be deferred")
+	}
+	pressure := dependencyUnit{path: "network/client.go", incoming: stringSet(15), outgoing: stringSet(11)}
+	if isHighlyReusedCentralHub(pressure) {
+		t.Fatal("moderately reused dependency-pressure candidate must remain eligible")
+	}
+	root := dependencyUnit{path: "cmd/service/main.go", incoming: stringSet(1), outgoing: stringSet(20)}
+	if isHighlyReusedCentralHub(root) {
+		t.Fatal("low-incoming composition root must not be classified as a central hub")
 	}
 }
 
@@ -125,4 +177,12 @@ func dependencySymbolID(fileID uint32) uint32 {
 
 func filePath(id uint32) string {
 	return fmt.Sprintf("src/file%02d.any", id)
+}
+
+func stringSet(count int) map[string]struct{} {
+	values := make(map[string]struct{}, count)
+	for index := 0; index < count; index++ {
+		values[fmt.Sprintf("file-%d", index)] = struct{}{}
+	}
+	return values
 }

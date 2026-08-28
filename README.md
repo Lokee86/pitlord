@@ -20,7 +20,7 @@ Pitlord currently provides:
 - text, JSON, and SARIF 2.1.0 output;
 - architecture-community inspection through Arcana;
 - a policy-free `scan` command with the deterministic `pitlord.scan.v1` finding envelope, repository-relative scope, severity counts, and text/JSON output;
-- a language-neutral dependency-pressure detector that aggregates normalized Arcana relationships by repository file path, deduplicates symbol-level edges into unique file neighbors, and reports anomalous cross-file hubs relative to active peers;
+- a language-neutral dependency-pressure detector that aggregates normalized Arcana relationships by repository file path, separates production from common test/benchmark/tooling peers, requires extreme outgoing fan-out plus cross-region boundary spread, and defers conventional composition seams and highly reused central hubs to the detector families that own those roles;
 - a `calibrate` evaluation harness that verifies pinned corpus revisions and scores detector output against machine-readable frozen reference labels without treating unlabelled findings as ground truth;
 - direct Homunculus specimen-manifest conversion and expected-diagnostic validation;
 - exact Homunculus mutation verification across baseline and mutated snapshots;
@@ -147,7 +147,7 @@ pitlord inspect \
   --relations calls,imports,references
 ```
 
-`pitlord scan` is the policy-free generalized-guard entry point. Its first detector reports unusually broad cross-file dependency pressure using Arcana's language-neutral normalized relationship taxonomy. The detector is advisory: it identifies likely hubs and gives a mechanically checkable reduction target without claiming that every hub is architecturally wrong:
+`pitlord scan` is the policy-free generalized-guard entry point. Its first detector reports unusually broad outgoing cross-file dependency pressure using Arcana's language-neutral normalized relationship taxonomy. It compares production peers, requires a top-5% outgoing outlier to cross at least three target regions with at least 35% boundary spread, keeps conventional entrypoint/composition/controller/invoker/factory seams out of this detector, and defers heavily reused central hubs to the later bottleneck/blast-radius family. The detector remains advisory and gives a mechanically checkable reduction-or-concentration target:
 
 ```text
 pitlord scan \

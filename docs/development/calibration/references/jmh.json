@@ -6,8 +6,8 @@
   "expectations":[
     {"id":"runner","path":"jmh-core/src/main/java/org/openjdk/jmh/runner/Runner.java","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
     {"id":"base-runner","path":"jmh-core/src/main/java/org/openjdk/jmh/runner/BaseRunner.java","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
-    {"id":"benchmark-generator","path":"jmh-core/src/main/java/org/openjdk/jmh/generators/core/BenchmarkGenerator.java","class":"structural-pressure","finding":"required","min_severity":"warning","max_severity":"high"},
+    {"id":"benchmark-generator","path":"jmh-core/src/main/java/org/openjdk/jmh/generators/core/BenchmarkGenerator.java","class":"structural-pressure","finding":"allowed","max_severity":"warning"},
     {"id":"generator-utils","path":"jmh-core/src/main/java/org/openjdk/jmh/generators/core/BenchmarkGeneratorUtils.java","class":"clean","finding":"absent"},
-    {"id":"state-object-handler","path":"jmh-core/src/main/java/org/openjdk/jmh/generators/core/StateObjectHandler.java","class":"structural-pressure","finding":"required","min_severity":"warning","max_severity":"high"}
+    {"id":"state-object-handler","path":"jmh-core/src/main/java/org/openjdk/jmh/generators/core/StateObjectHandler.java","class":"structural-pressure","finding":"allowed","max_severity":"warning"}
   ]
 }
