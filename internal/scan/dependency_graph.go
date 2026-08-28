@@ -17,6 +17,10 @@ type dependencyUnit struct {
 }
 
 func dependencyUnits(graph arcana.Graph) []dependencyUnit {
+	return dependencyUnitsForRelations(graph, dependencyRelations)
+}
+
+func dependencyUnitsForRelations(graph arcana.Graph, relations map[string]struct{}) []dependencyUnit {
 	filePaths := repositoryFilePaths(graph.Sources)
 	if len(filePaths) == 0 {
 		return nil
@@ -32,7 +36,7 @@ func dependencyUnits(graph arcana.Graph) []dependencyUnit {
 		}
 		unit := byPath[sourcePath]
 		for _, relationship := range graph.Outgoing[source.NodeID] {
-			if _, selected := dependencyRelations[relationship.Relation]; !selected {
+			if _, selected := relations[relationship.Relation]; !selected {
 				continue
 			}
 			targetPath := normalizedUnitPath(relationship.Node.Path)

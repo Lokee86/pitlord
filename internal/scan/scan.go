@@ -46,6 +46,7 @@ func (engine Engine) Run(ctx context.Context, input Input) (Result, error) {
 
 func analyzeGraph(pathPrefix string, graph arcana.Graph) Result {
 	findings := detectDependencyPressure(graph, pathPrefix)
+	findings = append(findings, detectDependencyKnots(graph, pathPrefix)...)
 	return finalize(Result{
 		Schema: Schema,
 		Scope: Scope{

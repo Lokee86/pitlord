@@ -14,11 +14,13 @@ Pitlord is functional as an on-demand CLI, but several product and integration s
 
 ### Generalized architecture detectors
 
-`pitlord scan` currently implements one generalized detector: language-neutral outgoing cross-file dependency pressure. Dependency knots, boundary-coupling/cohesion anomalies, and blast-radius hotspots remain to be implemented. The detector is calibrated against Arcana-style modular, entangled, hub-heavy, layered, and dense-subsystem topology fixtures and has now been exercised across Pitlord plus representative C#, Java, Kotlin, Svelte/Rust, GDScript, and Go/polyglot repositories.
+`pitlord scan` currently implements two generalized advisory detectors: calibrated language-neutral outgoing cross-file `dependency-pressure`, and an initial language-neutral `dependency-knots` detector over strongly connected directional dependency components. Boundary-coupling/cohesion anomalies and blast-radius hotspots remain to be implemented. Both detectors have deterministic synthetic topology coverage; only dependency pressure has completed the frozen real-corpus calibration pass.
 
 Sixteen frozen real-world corpora now have machine-readable detector references and can be evaluated reproducibly with `pitlord calibrate`. The current dependency-pressure projection scores 3 labelled true positives and 105 labelled true negatives with 0 labelled false positives, 0 labelled false negatives, and 0 severity mismatches across those pinned revisions. Twenty-six detector findings remain deliberately unlabelled—11 in Space Rocks, 13 in Maven, and 2 in JMH—and are not counted as successes. The detector now separates common non-production paths, requires both extreme production-peer fan-out and cross-directory boundary spread, exempts conventional composition seams, caps compatibility-path severity, and defers strongly reused central hubs to later detector families.
 
-The detector remains advisory. Its findings still target physical files rather than semantic aggregates such as C# partial types or Go packages; conventional seam recognition is deterministic naming/role policy rather than semantic inference; directory regions are only an approximation of architectural boundaries; and the 26 unlabelled outputs still require future adjudication or coverage from other detector families before the real-world reference set is exhaustive.
+Dependency pressure remains advisory. Its findings still target physical files rather than semantic aggregates such as C# partial types or Go packages; conventional seam recognition is deterministic naming/role policy rather than semantic inference; directory regions are only an approximation of architectural boundaries; and the 26 unlabelled outputs still require future adjudication or coverage from other detector families before the real-world reference set is exhaustive.
+
+Dependency knots are earlier in calibration. The first real sanity pass produced one directional 2-file component in Dapper, one 59-file component in jsoup, and no knot findings in detekt or Lexicanter. Those observations are not yet frozen reference judgments. The detector currently treats directory boundaries as architectural regions, intentionally excludes generic `references`/read/write edges from the cycle graph, and reports one finding per qualifying strongly connected component; package/type aggregation and real-corpus false-positive calibration remain open.
 
 **Removal condition:** the initial deterministic generalized detector set is implemented, calibrated against Arcana synthetic topology families, and validated across representative real repositories with stable source-role peer groups and acceptable false-positive rates.
 
@@ -56,7 +58,7 @@ Pitlord has no independent daemon. Warlock may invoke it against changed snapsho
 
 ## Status
 
-All entries are current as of August 27, 2026.
+All entries are current as of August 28, 2026.
 
 ## Related docs
 

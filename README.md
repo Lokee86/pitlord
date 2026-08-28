@@ -21,6 +21,7 @@ Pitlord currently provides:
 - architecture-community inspection through Arcana;
 - a policy-free `scan` command with the deterministic `pitlord.scan.v1` finding envelope, repository-relative scope, severity counts, and text/JSON output;
 - a language-neutral dependency-pressure detector that aggregates normalized Arcana relationships by repository file path, separates production from common test/benchmark/tooling peers, requires extreme outgoing fan-out plus cross-region boundary spread, and defers conventional composition seams and highly reused central hubs to the detector families that own those roles;
+- an initial language-neutral `dependency-knots` detector that finds strongly connected production-file components over directional dependency relations, suppresses same-directory components in boundary-aware repository scans, and uses density only as a narrowed single-directory fallback;
 - a `calibrate` evaluation harness that verifies pinned corpus revisions and scores detector output against machine-readable frozen reference labels without treating unlabelled findings as ground truth;
 - direct Homunculus specimen-manifest conversion and expected-diagnostic validation;
 - exact Homunculus mutation verification across baseline and mutated snapshots;
@@ -147,7 +148,7 @@ pitlord inspect \
   --relations calls,imports,references
 ```
 
-`pitlord scan` is the policy-free generalized-guard entry point. Its first detector reports unusually broad outgoing cross-file dependency pressure using Arcana's language-neutral normalized relationship taxonomy. It compares production peers, requires a top-5% outgoing outlier to cross at least three target regions with at least 35% boundary spread, keeps conventional entrypoint/composition/controller/invoker/factory seams out of this detector, and defers heavily reused central hubs to the later bottleneck/blast-radius family. The detector remains advisory and gives a mechanically checkable reduction-or-concentration target:
+`pitlord scan` is the policy-free generalized-guard entry point. `dependency-pressure` reports unusually broad outgoing cross-file dependency pressure using Arcana's language-neutral normalized relationship taxonomy. It compares production peers, requires a top-5% outgoing outlier to cross at least three target regions with at least 35% boundary spread, keeps conventional entrypoint/composition/controller/invoker/factory seams out of that detector, and defers heavily reused central hubs to the later bottleneck/blast-radius family. The initial `dependency-knots` detector separately projects directional relations such as calls, imports, inheritance, implementation, includes, and depends-on into a production file graph, finds strongly connected components deterministically, and reports cross-directory cyclic components with a mechanical requirement that mutual reachability be broken. Both detectors are advisory while knot calibration proceeds:
 
 ```text
 pitlord scan \
