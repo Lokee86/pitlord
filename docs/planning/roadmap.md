@@ -14,7 +14,7 @@ The central product principle is deterministic supervision: coding agents may be
 
 ## Current status
 
-Implementation is underway. The policy-free `scan` command and deterministic `pitlord.scan.v1` finding contract are in place. The language-neutral `dependency-pressure` detector has completed its first 16-corpus calibration pass. The `dependency-knots` detector has also completed tuning against its frozen 16-corpus detector-specific reference set: the current projection preserves all 7 required knots with 0 labelled false positives, 0 false negatives, 0 severity mismatches, and 0 unlabelled findings. Boundary/cohesion analysis and blast-radius analysis remain next.
+Implementation is underway. The policy-free `scan` command and deterministic `pitlord.scan.v1` finding contract are in place. The language-neutral `dependency-pressure` detector has completed its first 16-corpus calibration pass. The `dependency-knots` detector has completed tuning against its frozen 16-corpus detector-specific reference set: the current projection preserves all 7 required knots with 0 labelled false positives, 0 false negatives, 0 severity mismatches, and 0 unlabelled findings. The `boundary-cohesion` detector is also implemented and tuned against 30 frozen real-corpus negative controls with 0 false positives and 0 unlabelled findings; its real-world recall remains unvalidated because that projection has no required positive. Blast-radius/hotspot analysis remains next.
 
 ## Expected ownership
 
@@ -26,7 +26,7 @@ Implementation is underway. The policy-free `scan` command and deterministic `pi
 
 ## Planned work
 
-1. Add a policy-free generalized architecture scan over Arcana structural evidence, beginning with dependency knots, hub/bottleneck anomalies, boundary-coupling/cohesion anomalies, and impact hotspots.
+1. Continue the policy-free generalized architecture scan over Arcana structural evidence: dependency pressure, dependency knots, and boundary/cohesion are implemented; hub/bottleneck and impact/blast-radius analysis remain.
 2. Classify generalized detectors explicitly as advisory or blocking guard conditions and make all blocking findings bounded, mechanically verifiable repair targets for coding agents.
 3. Add an immediate post-change guard workflow: agent changes code, Pitlord evaluates deterministically, the agent repairs the finite failures, and Pitlord verifies them without any model-based adjudication.
 4. Guarantee reproducible findings for the same snapshot, Pitlord version, configuration, and generalized profile, including finding identity, ordering, severity, evidence, and exit status.
@@ -59,6 +59,7 @@ Each planned feature must preserve deterministic evidence, explicit ownership, r
 - The policy-free `scan` command and `pitlord.scan.v1` result envelope are implemented.
 - The first generalized detector, `dependency-pressure`, reports anomalous outgoing cross-file dependency pressure from normalized Arcana relations without language-specific syntax assumptions. It uses explicit Arcana file nodes as the peer set, aggregates symbol/type/module relations onto those files, excludes virtual external namespaces and common non-production paths, and has completed its first frozen real-corpus calibration pass.
 - The second generalized detector, `dependency-knots`, is implemented as an advisory strongly connected component judgment over static production-file dependencies. It uses iterative deterministic SCC traversal, Arcana semantic namespace or multi-file-module regions with directory fallback, a density fallback for narrowed single-region scopes, and synthetic modular/entangled/hub-heavy/layered/dense-subsystem calibration fixtures. Runtime `calls` are excluded from source-cycle direction, common test/addon tooling is separated, tiny conventional implementation seams are deferred, and bounded two-region components do not escalate solely from density. Against its frozen 16-corpus references, the tuned projection is 7 TP, 39 TN, 0 FP, 0 FN, 0 severity mismatches, and 0 unlabelled findings.
+- The third generalized detector, `boundary-cohesion`, is implemented as an advisory semantic-region judgment. Static dependency-like relationships measure cross-boundary spread while a broader relation family including calls and reads/writes measures internal collaboration. Candidates require six or more production files, broad independent target-region reach, top-decile peer reach, and both relatively and absolutely weak internal support; incoming-heavy regions are deferred to bottleneck analysis. Its 30 frozen real-corpus negative controls all remain quiet with 0 unlabelled findings, while deterministic synthetic topology supplies the current positive control. A required real-world positive corpus is still needed before recall or guard readiness can be claimed.
 - `require_content` is implemented and documented in [Policy reference](../POLICY.md).
 - Shared documentation governance is defined in [Engineering Standards](../../../engineering-standards/docs/INDEX.md).
 

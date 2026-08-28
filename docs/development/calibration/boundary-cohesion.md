@@ -6,6 +6,10 @@ Parent index: [Diagnosis Calibration Baselines](INDEX.md)
 
 This document freezes the first manually adjudicated real-corpus reference state for Pitlord's `boundary-cohesion` detector before any real-corpus tuning.
 
+## Overview
+
+The baseline separates the untouched detector observation, manually adjudicated negative controls, frozen scoring projection, and tuned detector result. The 16 pinned corpora constrain false positives; deterministic synthetic topology currently supplies the positive control because no independently selected required real-world boundary/cohesion specimen is frozen yet.
+
 ## Untouched detector result
 
 The initial detector commit is `9b80a6a` (`Add initial boundary cohesion detector`). It emitted **zero findings across all 16 frozen corpora**.
@@ -68,6 +72,33 @@ unlabelled findings: 0
 ```
 
 The harness reports a denominator-default precision/recall of `1.0`; those values are vacuous here because there are no labelled positive expectations. Do not cite them as detector recall evidence.
+
+## Tuned detector result
+
+The detector was tuned against the unchanged references in commit `84c2168` (`Tune boundary cohesion detector`). The final 16-corpus projection remains:
+
+```text
+TP: 0
+TN: 30
+FP: 0
+FN: 0
+severity mismatches: 0
+unlabelled findings: 0
+```
+
+The first tuned pass surfaced two unlabelled warnings: JMH's `runner.format` namespace and Maven's compatibility `project.artifact` namespace. Source inspection showed both were cohesive families whose internal support was merely low relative to peers, not low in absolute terms. JMH had 1.17 internal support relationships per file and Maven had 0.62 per file. A general absolute weak-cohesion ceiling of 0.5 internal support relationships per file removed both without path- or framework-specific exceptions.
+
+The tuned detector now:
+
+- evaluates only Arcana semantic namespaces or multi-file modules rather than treating physical directories alone as ownership boundaries;
+- uses static dependency-like relationships to measure outward boundary spread;
+- uses a broader support family, including runtime calls and read/write relationships, to measure whether files inside a region actually collaborate;
+- requires at least six production files and six outgoing cross-region dependencies;
+- requires at least three independent target regions, at least 0.25 target regions per member, and top-decile target-region reach among semantic peers;
+- requires internal support to be both in the weakest peer quartile and no more than 0.5 relationships per file; and
+- defers incoming-heavy regions whose fan-in is at least their fan-out to bottleneck/blast-radius analysis.
+
+The synthetic weak/outward region remains the positive control and the catalog, runtime-collaboration, incoming-hub, modular, entangled, hub-heavy, layered, and dense-subsystem synthetic controls remain quiet. The real-corpus reference set still contains no independently selected required positive, so real-world recall remains unvalidated and this detector remains advisory rather than guard-ready.
 
 ## Related docs
 
