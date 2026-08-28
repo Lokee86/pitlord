@@ -1,0 +1,17 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"cs-dapper",
+  "source_revision":"72a54c475f75e18cb93cba0809d00a5e6e49efd9",
+  "detector":"dependency-pressure",
+  "expectations":[
+    {"id":"default-type-map","path":"Dapper/DefaultTypeMap.cs","class":"clean","finding":"absent"},
+    {"id":"command-definition","path":"Dapper/CommandDefinition.cs","class":"clean","finding":"absent"},
+    {"id":"dynamic-parameters","path":"Dapper/DynamicParameters.cs","class":"size-watch","finding":"absent"},
+    {"id":"grid-reader","path":"Dapper/SqlMapper.GridReader.cs","class":"partial-type-granularity","finding":"absent"},
+    {"id":"grid-reader-async","path":"Dapper/SqlMapper.GridReader.Async.cs","class":"partial-type-granularity","finding":"absent"},
+    {"id":"sqlmapper-aggregate-anchor","path":"Dapper/SqlMapper.cs","class":"aggregate-maintenance-pressure","finding":"allowed","max_severity":"high"},
+    {"id":"sqlmapper-async-fragment","path":"Dapper/SqlMapper.Async.cs","class":"partial-type-granularity","finding":"absent"},
+    {"id":"tests","path_prefix":"tests","class":"peer-class-exception","finding":"absent"},
+    {"id":"benchmarks","path_prefix":"benchmarks","class":"peer-class-exception","finding":"absent"}
+  ]
+}

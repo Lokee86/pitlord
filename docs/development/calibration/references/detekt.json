@@ -1,0 +1,15 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"kotlin-detekt",
+  "source_revision":"f9e1d5cc239ab740ce499b1edb36b872012648e2",
+  "detector":"dependency-pressure",
+  "expectations":[
+    {"id":"config-validation","path":"detekt-core/src/main/kotlin/dev/detekt/core/config/validation/ConfigValidation.kt","class":"clean","finding":"absent"},
+    {"id":"unused-private-function","path":"detekt-rules-style/src/main/kotlin/dev/detekt/rules/style/UnusedPrivateFunction.kt","class":"clean","finding":"absent"},
+    {"id":"unused-private-property","path":"detekt-rules-style/src/main/kotlin/dev/detekt/rules/style/UnusedPrivateProperty.kt","class":"clean","finding":"absent"},
+    {"id":"unused-variable","path":"detekt-rules-style/src/main/kotlin/dev/detekt/rules/style/UnusedVariable.kt","class":"clean","finding":"absent"},
+    {"id":"var-could-be-val","path":"detekt-rules-style/src/main/kotlin/dev/detekt/rules/style/VarCouldBeVal.kt","class":"clean","finding":"absent"},
+    {"id":"core-tests","path_prefix":"detekt-core/src/test","class":"peer-class-exception","finding":"absent"},
+    {"id":"ktlint-wrapper-tests","path_prefix":"detekt-rules-ktlint-wrapper/src/test","class":"peer-class-exception","finding":"absent"}
+  ]
+}

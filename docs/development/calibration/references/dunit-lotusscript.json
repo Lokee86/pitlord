@@ -1,0 +1,12 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"dunit-lotusscript",
+  "source_revision":"e013a21cc511fcadc93afa1e9095ac9da0b50984",
+  "detector":"dependency-pressure",
+  "expectations":[
+    {"id":"dunit-core","path":"ODP/Code/ScriptLibraries/ru.livescripts.dunit.core.lss","class":"clean","finding":"absent"},
+    {"id":"dunit-matchers","path":"ODP/Code/ScriptLibraries/ru.livescripts.dunit.matchers.lss","class":"clean","finding":"absent"},
+    {"id":"test-runner","path":"ODP/Code/Agents/TestRunner.lsa","class":"intentional-orchestration","finding":"absent"},
+    {"id":"demo-runner","path":"ODP/Code/Agents/DemoTestRunner.lsa","class":"peer-class-exception","finding":"absent"}
+  ]
+}

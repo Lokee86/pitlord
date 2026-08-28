@@ -24,6 +24,12 @@ Arcana snapshot
   -> Pitlord policy-free generalized scan contract
   -> deterministic ordered findings
   -> text or JSON output
+
+pinned corpus + calibration reference
+  -> Git revision verification
+  -> generalized scan
+  -> detector-specific labelled evaluation
+  -> mismatch and precision/recall report
 ```
 
 ## Component ownership
@@ -49,6 +55,7 @@ Pitlord owns:
 - named architecture areas;
 - repository-owned policy and rule semantics;
 - the generalized scan finding, advisory-versus-guard disposition, severity, scope, evidence, required-outcome, and ordering contract;
+- calibration-reference validation and deterministic scoring of generalized detector output against frozen corpus ground truth;
 - future opinionated generalized detector semantics;
 - area-graph projection;
 - ownership and cycle interpretation;
@@ -61,6 +68,8 @@ calibrate Pitlord behavior.
 ## Repository and snapshot loading
 
 Repository content and path policies scan only the static roots implied by their globs and do not start Arcana. Graph policies resolve `.arcana/CURRENT` or accept an explicit immutable snapshot directory. The policy-free `scan` command also requires a resolvable immutable snapshot so generalized findings are always tied to graph state. The dependency-pressure detector loads the selected graph scope, groups source and target nodes by normalized repository path, and evaluates only Arcana's normalized dependency-like relations. Pitlord queries Arcana through `arcana.query.v1`; it does not read Arcana's storage files.
+
+`calibrate` adds a reference-evaluation layer around the same scan engine. The reference pins a Git source revision, detector, and labelled path/path-prefix expectations. Revision mismatch fails closed before graph evaluation. Required and absent labels contribute to labelled precision/recall, allowed labels can constrain severity without forcing the dependency-pressure detector to own unrelated maintenance concerns, and scan findings that match no label remain explicitly unlabelled rather than being assumed correct.
 
 Node listings are paginated. Pitlord validates counts, offsets, page continuity, and
 terminal state, and fails closed when an older Arcana binary reports truncation without a

@@ -1,0 +1,26 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"cs-polly",
+  "source_revision":"9fd716c1e84288a6a8a1c7ad9426fb8a8e66942d",
+  "detector":"dependency-pressure",
+  "expectations":[
+    {"id":"circuit-breaker-builder","path":"src/Polly.Core/CircuitBreaker/CircuitBreakerResiliencePipelineBuilderExtensions.cs","class":"intentional-composition","finding":"absent"},
+    {"id":"circuit-state-controller","path":"src/Polly.Core/CircuitBreaker/Controller/CircuitStateController.cs","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"hedging-task-execution","path":"src/Polly.Core/Hedging/Controller/TaskExecution.cs","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"timeout-strategy","path":"src/Polly.Core/Timeout/TimeoutResilienceStrategy.cs","class":"intentional-strategy","finding":"absent"},
+    {"id":"async-policy-overloads","path":"src/Polly/AsyncPolicy.ExecuteOverloads.cs","class":"compatibility-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"fallback-strategy","path":"src/Polly.Core/Fallback/FallbackResilienceStrategy.cs","class":"clean","finding":"absent"},
+    {"id":"hedging-strategy","path":"src/Polly.Core/Hedging/HedgingResilienceStrategy.cs","class":"clean","finding":"absent"},
+    {"id":"retry-strategy","path":"src/Polly.Core/Retry/RetryResilienceStrategy.cs","class":"clean","finding":"absent"},
+    {"id":"chaos-behavior","path":"src/Polly.Core/Simmy/Behavior/ChaosBehaviorStrategy.cs","class":"clean","finding":"absent"},
+    {"id":"chaos-outcome","path":"src/Polly.Core/Simmy/Outcomes/ChaosOutcomeStrategy.cs","class":"clean","finding":"absent"},
+    {"id":"pipeline-component-factory","path":"src/Polly.Core/Utils/Pipeline/PipelineComponentFactory.cs","class":"intentional-composition","finding":"absent"},
+    {"id":"legacy-async-circuit","path":"src/Polly/CircuitBreaker/AsyncCircuitBreakerPolicy.cs","class":"compatibility-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"legacy-circuit","path":"src/Polly/CircuitBreaker/CircuitBreakerPolicy.cs","class":"compatibility-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"legacy-fallback","path":"src/Polly/Fallback/FallbackPolicy.cs","class":"compatibility-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"legacy-retry","path":"src/Polly/Retry/RetryPolicy.cs","class":"compatibility-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"benchmarks","path_prefix":"bench","class":"peer-class-exception","finding":"absent"},
+    {"id":"tests","path_prefix":"test","class":"peer-class-exception","finding":"absent"},
+    {"id":"docs-snippets","path_prefix":"src/Snippets/Docs","class":"peer-class-exception","finding":"absent"}
+  ]
+}

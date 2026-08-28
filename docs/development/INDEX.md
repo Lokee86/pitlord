@@ -17,7 +17,7 @@ Development documentation maps implementation boundaries to canonical documents 
 
 ## Direct folders
 
-- [Diagnosis calibration baselines](calibration/INDEX.md) — Human-adjudicated real-world architecture ground truth used to tune generalized detectors.
+- [Diagnosis calibration baselines](calibration/INDEX.md) — Manually adjudicated real-world architecture ground truth and machine-readable detector references used to tune generalized detectors.
 
 ## Related docs
 

@@ -1,0 +1,28 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"cs-spectre",
+  "source_revision":"555a00ae317abc9b7a49100cda3251584b0a8861",
+  "detector":"dependency-pressure",
+  "expectations":[
+    {"id":"ansi-console","path":"src/Spectre.Console/AnsiConsole.cs","class":"partial-public-facade","finding":"absent"},
+    {"id":"box-border-catalog","path":"src/Spectre.Console/BoxBorder.Known.cs","class":"intentional-catalog","finding":"absent"},
+    {"id":"table-border-catalog","path":"src/Spectre.Console/TableBorder.Known.cs","class":"intentional-catalog","finding":"absent"},
+    {"id":"multi-selection","path":"src/Spectre.Console/Prompts/MultiSelectionPrompt.cs","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"selection","path":"src/Spectre.Console/Prompts/SelectionPrompt.cs","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"panel","path":"src/Spectre.Console/Widgets/Panel.cs","class":"clean","finding":"absent"},
+    {"id":"table-renderer","path":"src/Spectre.Console/Widgets/Table/TableRenderer.cs","class":"intentional-renderer","finding":"absent"},
+    {"id":"json-parser","path":"src/Extensions/Spectre.Console.Json/JsonParser.cs","class":"clean","finding":"absent"},
+    {"id":"profile-enricher","path":"src/Spectre.Console/Enrichment/ProfileEnricher.cs","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"live-renderable","path":"src/Spectre.Console/Live/LiveRenderable.cs","class":"clean","finding":"absent"},
+    {"id":"progress-renderer","path":"src/Spectre.Console/Live/Progress/Renderers/DefaultProgressRenderer.cs","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"bar-chart","path":"src/Spectre.Console/Widgets/Charts/BarChart.cs","class":"clean","finding":"absent"},
+    {"id":"breakdown-chart","path":"src/Spectre.Console/Widgets/Charts/BreakdownChart.cs","class":"clean","finding":"absent"},
+    {"id":"exception-renderable-builder","path":"src/Spectre.Console/Widgets/Exceptions/ExceptionRenderableBuilder.cs","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"layout","path":"src/Spectre.Console/Widgets/Layout/Layout.cs","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"paragraph","path":"src/Spectre.Console/Widgets/Paragraph.cs","class":"clean","finding":"absent"},
+    {"id":"rule","path":"src/Spectre.Console/Widgets/Rule.cs","class":"clean","finding":"absent"},
+    {"id":"table","path":"src/Spectre.Console/Widgets/Table/Table.cs","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"tree","path":"src/Spectre.Console/Widgets/Tree.cs","class":"clean","finding":"absent"},
+    {"id":"tests","path_prefix":"src/Spectre.Console.Tests","class":"peer-class-exception","finding":"absent"}
+  ]
+}

@@ -21,6 +21,7 @@ Pitlord currently provides:
 - architecture-community inspection through Arcana;
 - a policy-free `scan` command with the deterministic `pitlord.scan.v1` finding envelope, repository-relative scope, severity counts, and text/JSON output;
 - a language-neutral dependency-pressure detector that aggregates normalized Arcana relationships by repository file path, deduplicates symbol-level edges into unique file neighbors, and reports anomalous cross-file hubs relative to active peers;
+- a `calibrate` evaluation harness that verifies pinned corpus revisions and scores detector output against machine-readable frozen reference labels without treating unlabelled findings as ground truth;
 - direct Homunculus specimen-manifest conversion and expected-diagnostic validation;
 - exact Homunculus mutation verification across baseline and mutated snapshots;
 - snapshot-to-snapshot policy diffing with introduced, resolved, and persistent evidence;
@@ -128,6 +129,7 @@ pitlord schema
 pitlord verify-mutation
 pitlord diff
 pitlord scan
+pitlord calibrate
 pitlord inspect
 pitlord generate
 pitlord version
@@ -153,6 +155,17 @@ pitlord scan \
   --path-prefix services/game-server \
   --format json
 ```
+
+`pitlord calibrate` runs the selected generalized detector against a frozen corpus reference. It verifies the repository Git revision by default and distinguishes required findings, findings that must be absent, allowed maintenance-watch findings, severity mismatches, and unlabelled detector output:
+
+```text
+pitlord calibrate \
+  --repo /path/to/pinned/corpus \
+  --reference docs/development/calibration/references/jsoup.json \
+  --format json
+```
+
+Use `--fail-on-mismatch` when the reference is expected to pass. Canonical detector-tuning runs omit that flag so current false positives and false negatives can be measured without aborting the batch.
 
 ## Baselines and CI
 

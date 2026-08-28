@@ -34,6 +34,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 		return runAnalyze(args[1:], stdout, stderr)
 	case "scan":
 		return runScan(args[1:], stdout, stderr)
+	case "calibrate":
+		return runCalibrate(args[1:], stdout, stderr)
 	case "inspect":
 		return runInspect(args[1:], stdout, stderr)
 	case "generate":
@@ -64,6 +66,7 @@ func writeUsage(writer io.Writer) {
 	fmt.Fprintln(writer, "  pitlord diff --before-snapshot <path> --repo <after-root> --policy <pitlord.json>")
 	fmt.Fprintln(writer, "  pitlord analyze --repo <root> --policy <pitlord.json> [--format text|json|dot]")
 	fmt.Fprintln(writer, "  pitlord scan --repo <root> [--path-prefix src] [--format text|json]")
+	fmt.Fprintln(writer, "  pitlord calibrate --repo <corpus> --reference <reference.json> [--format text|json]")
 	fmt.Fprintln(writer, "  pitlord inspect --repo <root> [--path-prefix src]")
 	fmt.Fprintln(writer, "  pitlord generate --homunculus-manifest <manifest.json> [--output pitlord.json]")
 	fmt.Fprintln(writer, "  pitlord version")

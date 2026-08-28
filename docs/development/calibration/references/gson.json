@@ -1,0 +1,18 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"java-gson",
+  "source_revision":"aebc51a56ca0793c13b841c29f73433b82446695",
+  "detector":"dependency-pressure",
+  "expectations":[
+    {"id":"gson","path":"gson/src/main/java/com/google/gson/Gson.java","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"gson-builder","path":"gson/src/main/java/com/google/gson/GsonBuilder.java","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"reflective-adapter","path":"gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"excluder","path":"gson/src/main/java/com/google/gson/internal/Excluder.java","class":"clean","finding":"absent"},
+    {"id":"date-adapter","path":"gson/src/main/java/com/google/gson/internal/bind/DefaultDateTypeAdapter.java","class":"clean","finding":"absent"},
+    {"id":"map-adapter","path":"gson/src/main/java/com/google/gson/internal/bind/MapTypeAdapterFactory.java","class":"clean","finding":"absent"},
+    {"id":"tree-adapter","path":"gson/src/main/java/com/google/gson/internal/bind/TreeTypeAdapter.java","class":"clean","finding":"absent"},
+    {"id":"type-adapters","path":"gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java","class":"intentional-catalog","finding":"absent"},
+    {"id":"gson-tests","path_prefix":"gson/src/test","class":"peer-class-exception","finding":"absent"},
+    {"id":"shrinker-fixture","path_prefix":"test-shrinker/src/main","class":"peer-class-exception","finding":"absent"}
+  ]
+}

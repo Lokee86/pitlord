@@ -1,0 +1,13 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"volt-mx-ls-toolkit",
+  "source_revision":"48d0c5b14cef215dabeefa3c182caa11036c0ad8",
+  "detector":"dependency-pressure",
+  "expectations":[
+    {"id":"http-helper","path":"notes/Code/ScriptLibraries/VoltMXHttpHelper.lss","class":"intentional-integration","finding":"absent"},
+    {"id":"run-agent-async","path":"notes/Code/Agents/(RunAgentAsync).lsa","class":"intentional-submission","finding":"absent"},
+    {"id":"process-async-requests","path":"notes/Code/Agents/ProcessAsyncRequests.lsa","class":"workflow-maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"update-contacts","path":"node-red/UpdateContactsAndThreadsBE.lsa","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"echo-doc","path":"node-red/EchoDoc.lsa","class":"clean","finding":"absent"}
+  ]
+}

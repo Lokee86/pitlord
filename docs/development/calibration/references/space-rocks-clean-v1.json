@@ -1,0 +1,31 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "space-rocks-clean-v1",
+  "source_revision": "361dcdb4054725c8f1bb58727ff402fcfedf6d18",
+  "detector": "dependency-pressure",
+  "expectations": [
+    {"id":"client-connection-service","path":"client/scripts/networking/client_connection_service.gd","class":"pressure","finding":"required","min_severity":"warning","max_severity":"high"},
+    {"id":"app-entry","path":"client/scripts/shell/app_entry.gd","class":"watch","finding":"allowed","max_severity":"info"},
+    {"id":"gameplay-menu-flow","path":"client/scripts/shell/gameplay_menu_flow.gd","class":"watch","finding":"allowed","max_severity":"info"},
+    {"id":"gameplay-flow-composer","path":"client/scripts/gameplay/runtime/gameplay_flow_composer.gd","class":"intentional-breadth","finding":"absent"},
+    {"id":"gameplay-composition","path":"client/scripts/gameplay/gameplay_composition.gd","class":"intentional-breadth","finding":"absent"},
+    {"id":"realtime-router","path":"client/scripts/protocol/realtime/realtime_router.gd","class":"intentional-breadth","finding":"absent"},
+    {"id":"room-session-controller","path":"client/scripts/session/room_session_controller.gd","class":"clean","finding":"absent"},
+    {"id":"projectile-sync","path":"client/scripts/world/projectile_sync.gd","class":"clean","finding":"absent"},
+    {"id":"player-sync","path":"client/legacy/player_render/player_sync.gd","class":"clean","finding":"absent"},
+    {"id":"combat","path":"services/game-server/internal/game/combat.go","class":"granularity-false-positive","finding":"absent"},
+    {"id":"game-server-main","path":"services/game-server/cmd/game-server/main.go","class":"intentional-breadth","finding":"absent"},
+    {"id":"game-aggregate","path":"services/game-server/internal/game/game.go","class":"intentional-breadth","finding":"absent"},
+    {"id":"game-session","path":"services/game-server/internal/game/session.go","class":"clean","finding":"absent"},
+    {"id":"simulation","path":"services/game-server/internal/game/simulation.go","class":"clean","finding":"absent"},
+    {"id":"simulation-radial-effects","path":"services/game-server/internal/game/simulation_radial_effects.go","class":"clean","finding":"absent"},
+    {"id":"active-realtime","path":"services/game-server/internal/protocol/realtime/active.go","class":"clean","finding":"absent"},
+    {"id":"discord-controller","path":"services/api-server/app/controllers/api/auth/discord_controller.rb","class":"clean","finding":"absent"},
+    {"id":"discord-login-sessions","path":"services/api-server/app/controllers/api/auth/discord_login_sessions_controller.rb","class":"clean","finding":"absent"},
+    {"id":"sessions-controller","path":"services/api-server/app/controllers/api/auth/sessions_controller.rb","class":"clean","finding":"absent"},
+    {"id":"worker-runtime","path":"services/api-server/app/lib/observability/worker_runtime.rb","class":"clean","finding":"absent"},
+    {"id":"diagnostic-service","path":"services/diagnostic-aggregator/internal/diagnosticreports/service.go","class":"clean","finding":"absent"},
+    {"id":"diagnostic-report-store","path":"services/diagnostic-aggregator/internal/storage/jsonlstore/report_store.go","class":"clean","finding":"absent"},
+    {"id":"diagnostic-retention","path":"services/diagnostic-aggregator/internal/storage/jsonlstore/report_retention.go","class":"clean","finding":"absent"}
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"kotlin-coroutines",
+  "source_revision":"04ada74fae2e8914ae92ece34e06e80bb15385e9",
+  "detector":"dependency-pressure",
+  "expectations":[
+    {"id":"shared-flow","path":"kotlinx-coroutines-core/common/src/flow/SharedFlow.kt","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"share","path":"kotlinx-coroutines-core/common/src/flow/operators/Share.kt","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"cancellable-continuation","path":"kotlinx-coroutines-core/common/src/CancellableContinuationImpl.kt","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"job-support","path":"kotlinx-coroutines-core/common/src/JobSupport.kt","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"state-flow","path":"kotlinx-coroutines-core/common/src/flow/StateFlow.kt","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"broadcast-channel","path":"kotlinx-coroutines-core/common/src/channels/BroadcastChannel.kt","class":"compatibility-debt","finding":"allowed","max_severity":"warning"},
+    {"id":"broadcast","path":"kotlinx-coroutines-core/common/src/channels/Broadcast.kt","class":"compatibility-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"actor","path":"kotlinx-coroutines-core/jvm/src/channels/Actor.kt","class":"compatibility-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"abstract-coroutine","path":"kotlinx-coroutines-core/common/src/AbstractCoroutine.kt","class":"clean","finding":"absent"},
+    {"id":"builders","path":"kotlinx-coroutines-core/common/src/Builders.common.kt","class":"clean","finding":"absent"},
+    {"id":"produce","path":"kotlinx-coroutines-core/common/src/channels/Produce.kt","class":"clean","finding":"absent"},
+    {"id":"limited-dispatcher","path":"kotlinx-coroutines-core/common/src/internal/LimitedDispatcher.kt","class":"clean","finding":"absent"},
+    {"id":"mutex","path":"kotlinx-coroutines-core/common/src/sync/Mutex.kt","class":"clean","finding":"absent"},
+    {"id":"coroutine-context-jvm","path":"kotlinx-coroutines-core/jvm/src/CoroutineContext.kt","class":"clean","finding":"absent"},
+    {"id":"executors","path":"kotlinx-coroutines-core/jvm/src/Executors.kt","class":"clean","finding":"absent"},
+    {"id":"main-dispatchers","path":"kotlinx-coroutines-core/jvm/src/internal/MainDispatchers.kt","class":"clean","finding":"absent"},
+    {"id":"dispatcher","path":"kotlinx-coroutines-core/jvm/src/scheduling/Dispatcher.kt","class":"clean","finding":"absent"},
+    {"id":"js-dispatcher","path":"kotlinx-coroutines-core/web/src/internal/JSDispatcher.kt","class":"clean","finding":"absent"},
+    {"id":"handler-dispatcher","path":"ui/kotlinx-coroutines-android/src/HandlerDispatcher.kt","class":"clean","finding":"absent"},
+    {"id":"tests","path_prefix":"kotlinx-coroutines-core/jvm/test","class":"peer-class-exception","finding":"absent"}
+  ]
+}

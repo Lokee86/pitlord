@@ -1,0 +1,22 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"java-jsoup",
+  "source_revision":"d24b16d952530f3aefe87e91c344b23fe4b8a7fc",
+  "detector":"dependency-pressure",
+  "expectations":[
+    {"id":"data-util","path":"src/main/java/org/jsoup/helper/DataUtil.java","class":"clean","finding":"absent"},
+    {"id":"http-connection","path":"src/main/java/org/jsoup/helper/HttpConnection.java","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"w3c-dom","path":"src/main/java/org/jsoup/helper/W3CDom.java","class":"clean","finding":"absent"},
+    {"id":"document","path":"src/main/java/org/jsoup/nodes/Document.java","class":"intentional-domain-root","finding":"absent"},
+    {"id":"element","path":"src/main/java/org/jsoup/nodes/Element.java","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"form-element","path":"src/main/java/org/jsoup/nodes/FormElement.java","class":"clean","finding":"absent"},
+    {"id":"tree-builder","path":"src/main/java/org/jsoup/parser/TreeBuilder.java","class":"clean","finding":"absent"},
+    {"id":"html-tree-builder","path":"src/main/java/org/jsoup/parser/HtmlTreeBuilder.java","class":"intentional-algorithm","finding":"absent"},
+    {"id":"html-tree-builder-state","path":"src/main/java/org/jsoup/parser/HtmlTreeBuilderState.java","class":"intentional-state-machine","finding":"absent"},
+    {"id":"xml-tree-builder","path":"src/main/java/org/jsoup/parser/XmlTreeBuilder.java","class":"clean","finding":"absent"},
+    {"id":"cleaner","path":"src/main/java/org/jsoup/safety/Cleaner.java","class":"clean","finding":"absent"},
+    {"id":"evaluator","path":"src/main/java/org/jsoup/select/Evaluator.java","class":"intentional-taxonomy","finding":"absent"},
+    {"id":"query-parser","path":"src/main/java/org/jsoup/select/QueryParser.java","class":"clean","finding":"absent"},
+    {"id":"tests","path_prefix":"src/test","class":"peer-class-exception","finding":"absent"}
+  ]
+}

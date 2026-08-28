@@ -1,0 +1,11 @@
+{
+  "schema":"pitlord.calibration.v1",
+  "corpus":"java-hikaricp",
+  "source_revision":"a4d93f4f85517f90e632b795486d7102e933d7ff",
+  "detector":"dependency-pressure",
+  "expectations":[
+    {"id":"hikari-pool","path":"src/main/java/com/zaxxer/hikari/pool/HikariPool.java","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"pool-base","path":"src/main/java/com/zaxxer/hikari/pool/PoolBase.java","class":"maintenance-watch","finding":"allowed","max_severity":"warning"},
+    {"id":"tests","path_prefix":"src/test","class":"peer-class-exception","finding":"absent"}
+  ]
+}
