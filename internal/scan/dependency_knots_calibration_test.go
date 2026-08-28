@@ -16,7 +16,7 @@ func TestDependencyKnotsCalibrationAcrossArcanaTopologyFamilies(t *testing.T) {
 		{name: "entangled", graph: directionalizeCalibrationReferences(entangledCalibrationGraph()), wantKnots: 1},
 		{name: "hub-heavy", graph: hubHeavyCalibrationGraph(), wantKnots: 0},
 		{name: "layered", graph: layeredCalibrationGraph(), wantKnots: 0},
-		{name: "dense-subsystem", graph: denseSubsystemCalibrationGraph(), wantKnots: 1},
+		{name: "dense-subsystem", graph: directionalizeCalibrationReferences(denseSubsystemCalibrationGraph()), wantKnots: 1},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {

@@ -39,9 +39,16 @@ func TestDependencyKnotsIgnoresGenericReferenceCycles(t *testing.T) {
 	graph = dependencyTestGraph(2)
 	addDependency(&graph, 1, 2, "calls")
 	addDependency(&graph, 2, 1, "calls")
+	if findings := detectDependencyKnots(graph, "."); len(findings) != 0 {
+		t.Fatalf("runtime call targets must not define source dependency knots: %#v", findings)
+	}
+
+	graph = dependencyTestGraph(2)
+	addDependency(&graph, 1, 2, "imports")
+	addDependency(&graph, 2, 1, "imports")
 	findings := detectDependencyKnots(graph, ".")
 	if len(findings) != 1 || findings[0].Severity != SeverityWarning {
-		t.Fatalf("directional two-file cycle should remain a warning: %#v", findings)
+		t.Fatalf("static two-file cycle should remain a warning: %#v", findings)
 	}
 }
 
@@ -53,6 +60,26 @@ func TestDependencyKnotsIgnoresLocalCycleWhenRepositoryHasBoundaries(t *testing.
 	}
 	if findings := detectDependencyKnotsFromUnits(units, "."); len(findings) != 0 {
 		t.Fatalf("same-region implementation cycle should not be promoted to an architectural knot: %#v", findings)
+	}
+}
+
+func TestDependencyKnotsSuppressesTinyImplementationSeamsOnly(t *testing.T) {
+	implementationSeam := []dependencyUnit{
+		{path: "src/api/Key.any", incoming: stringSetFrom("src/api/impl/Reflection.any"), outgoing: stringSetFrom("src/api/impl/Reflection.any")},
+		{path: "src/api/impl/Reflection.any", incoming: stringSetFrom("src/api/Key.any"), outgoing: stringSetFrom("src/api/Key.any")},
+		{path: "src/other/Control.any", incoming: map[string]struct{}{}, outgoing: map[string]struct{}{}},
+	}
+	if findings := detectDependencyKnotsFromUnits(implementationSeam, "."); len(findings) != 0 {
+		t.Fatalf("tiny public/implementation seam should stay quiet: %#v", findings)
+	}
+
+	utilityCycle := []dependencyUnit{
+		{path: "src/api/Config.any", incoming: stringSetFrom("src/api/util/Properties.any"), outgoing: stringSetFrom("src/api/util/Properties.any")},
+		{path: "src/api/util/Properties.any", incoming: stringSetFrom("src/api/Config.any"), outgoing: stringSetFrom("src/api/Config.any")},
+		{path: "src/other/Control.any", incoming: map[string]struct{}{}, outgoing: map[string]struct{}{}},
+	}
+	if findings := detectDependencyKnotsFromUnits(utilityCycle, "."); len(findings) != 1 {
+		t.Fatalf("ordinary parent/child package cycle must remain visible: %#v", findings)
 	}
 }
 

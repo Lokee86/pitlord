@@ -19,6 +19,7 @@ func TestClassifySourceRoleSeparatesCommonNonProductionTrees(t *testing.T) {
 		{"jmh-samples/src/main/java/Sample.java", sourceRoleNonProduction},
 		{"services/game-server/internal/game/collision_spatial_index_test.go", sourceRoleNonProduction},
 		{"services/game-server/internal/tooling/controller.go", sourceRoleNonProduction},
+		{"client/addons/gut/gui/editor_globals.gd", sourceRoleNonProduction},
 		{"src/widget.spec.ts", sourceRoleNonProduction},
 		{"test_parser.py", sourceRoleNonProduction},
 	}

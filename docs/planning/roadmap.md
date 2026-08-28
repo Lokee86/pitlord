@@ -14,7 +14,7 @@ The central product principle is deterministic supervision: coding agents may be
 
 ## Current status
 
-Implementation is underway. The policy-free `scan` command and deterministic `pitlord.scan.v1` finding contract are in place. The language-neutral `dependency-pressure` detector has completed its first 16-corpus calibration pass. The initial `dependency-knots` detector now has synthetic topology coverage plus a frozen 16-corpus detector-specific reference set: its pre-tuning baseline has full labelled recall but 8 false positives and 3 severity mismatches. Knot tuning against that frozen baseline, boundary/cohesion analysis, and blast-radius analysis remain next.
+Implementation is underway. The policy-free `scan` command and deterministic `pitlord.scan.v1` finding contract are in place. The language-neutral `dependency-pressure` detector has completed its first 16-corpus calibration pass. The `dependency-knots` detector has also completed tuning against its frozen 16-corpus detector-specific reference set: the current projection preserves all 7 required knots with 0 labelled false positives, 0 false negatives, 0 severity mismatches, and 0 unlabelled findings. Boundary/cohesion analysis and blast-radius analysis remain next.
 
 ## Expected ownership
 
@@ -58,7 +58,7 @@ Each planned feature must preserve deterministic evidence, explicit ownership, r
 
 - The policy-free `scan` command and `pitlord.scan.v1` result envelope are implemented.
 - The first generalized detector, `dependency-pressure`, reports anomalous outgoing cross-file dependency pressure from normalized Arcana relations without language-specific syntax assumptions. It uses explicit Arcana file nodes as the peer set, aggregates symbol/type/module relations onto those files, excludes virtual external namespaces and common non-production paths, and has completed its first frozen real-corpus calibration pass.
-- The second generalized detector, `dependency-knots`, is implemented as an advisory strongly connected component judgment over directional production-file dependencies. It uses iterative deterministic SCC traversal, cross-directory significance in repository-wide scopes, a dense-component fallback for narrowed single-directory scopes, and synthetic modular/entangled/hub-heavy/layered/dense-subsystem calibration fixtures. Its 16 real-corpus detector-specific references are frozen; the initial baseline is 7 TP, 31 TN, 8 FP, 0 FN, 3 severity mismatches, and 0 unlabelled findings, so detector tuning remains in progress.
+- The second generalized detector, `dependency-knots`, is implemented as an advisory strongly connected component judgment over static production-file dependencies. It uses iterative deterministic SCC traversal, Arcana semantic namespace or multi-file-module regions with directory fallback, a density fallback for narrowed single-region scopes, and synthetic modular/entangled/hub-heavy/layered/dense-subsystem calibration fixtures. Runtime `calls` are excluded from source-cycle direction, common test/addon tooling is separated, tiny conventional implementation seams are deferred, and bounded two-region components do not escalate solely from density. Against its frozen 16-corpus references, the tuned projection is 7 TP, 39 TN, 0 FP, 0 FN, 0 severity mismatches, and 0 unlabelled findings.
 - `require_content` is implemented and documented in [Policy reference](../POLICY.md).
 - Shared documentation governance is defined in [Engineering Standards](../../../engineering-standards/docs/INDEX.md).
 

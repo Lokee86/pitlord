@@ -75,14 +75,36 @@ These cases demonstrate that mutual reachability over runtime call targets is no
 
 ## Calibration implications
 
-The frozen state identifies the next tuning questions without changing the detector yet:
+The frozen state identified the tuning questions without changing the reference set:
 
 - distinguish static dependency direction from callback/interface dispatch targets;
 - treat vendored/addon tooling as a separate source role;
 - avoid treating directory splits as language architecture when the language exposes a stronger package/namespace boundary;
 - keep intentional factory/catalog/public-internal cycles warning-level or suppressible without erasing large cross-package knots.
 
-The machine-readable projections are the `*.dependency-knots.json` files in [Calibration references](references/INDEX.md).
+## Tuned detector result
+
+The implementation was then tuned against those unchanged references. The current projection scores:
+
+- 7 true positives;
+- 39 true negatives;
+- 0 false positives;
+- 0 false negatives;
+- 0 severity mismatches; and
+- 0 unlabelled findings.
+
+Labelled precision and recall are both 100% on the frozen required/absent expectations.
+
+The tuned semantics are deliberately narrower than the initial detector:
+
+- runtime `calls` do not define source dependency knots;
+- imports, inheritance/implementation, trait use, overrides, includes, `depends-on`, and conversions remain source-dependency evidence;
+- Arcana language namespaces and multi-file modules define architectural regions when available, with filesystem directories as fallback only;
+- GUT addon code is non-production test tooling;
+- tiny two-file parent/`impl`, parent/`internal`, and parent/`implementation` cycles are deferred as bounded implementation seams; and
+- density alone no longer promotes a two-region knot to high severity.
+
+The machine-readable projections are the unchanged `*.dependency-knots.json` files in [Calibration references](references/INDEX.md).
 
 ## Related docs
 

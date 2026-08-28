@@ -12,6 +12,11 @@ const (
 func classifySourceRole(filePath string) sourceRole {
 	normalized := strings.ToLower(normalizedUnitPath(filePath))
 	segments := strings.Split(normalized, "/")
+	for index := 0; index+1 < len(segments); index++ {
+		if segments[index] == "addons" && segments[index+1] == "gut" {
+			return sourceRoleNonProduction
+		}
+	}
 	for _, segment := range segments {
 		if nonProductionSegment(segment) {
 			return sourceRoleNonProduction
