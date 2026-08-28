@@ -17,16 +17,27 @@ const (
 	bottleneckMedianMultiplier         = 3.0
 	minimumBottleneckPercentile        = 95.0
 	minimumBottleneckSourceRegions     = 3
+	minimumBehavioralSourceRegions     = 6
+	minimumBehavioralTargetRegions     = 4
+	minimumBehavioralFlowBalance       = 0.4
 	maximumBottleneckCandidateFraction = 0.125
 	maximumBottleneckFindings          = 20
 )
 
 type hubBottleneckCandidate struct {
-	unit          dependencyUnit
-	incoming      int
-	outgoing      int
-	sourceRegions int
-	percentile    float64
+	unit                    dependencyUnit
+	incoming                int
+	outgoing                int
+	behavioralIncoming      int
+	behavioralOutgoing      int
+	behavioralSourceRegions int
+	behavioralTargetRegions int
+	sourceRegions           int
+	percentile              float64
+}
+
+var bottleneckBehaviorRelations = map[string]struct{}{
+	"calls": {}, "reads": {}, "writes": {},
 }
 
 func detectHubBottlenecks(graph arcana.Graph, scopePath string) []Finding {
@@ -42,6 +53,7 @@ func detectHubBottlenecks(graph arcana.Graph, scopePath string) []Finding {
 	median := medianInt(incomingDegrees)
 	trigger := max(minimumBottleneckIncoming, int(math.Ceil(float64(median)*bottleneckMedianMultiplier)))
 	semantic := semanticDependencyRegions(graph, repositoryFilePaths(graph.Sources))
+	behaviorByPath := dependencyUnitsByPath(dependencyUnitsForRelations(graph, bottleneckBehaviorRelations))
 
 	candidates := make([]hubBottleneckCandidate, 0)
 	for _, unit := range units {
@@ -58,9 +70,23 @@ func detectHubBottlenecks(graph arcana.Graph, scopePath string) []Finding {
 		if sourceRegions < minimumBottleneckSourceRegions {
 			continue
 		}
+		behavior := behaviorByPath[unit.path]
+		behavioralIncoming := len(behavior.incoming)
+		behavioralOutgoing := len(behavior.outgoing)
+		behavioralSourceRegions := crossRegionCount(behavior.incoming, unit.path, semantic)
+		behavioralTargetRegions := crossRegionCount(behavior.outgoing, unit.path, semantic)
+		if behavioralSourceRegions < minimumBehavioralSourceRegions ||
+			behavioralTargetRegions < minimumBehavioralTargetRegions ||
+			behavioralIncoming == 0 ||
+			float64(behavioralOutgoing)/float64(behavioralIncoming) < minimumBehavioralFlowBalance {
+			continue
+		}
 		candidates = append(candidates, hubBottleneckCandidate{
 			unit: unit, incoming: incoming, outgoing: outgoing,
-			sourceRegions: sourceRegions, percentile: rank,
+			behavioralIncoming: behavioralIncoming, behavioralOutgoing: behavioralOutgoing,
+			behavioralSourceRegions: behavioralSourceRegions,
+			behavioralTargetRegions: behavioralTargetRegions,
+			sourceRegions:           sourceRegions, percentile: rank,
 		})
 	}
 	if float64(len(candidates))/float64(len(units)) > maximumBottleneckCandidateFraction {
@@ -102,12 +128,24 @@ func activeIncomingDegrees(units []dependencyUnit) []int {
 }
 
 func incomingCrossRegionCount(unit dependencyUnit, semantic map[string]dependencyRegion) int {
-	targetRegion := dependencyRegionForFile(unit.path, semantic)
+	return crossRegionCount(unit.incoming, unit.path, semantic)
+}
+
+func dependencyUnitsByPath(units []dependencyUnit) map[string]dependencyUnit {
+	result := make(map[string]dependencyUnit, len(units))
+	for _, unit := range units {
+		result[unit.path] = unit
+	}
+	return result
+}
+
+func crossRegionCount(paths map[string]struct{}, ownerPath string, semantic map[string]dependencyRegion) int {
+	ownerRegion := dependencyRegionForFile(ownerPath, semantic)
 	regions := make(map[string]struct{})
-	for sourcePath := range unit.incoming {
-		sourceRegion := dependencyRegionForFile(sourcePath, semantic)
-		if sourceRegion.id != targetRegion.id {
-			regions[sourceRegion.id] = struct{}{}
+	for candidatePath := range paths {
+		region := dependencyRegionForFile(candidatePath, semantic)
+		if region.id != ownerRegion.id {
+			regions[region.id] = struct{}{}
 		}
 	}
 	return len(regions)
@@ -115,7 +153,8 @@ func incomingCrossRegionCount(unit dependencyUnit, semantic map[string]dependenc
 
 func (candidate hubBottleneckCandidate) finding(scopePath string, trigger, median int) Finding {
 	severity := SeverityWarning
-	if candidate.incoming >= 20 && candidate.sourceRegions >= 6 {
+	if candidate.behavioralIncoming >= 24 && candidate.behavioralOutgoing >= 16 &&
+		candidate.behavioralSourceRegions >= 8 && candidate.behavioralTargetRegions >= 6 {
 		severity = SeverityHigh
 	}
 	return Finding{
@@ -124,16 +163,17 @@ func (candidate hubBottleneckCandidate) finding(scopePath string, trigger, media
 		Disposition: DispositionAdvisory,
 		Severity:    severity,
 		Scope:       Scope{Kind: "file", ID: candidate.unit.path, Path: candidate.unit.path, Name: candidate.unit.path},
-		Summary:     "File is a broadly reused coordination bottleneck",
-		Rationale:   "A production file with extreme direct fan-in from multiple architectural regions while still owning substantial outgoing dependencies concentrates both reuse pressure and coordination responsibility.",
+		Summary:     "File is a many-to-many behavioral coordination bottleneck",
+		Rationale:   "A production file with extreme direct fan-in that behaviorally receives work from many architectural regions and dispatches behavior across many others forms a central coordination waist rather than merely a shared type or data contract.",
 		Evidence: []Evidence{
 			{Kind: "incoming-degree", Message: fmt.Sprintf("%d direct production-file dependents; peer median is %d and trigger is %d", candidate.incoming, median, trigger)},
 			{Kind: "incoming-percentile", Message: fmt.Sprintf("direct fan-in ranks at the %.1fth percentile among active production peers", candidate.percentile)},
 			{Kind: "source-regions", Message: fmt.Sprintf("dependents span %d architectural regions", candidate.sourceRegions)},
 			{Kind: "outgoing-degree", Message: fmt.Sprintf("file also directly depends on %d production files", candidate.outgoing)},
+			{Kind: "behavioral-flow", Message: fmt.Sprintf("%d behavioral dependents from %d regions; %d behavioral dependencies across %d regions", candidate.behavioralIncoming, candidate.behavioralSourceRegions, candidate.behavioralOutgoing, candidate.behavioralTargetRegions)},
 			{Kind: "scope", Message: fmt.Sprintf("peer comparison is within scan scope %s", scopePath)},
 		},
-		RequiredOutcome:   fmt.Sprintf("Reduce direct fan-in below %d, narrow dependent-region breadth below %d regions, or move outward coordination responsibility out of this shared file.", trigger, minimumBottleneckSourceRegions),
+		RequiredOutcome:   fmt.Sprintf("Reduce direct fan-in below %d, behavioral source breadth below %d regions, behavioral target breadth below %d regions, or move coordination responsibility out of this shared file.", trigger, minimumBehavioralSourceRegions, minimumBehavioralTargetRegions),
 		RecommendedAction: "Split coordination from the shared abstraction, introduce narrower stable interfaces, or move dependent-specific behavior toward the regions that own it.",
 	}
 }
