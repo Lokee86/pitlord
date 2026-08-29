@@ -5,28 +5,52 @@
   "detector": "impact-blast-radius",
   "expectations": [
     {
-      "id": "candidate-01",
+      "id": "audit-01",
+      "path": "src/main/java/org/jsoup/helper/Validate.java",
+      "class": "cross-cutting-validation-contract",
+      "finding": "required"
+    },
+    {
+      "id": "audit-02",
       "path": "src/main/java/org/jsoup/helper/ValidationException.java",
       "class": "shared-parser-runtime-utility",
       "finding": "absent"
     },
     {
-      "id": "candidate-02",
+      "id": "audit-03",
       "path": "src/main/java/org/jsoup/internal/SharedConstants.java",
       "class": "shared-parser-runtime-utility",
       "finding": "absent"
     },
     {
-      "id": "candidate-03",
+      "id": "audit-04",
       "path": "src/main/java/org/jsoup/internal/SimpleBufferedInput.java",
       "class": "shared-parser-runtime-utility",
       "finding": "absent"
     },
     {
-      "id": "candidate-04",
+      "id": "audit-05",
       "path": "src/main/java/org/jsoup/internal/SoftPool.java",
       "class": "shared-parser-runtime-utility",
       "finding": "absent"
+    },
+    {
+      "id": "audit-06",
+      "path": "src/main/java/org/jsoup/nodes/Element.java",
+      "class": "central-dom-contract",
+      "finding": "required"
+    },
+    {
+      "id": "audit-07",
+      "path": "src/main/java/org/jsoup/nodes/Node.java",
+      "class": "foundational-dom-contract",
+      "finding": "required"
+    },
+    {
+      "id": "audit-08",
+      "path": "src/main/java/org/jsoup/parser/Parser.java",
+      "class": "parser-entry-contract",
+      "finding": "required"
     }
   ]
 }

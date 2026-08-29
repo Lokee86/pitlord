@@ -5,7 +5,25 @@
   "detector": "impact-blast-radius",
   "expectations": [
     {
-      "id": "clean-control",
+      "id": "audit-01",
+      "path": "services/game-server/internal/game/game.go",
+      "class": "game-runtime-aggregate",
+      "finding": "required"
+    },
+    {
+      "id": "audit-02",
+      "path": "services/game-server/internal/game/physics/vector.go",
+      "class": "shared-math-foundation",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-03",
+      "path": "services/game-server/internal/game/runtime/state.go",
+      "class": "shared-game-state",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-04",
       "path": "services/game-server/internal/logging/logger.go",
       "class": "clean-control",
       "finding": "absent"

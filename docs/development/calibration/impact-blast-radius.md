@@ -4,19 +4,33 @@ Parent index: [Diagnosis Calibration Baselines](INDEX.md)
 
 ## Purpose
 
-This document freezes the first manually adjudicated real-corpus reference state for Pitlord's `impact-blast-radius` detector before real-corpus tuning.
+This document records the corrected real-corpus calibration baseline for Pitlord's `impact-blast-radius` detector.
 
 ## Overview
 
-The detector owns **transitive change amplification**, not direct centrality. `hub-bottleneck` asks whether a file is a many-to-many coordination waist; `impact-blast-radius` asks whether a change to a file can propagate through an unusually large and architecturally broad dependent set.
+The first calibration pass adjudicated only files emitted by the detector. That was methodologically incomplete: it could measure false positives, but it could not discover real hotspots that the detector never emitted. The reference set was therefore re-audited independently across all 16 frozen corpora before further tuning.
 
-The initial file-level closure is intentionally being calibrated conservatively. A file does not become an architectural hotspot merely because it sits below a public catalog, annotation API, base visitor, result model, exception hierarchy, or other stable shared abstraction. File aggregation can inherit the entire downstream closure of a gateway even when the leaf does not independently own that change surface.
+## Detector ownership
 
-The 16 pinned corpora contain **no required real-world positive for this detector yet**. The frozen references therefore constrain false positives, while the deterministic synthetic transitive-amplification fixture supplies the current positive control. Real-world recall is not claimed.
+`impact-blast-radius` owns **change exposure through dependency reach**.
 
-## Untouched detector
+It is distinct from `hub-bottleneck`:
 
-The initial detector is commit `a21ba96` (`Add initial impact blast radius detector`). It computes transitive production-file dependents over Pitlord's normalized dependency relation family and requires:
+- `hub-bottleneck` asks whether many callers converge on a many-to-many behavioral coordination waist;
+- `impact-blast-radius` asks whether changing a file exposes an unusually broad set of production dependents.
+
+A cohesive or intentionally stable foundation can still be a real impact hotspot. A finding is advisory exposure, not a claim that the file should be split.
+
+Two impact shapes belong to this detector:
+
+1. **broad direct exposure** — an unusually large and architecturally broad set of production files directly depends on a shared foundation or contract; and
+2. **transitive amplification** — moderate direct fan-in expands through multiple independent downstream branches into an unusually broad dependent surface.
+
+A low-level leaf must not inherit an entire registry, catalog, or gateway's blast radius merely because one first-hop consumer is broadly reused.
+
+## Historical untouched detector
+
+The initial detector is commit `a21ba96` (`Add initial impact blast radius detector`). It computed transitive production-file dependents over Pitlord's normalized dependency relation family and required:
 
 - at least eight production peers;
 - at least eight transitive dependents;
@@ -24,13 +38,9 @@ The initial detector is commit `a21ba96` (`Add initial impact blast radius detec
 - reach at or above the 95th percentile of active transitive impact;
 - at least 2x transitive amplification over direct fan-in;
 - impacted dependents spanning at least three architectural regions; and
-- no family-wide condition where more than 12.5% of production files meet the candidate rule.
+- no family-wide condition where more than 12.5% of production files met the candidate rule.
 
-The detector is advisory. Its synthetic positive is a low-direct-fan-in foundation whose dependents expand through several downstream branches. A pure high-fan-in shared leaf remains quiet, and family-wide reachability patterns are suppressed instead of reported as isolated hotspots.
-
-## Untouched real-corpus sweep
-
-Across the 16 frozen corpora, the untouched detector emitted **74 findings**:
+Across the 16 frozen corpora it emitted **74 findings**:
 
 | Corpus | Findings |
 | --- | ---: |
@@ -53,87 +63,121 @@ Across the 16 frozen corpora, the untouched detector emitted **74 findings**:
 
 Spectre.Console and Maven both reached the 20-finding cap.
 
-## Frozen adjudication
+## First adjudication defect
 
-All 74 untouched findings are frozen **absent** for this detector. This does not assert that changing those files has zero downstream effect. It asserts that the file-level closure does not establish an independently owned architectural blast-radius hotspot.
+The original reference projection classified every emitted finding as `absent` and added one quiet control for zero-output corpora. That produced 81 all-negative expectations.
 
-The main false-positive classes are:
+This was useful for identifying inherited-closure noise, but it was not valid recall calibration. Ground truth had been derived from detector output rather than from the corpora themselves. In particular, the projection incorrectly treated intentionally broad foundations and contracts as non-hotspots simply because they were architecturally healthy.
 
-- **catalog-inherited impact** — Spectre.Console concrete border implementations and related rendering primitives inherit the downstream closure of the shared border catalog;
-- **shared API/contracts** — Maven annotations, API enums/contracts, compatibility interfaces, Gson exceptions/tokens, kotlinx annotations, and detekt's minimal visitor base are deliberately stable shared surfaces;
-- **shared framework utilities** — JMH statistics/file/temp utilities and HikariCP timing/metrics contracts have broad consumers without independently owning a large unstable subsystem;
-- **shared parser/runtime utilities** — jsoup internal helpers sit low in parser/runtime dependency chains but are not independent architecture pressure points; and
-- **application utility inheritance** — Lexicanter `layouts.ts` is a shared layout utility, while the corpus's previously frozen maintenance pressure is elsewhere in the application surface.
+That contradicted the existing detector ownership decision recorded during dependency-pressure calibration: **high fan-in with little or no outgoing coupling was deliberately deferred to impact/blast-radius**.
 
-This aligns with the existing corpus audits. The known structural maintenance points in Gson, HikariCP, JMH, Maven, detekt, Lexicanter, and Space Rocks are different files or architectural conditions from the untouched impact candidates. The reference set therefore does not promote generic downstream reach into a diagnosis merely because a file is foundational.
+The all-negative projection is therefore retained only as historical evidence of the first tuning mistake. It is no longer the calibration ground truth.
 
-Seven zero-output corpora retain one exact absent control each so later tuning cannot create new findings silently.
+## Independent corpus audit
 
-## Diagnostic relation audit
+The corrected audit examined the frozen corpora independently of either impact detector implementation.
 
-A temporary, uncommitted diagnostic build removed generic `references` and `annotates` from transitive propagation while keeping the initial thresholds and closure algorithm unchanged. The hypothesis was rejected early:
+For each corpus the audit compared:
 
-- Spectre.Console remained at the 20-finding cap;
-- HikariCP remained at 3 findings;
-- JMH only dropped from 14 to 12;
-- Gson dropped from 10 to 4; and
-- jsoup remained at 4.
+- direct production-file fan-in;
+- transitive dependent reach and repository fraction;
+- impacted architectural-region breadth;
+- first-hop branch concentration;
+- incoming relation families, separating metadata/import-only use from inheritance and behavioral use;
+- existing manually adjudicated corpus architecture notes; and
+- source for representative candidate contracts and foundations.
 
-The diagnostic sweep was stopped after that evidence was sufficient. Generic references contribute noise, but they are not the primary failure mode. The deeper issue is **inherited transitive closure through shared gateways and stable foundations**.
+The audit intentionally distinguishes **impact** from **architectural defect**. Stable shared contracts may be `required` or `allowed` impact findings even when no refactor is warranted.
 
-## Frozen scoring projection
+Representative required positives include:
 
-The 16 `*.impact-blast-radius.json` references contain **81 expectations**:
+- Polly `src/Polly.Core/ResilienceContext.cs` — shared per-execution pipeline state used across resilience strategies and telemetry;
+- Spectre.Console `src/Spectre.Console/Rendering/IRenderable.cs` — foundational rendering contract;
+- Gson `Gson.java`, `TypeAdapter.java`, and `stream/JsonReader.java` — core runtime and extension/streaming contracts;
+- HikariCP `metrics/IMetricsTracker.java` — cross-cutting metrics contract;
+- JMH `results/Result.java` — foundational benchmark-result contract;
+- jsoup `Node.java`, `Element.java`, `Parser.java`, and `Validate.java` — DOM/parser/validation foundations with broad direct consumers;
+- Maven `api/.../Session.java` and `impl/.../MavenProject.java` — central build/session and project-model contracts;
+- kotlinx.coroutines `CoroutineDispatcher.kt` — core dispatcher extension contract;
+- detekt `Rule.kt` — core rule extension base with hundreds of direct rule dependents;
+- Lexicanter `stores.ts` and `types.ts` — application-wide state and domain contracts;
+- Space Rocks `services/game-server/internal/game/game.go` — central game-runtime aggregate; and
+- Volt MX LotusScript Toolkit `NotesHttpJsonRequestHelper.lss` — shared HTTP/JSON integration contract.
 
-- 0 `required`;
-- 81 `absent`; and
-- 0 `allowed`.
+The audit also retains explicit negative controls for inherited or metadata-only cases, including Spectre.Console concrete border implementations, Maven marker annotations, kotlinx.coroutines annotation declarations, detekt marker annotations, and low-direct-fan-in helper leaves whose apparent reach is inherited through one downstream gateway.
 
-Against the untouched `a21ba96` detector, the frozen projection is:
+Ambiguous but legitimately broad shared contracts are `allowed` rather than incorrectly asserted absent. This includes selected compatibility APIs, exception/value contracts, metrics/runtime watches, shared utilities, and central configuration surfaces.
+
+DUnit LotusScript and JSONParser LotusScript do not provide meaningful file-level positive coverage because their production peer populations are too small. The frozen Now in Android Arcana graph exposes no cross-file dependency evidence for this detector and therefore remains a negative control rather than an invented positive.
+
+## Corrected frozen projection
+
+The 16 `*.impact-blast-radius.json` references now contain **114 expectations**:
+
+- **19 `required`** real-world positives;
+- **43 `allowed`** intentional or ambiguous broad maintenance watches; and
+- **52 `absent`** negative controls.
+
+No label in this corrected projection was selected because a tuned detector emitted it. The required positives were selected from the independent graph/source audit, including many files that neither historical detector reported.
+
+Against the exact untouched `a21ba96` implementation, the corrected projection scores:
 
 ```text
-TP: 0
-TN: 7
-FP: 74
-FN: 0
+TP: 1
+TN: 8
+FP: 44
+FN: 18
 severity mismatches: 0
 unlabelled findings: 0
 ```
 
-Because the real-corpus projection has no required positive, labelled recall is not a meaningful validation claim. Synthetic topology remains the positive constraint while tuning targets the observed false-positive classes.
+The initial detector therefore had both precision and recall failures. Its only required hit was HikariCP `IMetricsTracker.java`; most required direct-impact foundations were suppressed by the `>=2x` amplification rule.
 
-## Tuned detector
+## Historical branch-gated tuning
 
-The tuned implementation is commit `b681dfa` (`Tune impact blast radius detector`). It preserves the untouched reach, percentile, amplification, region, and family-wide candidate gates, then adds an independent-branch discriminator.
+Commit `b681dfa` (`Tune impact blast radius detector`) added an independent first-hop branch discriminator:
 
-For each direct dependent, Pitlord measures that first-hop branch's downstream closure and counts the files contributed exclusively by that branch. A candidate is reported only when:
+- at least 3 first-hop dependent branches with exclusive downstream contribution;
+- each substantial branch contributes at least 5% of total transitive reach, with a two-file minimum; and
+- the largest first-hop branch contributes no more than 80% of total transitive reach.
 
-- at least **3 first-hop dependent branches** each contribute an exclusive downstream set;
-- each substantial branch contributes at least **5% of total transitive reach**, with a minimum of two exclusive files; and
-- the largest first-hop branch contributes no more than **80%** of total transitive reach.
+That correctly solved the inherited-closure failure mode. Concrete leaves beneath one catalog or gateway stopped receiving the gateway's whole downstream surface.
 
-This distinguishes independently expanding change surfaces from inherited closure. A leaf below one registry or gateway no longer receives the gateway's whole blast radius, while the gateway itself can still be reported if it independently fans into several large downstream branches. Ordinary layered reuse is now a negative control; the positive synthetic fixture contains three balanced independently expanding branches.
-
-Against the unchanged 81 frozen expectations, the tuned detector scores:
+However, applying the branch rule to **all** impact candidates removed the direct-foundation ownership lane entirely. Against the corrected frozen projection, `b681dfa` scores:
 
 ```text
 TP: 0
-TN: 81
+TN: 52
 FP: 0
-FN: 0
+FN: 19
 severity mismatches: 0
 unlabelled findings: 0
 ```
 
-All 74 untouched false positives are removed without path-, name-, language-, or corpus-specific exceptions. The result validates the frozen false-positive classes, but there is still no required real-world positive, so real-world recall is not established and the detector remains advisory.
+The zero-false-positive result was therefore not a successful calibration result: it was achieved by suppressing every required real-world positive.
 
-## Ownership boundaries
+## Correct tuning requirement
 
-- direct fan-in remains owned by `hub-bottleneck` unless transitive propagation adds independent impact;
-- a single registry, catalog, facade, or gateway does not transfer its entire downstream closure to every leaf beneath it;
-- stable annotations, contracts, base types, exceptions, enums, and simple shared utilities are not hotspots solely because many higher-level files ultimately depend on them;
-- impact/blast-radius owns broad transitive reach only when multiple first-hop branches independently contribute substantial downstream surface; and
-- real positive recall coverage is still required before guard readiness can be claimed.
+Further tuning must preserve two independent evidence lanes:
+
+### Direct exposure
+
+A file may be an impact hotspot when unusually broad direct production fan-in reaches across the architecture, even when transitive/direct amplification is close to 1x. This is the detector family that owns the high-fan-in shared-foundation condition deferred by dependency pressure.
+
+Metadata-only marker annotations should not become high-impact findings solely because many files import or annotate with them.
+
+### Transitive amplification
+
+For low/moderate direct fan-in, broad transitive closure still requires evidence that multiple first-hop branches independently contribute substantial downstream surface. The `b681dfa` branch-concentration discriminator remains useful for this lane.
+
+### Non-goals
+
+- Broad impact does not imply decomposition is required.
+- A stable shared contract may remain intentionally central.
+- A single catalog/gateway does not transfer its blast radius to every leaf beneath it.
+- Metadata-only reuse is weaker impact evidence than behavioral, inheritance, or concrete contract dependency.
+
+The detector remains advisory while the corrected real-world recall calibration is tuned.
 
 ## Related docs
 
@@ -144,4 +188,4 @@ All 74 untouched false positives are removed without path-, name-, language-, or
 
 ## Notes
 
-These are manually adjudicated calibration references, not independently reviewed universal ground truth. Re-adjudicate only when a pinned corpus revision changes or concrete source evidence disproves a frozen judgment.
+These are manually adjudicated calibration references, not universal architectural ground truth. Re-adjudicate when a pinned corpus revision changes or concrete source/graph evidence disproves a frozen judgment.

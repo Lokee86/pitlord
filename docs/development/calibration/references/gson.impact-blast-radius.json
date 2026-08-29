@@ -5,64 +5,82 @@
   "detector": "impact-blast-radius",
   "expectations": [
     {
-      "id": "candidate-01",
+      "id": "audit-01",
+      "path": "gson/src/main/java/com/google/gson/Gson.java",
+      "class": "core-public-runtime",
+      "finding": "required"
+    },
+    {
+      "id": "audit-02",
       "path": "gson/src/main/java/com/google/gson/JsonIOException.java",
-      "class": "shared-core-contract-or-utility",
-      "finding": "absent"
+      "class": "shared-exception-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-02",
+      "id": "audit-03",
       "path": "gson/src/main/java/com/google/gson/JsonParseException.java",
-      "class": "shared-core-contract-or-utility",
-      "finding": "absent"
+      "class": "shared-exception-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-03",
+      "id": "audit-04",
       "path": "gson/src/main/java/com/google/gson/JsonSyntaxException.java",
-      "class": "shared-core-contract-or-utility",
-      "finding": "absent"
+      "class": "shared-exception-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-04",
+      "id": "audit-05",
+      "path": "gson/src/main/java/com/google/gson/TypeAdapter.java",
+      "class": "public-extension-contract",
+      "finding": "required"
+    },
+    {
+      "id": "audit-06",
       "path": "gson/src/main/java/com/google/gson/internal/LazilyParsedNumber.java",
       "class": "shared-core-contract-or-utility",
       "finding": "absent"
     },
     {
-      "id": "candidate-05",
+      "id": "audit-07",
       "path": "gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java",
       "class": "shared-core-contract-or-utility",
       "finding": "absent"
     },
     {
-      "id": "candidate-06",
+      "id": "audit-08",
       "path": "gson/src/main/java/com/google/gson/internal/NonNullElementWrapperList.java",
       "class": "shared-core-contract-or-utility",
       "finding": "absent"
     },
     {
-      "id": "candidate-07",
+      "id": "audit-09",
       "path": "gson/src/main/java/com/google/gson/internal/NumberLimits.java",
       "class": "shared-core-contract-or-utility",
       "finding": "absent"
     },
     {
-      "id": "candidate-08",
+      "id": "audit-10",
       "path": "gson/src/main/java/com/google/gson/internal/TroubleshootingGuide.java",
       "class": "shared-core-contract-or-utility",
       "finding": "absent"
     },
     {
-      "id": "candidate-09",
+      "id": "audit-11",
+      "path": "gson/src/main/java/com/google/gson/stream/JsonReader.java",
+      "class": "core-streaming-contract",
+      "finding": "required"
+    },
+    {
+      "id": "audit-12",
       "path": "gson/src/main/java/com/google/gson/stream/JsonScope.java",
       "class": "shared-core-contract-or-utility",
       "finding": "absent"
     },
     {
-      "id": "candidate-10",
+      "id": "audit-13",
       "path": "gson/src/main/java/com/google/gson/stream/JsonToken.java",
-      "class": "shared-core-contract-or-utility",
-      "finding": "absent"
+      "class": "shared-stream-contract",
+      "finding": "allowed"
     }
   ]
 }

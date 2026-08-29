@@ -5,124 +5,136 @@
   "detector": "impact-blast-radius",
   "expectations": [
     {
-      "id": "candidate-01",
+      "id": "audit-01",
       "path": "src/Spectre.Console/BoxBorder.Known.cs",
       "class": "inherited-rendering-foundation",
       "finding": "absent"
     },
     {
-      "id": "candidate-02",
+      "id": "audit-02",
       "path": "src/Spectre.Console/BoxBorder.cs",
-      "class": "inherited-rendering-foundation",
-      "finding": "absent"
+      "class": "shared-rendering-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-03",
+      "id": "audit-03",
       "path": "src/Spectre.Console/Extensions/Bcl/StringExtensions.cs",
-      "class": "inherited-rendering-foundation",
-      "finding": "absent"
+      "class": "shared-rendering-utility",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-04",
+      "id": "audit-04",
       "path": "src/Spectre.Console/Internal/Cell.cs",
       "class": "inherited-rendering-foundation",
       "finding": "absent"
     },
     {
-      "id": "candidate-05",
+      "id": "audit-05",
       "path": "src/Spectre.Console/Internal/Text/StringBuffer.cs",
       "class": "inherited-rendering-foundation",
       "finding": "absent"
     },
     {
-      "id": "candidate-06",
-      "path": "src/Spectre.Console/Rendering/Borders/BoxBorderPart.cs",
-      "class": "inherited-rendering-foundation",
-      "finding": "absent"
+      "id": "audit-06",
+      "path": "src/Spectre.Console/Profile.cs",
+      "class": "shared-console-profile",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-07",
+      "id": "audit-07",
+      "path": "src/Spectre.Console/Rendering/Borders/BoxBorderPart.cs",
+      "class": "shared-rendering-contract",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-08",
       "path": "src/Spectre.Console/Rendering/Borders/Boxes/AsciiBoxBorder.cs",
       "class": "inherited-rendering-foundation",
       "finding": "absent"
     },
     {
-      "id": "candidate-08",
+      "id": "audit-09",
       "path": "src/Spectre.Console/Rendering/Borders/Boxes/BeveledBoxBorder.cs",
       "class": "inherited-rendering-foundation",
       "finding": "absent"
     },
     {
-      "id": "candidate-09",
+      "id": "audit-10",
       "path": "src/Spectre.Console/Rendering/Borders/Boxes/DashedBoxBorder.cs",
       "class": "inherited-rendering-foundation",
       "finding": "absent"
     },
     {
-      "id": "candidate-10",
+      "id": "audit-11",
       "path": "src/Spectre.Console/Rendering/Borders/Boxes/DashedWideBoxBorder.cs",
       "class": "inherited-rendering-foundation",
       "finding": "absent"
     },
     {
-      "id": "candidate-11",
+      "id": "audit-12",
       "path": "src/Spectre.Console/Rendering/Borders/Boxes/DottedBoxBorder.cs",
       "class": "inherited-rendering-foundation",
       "finding": "absent"
     },
     {
-      "id": "candidate-12",
+      "id": "audit-13",
       "path": "src/Spectre.Console/Rendering/Borders/Boxes/DoubleBoxBorder.cs",
       "class": "inherited-rendering-foundation",
       "finding": "absent"
     },
     {
-      "id": "candidate-13",
+      "id": "audit-14",
       "path": "src/Spectre.Console/Rendering/Borders/Boxes/DoubleHorizontalBoxBorder.cs",
       "class": "inherited-rendering-foundation",
       "finding": "absent"
     },
     {
-      "id": "candidate-14",
+      "id": "audit-15",
       "path": "src/Spectre.Console/Rendering/Borders/Boxes/DoubleVerticalBoxBorder.cs",
       "class": "inherited-rendering-foundation",
       "finding": "absent"
     },
     {
-      "id": "candidate-15",
+      "id": "audit-16",
       "path": "src/Spectre.Console/Rendering/Borders/Boxes/HeavyBoxBorder.cs",
       "class": "inherited-rendering-foundation",
       "finding": "absent"
     },
     {
-      "id": "candidate-16",
+      "id": "audit-17",
       "path": "src/Spectre.Console/Rendering/Borders/Boxes/HeavyDashedBoxBorder.cs",
       "class": "inherited-rendering-foundation",
       "finding": "absent"
     },
     {
-      "id": "candidate-17",
+      "id": "audit-18",
       "path": "src/Spectre.Console/Rendering/Borders/Boxes/HeavyDashedWideBoxBorder.cs",
       "class": "inherited-rendering-foundation",
       "finding": "absent"
     },
     {
-      "id": "candidate-18",
+      "id": "audit-19",
       "path": "src/Spectre.Console/Rendering/Borders/Boxes/HeavyDottedBoxBorder.cs",
       "class": "inherited-rendering-foundation",
       "finding": "absent"
     },
     {
-      "id": "candidate-19",
+      "id": "audit-20",
       "path": "src/Spectre.Console/Rendering/Borders/Boxes/HeavyHorizontalBoxBorder.cs",
       "class": "inherited-rendering-foundation",
       "finding": "absent"
     },
     {
-      "id": "candidate-20",
+      "id": "audit-21",
       "path": "src/Spectre.Console/Rendering/Borders/Boxes/HeavyVerticalBoxBorder.cs",
       "class": "inherited-rendering-foundation",
       "finding": "absent"
+    },
+    {
+      "id": "audit-22",
+      "path": "src/Spectre.Console/Rendering/IRenderable.cs",
+      "class": "foundational-rendering-contract",
+      "finding": "required"
     }
   ]
 }

@@ -5,85 +5,91 @@
   "detector": "impact-blast-radius",
   "expectations": [
     {
-      "id": "candidate-01",
+      "id": "audit-01",
       "path": "jmh-core/src/main/java/org/openjdk/jmh/annotations/Mode.java",
-      "class": "shared-framework-contract-or-utility",
-      "finding": "absent"
+      "class": "shared-benchmark-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-02",
+      "id": "audit-02",
       "path": "jmh-core/src/main/java/org/openjdk/jmh/results/AggregationPolicy.java",
-      "class": "shared-framework-contract-or-utility",
-      "finding": "absent"
+      "class": "shared-result-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-03",
+      "id": "audit-03",
+      "path": "jmh-core/src/main/java/org/openjdk/jmh/results/Result.java",
+      "class": "foundational-result-contract",
+      "finding": "required"
+    },
+    {
+      "id": "audit-04",
       "path": "jmh-core/src/main/java/org/openjdk/jmh/results/ResultRole.java",
-      "class": "shared-framework-contract-or-utility",
-      "finding": "absent"
+      "class": "shared-result-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-04",
+      "id": "audit-05",
       "path": "jmh-core/src/main/java/org/openjdk/jmh/runner/options/TimeValue.java",
-      "class": "shared-framework-contract-or-utility",
-      "finding": "absent"
+      "class": "shared-options-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-05",
+      "id": "audit-06",
       "path": "jmh-core/src/main/java/org/openjdk/jmh/util/AbstractStatistics.java",
       "class": "shared-framework-contract-or-utility",
       "finding": "absent"
     },
     {
-      "id": "candidate-06",
+      "id": "audit-07",
       "path": "jmh-core/src/main/java/org/openjdk/jmh/util/Deduplicator.java",
       "class": "shared-framework-contract-or-utility",
       "finding": "absent"
     },
     {
-      "id": "candidate-07",
+      "id": "audit-08",
       "path": "jmh-core/src/main/java/org/openjdk/jmh/util/DelegatingMultimap.java",
       "class": "shared-framework-contract-or-utility",
       "finding": "absent"
     },
     {
-      "id": "candidate-08",
+      "id": "audit-09",
       "path": "jmh-core/src/main/java/org/openjdk/jmh/util/FileUtils.java",
       "class": "shared-framework-contract-or-utility",
       "finding": "absent"
     },
     {
-      "id": "candidate-09",
+      "id": "audit-10",
       "path": "jmh-core/src/main/java/org/openjdk/jmh/util/Multimap.java",
-      "class": "shared-framework-contract-or-utility",
-      "finding": "absent"
+      "class": "shared-framework-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-10",
+      "id": "audit-11",
       "path": "jmh-core/src/main/java/org/openjdk/jmh/util/ScoreFormatter.java",
       "class": "shared-framework-contract-or-utility",
       "finding": "absent"
     },
     {
-      "id": "candidate-11",
+      "id": "audit-12",
       "path": "jmh-core/src/main/java/org/openjdk/jmh/util/SingletonStatistics.java",
       "class": "shared-framework-contract-or-utility",
       "finding": "absent"
     },
     {
-      "id": "candidate-12",
+      "id": "audit-13",
       "path": "jmh-core/src/main/java/org/openjdk/jmh/util/Statistics.java",
-      "class": "shared-framework-contract-or-utility",
-      "finding": "absent"
+      "class": "shared-statistics-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-13",
+      "id": "audit-14",
       "path": "jmh-core/src/main/java/org/openjdk/jmh/util/TempFile.java",
       "class": "shared-framework-contract-or-utility",
       "finding": "absent"
     },
     {
-      "id": "candidate-14",
+      "id": "audit-15",
       "path": "jmh-core/src/main/java/org/openjdk/jmh/util/TempFileManager.java",
       "class": "shared-framework-contract-or-utility",
       "finding": "absent"

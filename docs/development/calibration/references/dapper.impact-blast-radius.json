@@ -5,10 +5,22 @@
   "detector": "impact-blast-radius",
   "expectations": [
     {
-      "id": "clean-control",
+      "id": "audit-01",
+      "path": "Dapper/CommandDefinition.cs",
+      "class": "shared-command-contract",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-02",
+      "path": "Dapper/NRT.cs",
+      "class": "compatibility-annotation-polyfill-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-03",
       "path": "Dapper/SqlMapper.cs",
-      "class": "clean-control",
-      "finding": "absent"
+      "class": "central-public-runtime-aggregate",
+      "finding": "allowed"
     }
   ]
 }

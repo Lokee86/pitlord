@@ -5,10 +5,28 @@
   "detector": "impact-blast-radius",
   "expectations": [
     {
-      "id": "clean-control",
+      "id": "audit-01",
       "path": "notes/Code/Agents/(EchoDoc).lsa",
       "class": "clean-control",
       "finding": "absent"
+    },
+    {
+      "id": "audit-02",
+      "path": "notes/Code/ScriptLibraries/NotesHttpConstants.lss",
+      "class": "shared-http-contract",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-03",
+      "path": "notes/Code/ScriptLibraries/NotesHttpJsonRequestHelper.lss",
+      "class": "shared-http-json-contract",
+      "finding": "required"
+    },
+    {
+      "id": "audit-04",
+      "path": "notes/Code/ScriptLibraries/OpenLogFunctions.lss",
+      "class": "shared-logging-contract",
+      "finding": "allowed"
     }
   ]
 }

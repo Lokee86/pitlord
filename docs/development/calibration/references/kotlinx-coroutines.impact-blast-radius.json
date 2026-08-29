@@ -5,10 +5,22 @@
   "detector": "impact-blast-radius",
   "expectations": [
     {
-      "id": "candidate-01",
+      "id": "audit-01",
       "path": "kotlinx-coroutines-core/common/src/Annotations.kt",
       "class": "shared-annotation-contract",
       "finding": "absent"
+    },
+    {
+      "id": "audit-02",
+      "path": "kotlinx-coroutines-core/common/src/CoroutineDispatcher.kt",
+      "class": "core-dispatch-contract",
+      "finding": "required"
+    },
+    {
+      "id": "audit-03",
+      "path": "kotlinx-coroutines-core/common/src/JobSupport.kt",
+      "class": "core-job-runtime",
+      "finding": "allowed"
     }
   ]
 }

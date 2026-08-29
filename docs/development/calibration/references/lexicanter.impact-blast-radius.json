@@ -5,10 +5,22 @@
   "detector": "impact-blast-radius",
   "expectations": [
     {
-      "id": "candidate-01",
+      "id": "audit-01",
+      "path": "src/app/stores.ts",
+      "class": "application-state-contract",
+      "finding": "required"
+    },
+    {
+      "id": "audit-02",
+      "path": "src/app/types.ts",
+      "class": "application-domain-contract",
+      "finding": "required"
+    },
+    {
+      "id": "audit-03",
       "path": "src/app/utils/layouts.ts",
       "class": "shared-layout-utility",
-      "finding": "absent"
+      "finding": "allowed"
     }
   ]
 }

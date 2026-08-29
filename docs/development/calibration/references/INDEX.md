@@ -16,7 +16,7 @@ The 16 frozen corpora currently have five projections each:
 - `<corpus>.dependency-knots.json` — frozen `dependency-knots` projection used to measure the initial knot detector before tuning;
 - `<corpus>.boundary-cohesion.json` — frozen `boundary-cohesion` projection used to constrain real-corpus false positives while synthetic topology supplies the current positive control; and
 - `<corpus>.hub-bottleneck.json` — frozen `hub-bottleneck` projection separating genuine central maintenance gravity from healthy shared abstractions and data/contracts; and
-- `<corpus>.impact-blast-radius.json` — frozen `impact-blast-radius` projection constraining inherited transitive closure through catalogs, contracts, and shared foundations.
+- `<corpus>.impact-blast-radius.json` — independently audited `impact-blast-radius` projection covering required broad direct/transitive change surfaces, allowed intentional maintenance watches, and absent inherited/metadata controls.
 
 The projections intentionally need not classify the same architectural condition as required. A real source-concentration problem, for example, can be outside dependency-pressure, dependency-knot, boundary/cohesion, hub/bottleneck, and impact/blast-radius ownership.
 

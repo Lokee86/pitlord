@@ -5,7 +5,13 @@
   "detector": "impact-blast-radius",
   "expectations": [
     {
-      "id": "clean-control",
+      "id": "audit-01",
+      "path": "src/Polly.Core/ResilienceContext.cs",
+      "class": "shared-execution-context",
+      "finding": "required"
+    },
+    {
+      "id": "audit-02",
       "path": "src/Polly.Core/Telemetry/ResilienceStrategyTelemetry.cs",
       "class": "clean-control",
       "finding": "absent"

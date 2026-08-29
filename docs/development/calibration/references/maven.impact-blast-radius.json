@@ -5,124 +5,148 @@
   "detector": "impact-blast-radius",
   "expectations": [
     {
-      "id": "candidate-01",
+      "id": "audit-01",
       "path": "api/maven-api-annotations/src/main/java/org/apache/maven/api/annotations/Experimental.java",
       "class": "shared-api-or-compatibility-contract",
       "finding": "absent"
     },
     {
-      "id": "candidate-02",
+      "id": "audit-02",
       "path": "api/maven-api-annotations/src/main/java/org/apache/maven/api/annotations/Immutable.java",
       "class": "shared-api-or-compatibility-contract",
       "finding": "absent"
     },
     {
-      "id": "candidate-03",
+      "id": "audit-03",
       "path": "api/maven-api-annotations/src/main/java/org/apache/maven/api/annotations/Nonnull.java",
       "class": "shared-api-or-compatibility-contract",
       "finding": "absent"
     },
     {
-      "id": "candidate-04",
+      "id": "audit-04",
       "path": "api/maven-api-annotations/src/main/java/org/apache/maven/api/annotations/Nullable.java",
       "class": "shared-api-or-compatibility-contract",
       "finding": "absent"
     },
     {
-      "id": "candidate-05",
+      "id": "audit-05",
       "path": "api/maven-api-annotations/src/main/java/org/apache/maven/api/annotations/ThreadSafe.java",
       "class": "shared-api-or-compatibility-contract",
       "finding": "absent"
     },
     {
-      "id": "candidate-06",
+      "id": "audit-06",
       "path": "api/maven-api-core/src/main/java/org/apache/maven/api/DependencyScope.java",
-      "class": "shared-api-or-compatibility-contract",
-      "finding": "absent"
+      "class": "shared-api-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-07",
+      "id": "audit-07",
       "path": "api/maven-api-core/src/main/java/org/apache/maven/api/ExtensibleEnum.java",
-      "class": "shared-api-or-compatibility-contract",
-      "finding": "absent"
+      "class": "shared-api-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-08",
+      "id": "audit-08",
       "path": "api/maven-api-core/src/main/java/org/apache/maven/api/ExtensibleEnums.java",
       "class": "shared-api-or-compatibility-contract",
       "finding": "absent"
     },
     {
-      "id": "candidate-09",
+      "id": "audit-09",
       "path": "api/maven-api-core/src/main/java/org/apache/maven/api/Language.java",
-      "class": "shared-api-or-compatibility-contract",
-      "finding": "absent"
+      "class": "shared-api-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-10",
+      "id": "audit-10",
       "path": "api/maven-api-core/src/main/java/org/apache/maven/api/PathScope.java",
-      "class": "shared-api-or-compatibility-contract",
-      "finding": "absent"
+      "class": "shared-api-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-11",
+      "id": "audit-11",
       "path": "api/maven-api-core/src/main/java/org/apache/maven/api/ProjectScope.java",
-      "class": "shared-api-or-compatibility-contract",
-      "finding": "absent"
+      "class": "shared-api-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-12",
+      "id": "audit-12",
       "path": "api/maven-api-core/src/main/java/org/apache/maven/api/Service.java",
-      "class": "shared-api-or-compatibility-contract",
-      "finding": "absent"
+      "class": "shared-service-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-13",
+      "id": "audit-13",
+      "path": "api/maven-api-core/src/main/java/org/apache/maven/api/Session.java",
+      "class": "public-session-contract",
+      "finding": "required"
+    },
+    {
+      "id": "audit-14",
       "path": "api/maven-api-core/src/main/java/org/apache/maven/api/services/MavenException.java",
-      "class": "shared-api-or-compatibility-contract",
-      "finding": "absent"
+      "class": "shared-service-exception",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-14",
+      "id": "audit-15",
+      "path": "compat/maven-artifact/src/main/java/org/apache/maven/artifact/Artifact.java",
+      "class": "compatibility-core-contract",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-16",
       "path": "compat/maven-artifact/src/main/java/org/apache/maven/artifact/InvalidArtifactRTException.java",
       "class": "shared-api-or-compatibility-contract",
       "finding": "absent"
     },
     {
-      "id": "candidate-15",
+      "id": "audit-17",
       "path": "compat/maven-artifact/src/main/java/org/apache/maven/artifact/handler/ArtifactHandler.java",
-      "class": "shared-api-or-compatibility-contract",
-      "finding": "absent"
+      "class": "compatibility-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-16",
+      "id": "audit-18",
+      "path": "compat/maven-artifact/src/main/java/org/apache/maven/artifact/repository/ArtifactRepository.java",
+      "class": "compatibility-core-contract",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-19",
       "path": "compat/maven-artifact/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryPolicy.java",
-      "class": "shared-api-or-compatibility-contract",
-      "finding": "absent"
+      "class": "compatibility-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-17",
+      "id": "audit-20",
       "path": "compat/maven-artifact/src/main/java/org/apache/maven/artifact/repository/Authentication.java",
-      "class": "shared-api-or-compatibility-contract",
-      "finding": "absent"
+      "class": "compatibility-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-18",
+      "id": "audit-21",
       "path": "compat/maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ArtifactVersion.java",
-      "class": "shared-api-or-compatibility-contract",
-      "finding": "absent"
+      "class": "compatibility-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-19",
+      "id": "audit-22",
       "path": "compat/maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java",
-      "class": "shared-api-or-compatibility-contract",
-      "finding": "absent"
+      "class": "compatibility-contract",
+      "finding": "allowed"
     },
     {
-      "id": "candidate-20",
+      "id": "audit-23",
       "path": "compat/maven-artifact/src/main/java/org/apache/maven/artifact/versioning/DefaultArtifactVersion.java",
-      "class": "shared-api-or-compatibility-contract",
-      "finding": "absent"
+      "class": "compatibility-contract",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-24",
+      "path": "impl/maven-core/src/main/java/org/apache/maven/project/MavenProject.java",
+      "class": "central-project-model",
+      "finding": "required"
     }
   ]
 }

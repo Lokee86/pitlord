@@ -5,10 +5,28 @@
   "detector": "impact-blast-radius",
   "expectations": [
     {
-      "id": "candidate-01",
+      "id": "audit-01",
+      "path": "detekt-api/src/main/kotlin/dev/detekt/api/ActiveByDefault.kt",
+      "class": "marker-annotation",
+      "finding": "absent"
+    },
+    {
+      "id": "audit-02",
+      "path": "detekt-api/src/main/kotlin/dev/detekt/api/Configuration.kt",
+      "class": "marker-annotation",
+      "finding": "absent"
+    },
+    {
+      "id": "audit-03",
       "path": "detekt-api/src/main/kotlin/dev/detekt/api/DetektVisitor.kt",
       "class": "shared-extension-base",
       "finding": "absent"
+    },
+    {
+      "id": "audit-04",
+      "path": "detekt-api/src/main/kotlin/dev/detekt/api/Rule.kt",
+      "class": "core-rule-extension-contract",
+      "finding": "required"
     }
   ]
 }
