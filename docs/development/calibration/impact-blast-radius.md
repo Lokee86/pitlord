@@ -158,28 +158,45 @@ unlabelled findings: 0
 
 The zero-false-positive result was therefore not a successful calibration result: it was achieved by suppressing every required real-world positive.
 
-## Correct tuning requirement
+## Final two-lane tuning
 
-Further tuning must preserve two independent evidence lanes:
+Commit `03f4cf3` (`Tune impact blast radius with direct exposure`) restores the missing direct-exposure lane while preserving the independent-branch discriminator for transitive amplification.
 
 ### Direct exposure
 
-A file may be an impact hotspot when unusually broad direct production fan-in reaches across the architecture, even when transitive/direct amplification is close to 1x. This is the detector family that owns the high-fan-in shared-foundation condition deferred by dependency pressure.
+A direct-impact candidate must have at least `max(6, ceil(3% of production peers))` direct dependents and span at least two architectural regions. At least two direct dependents must be supported by non-metadata relationships: calls, inheritance/implementation, trait use, overrides, reads/writes, includes, explicit dependencies, or conversions. Generic references, imports, and annotations do not establish this evidence by themselves.
 
-Metadata-only marker annotations should not become high-impact findings solely because many files import or annotate with them.
+For scopes with at least 32 peers, direct fan-in must normally rank at or above the 95th percentile. A candidate below that percentile may still qualify when it directly reaches at least 20% of production peers or spans at least 10 architectural regions. The final breadth gate requires either at least 5% direct peer reach or at least 10 architectural regions. Small scopes skip the percentile gate so repository-relative hotspots such as the Volt MX HTTP/JSON helper remain measurable.
+
+This lane reports change exposure, not a decomposition mandate. Its recommended outcome is to keep a deliberately broad contract stable or reduce its dependent breadth when the exposure is accidental.
 
 ### Transitive amplification
 
-For low/moderate direct fan-in, broad transitive closure still requires evidence that multiple first-hop branches independently contribute substantial downstream surface. The `b681dfa` branch-concentration discriminator remains useful for this lane.
+Files that do not qualify through direct exposure retain the `b681dfa` transitive gates: at least 25% peer reach, top-5% active transitive impact, at least 2x amplification over direct fan-in, at least three impacted regions, at least three substantial independent first-hop branches, and no branch contributing more than 80% of total reach. The family-wide candidate suppression applies only to this transitive lane.
+
+This preserves the useful inherited-closure correction: a leaf beneath one registry, catalog, or gateway does not receive the gateway's entire blast radius.
+
+## Final scoring projection
+
+Against the unchanged 150 frozen expectations across all 16 corpora, the two-lane detector scores:
+
+```text
+TP: 19
+TN: 52
+FP: 0
+FN: 0
+severity mismatches: 0
+unlabelled findings: 0
+```
+
+This establishes real-world recall coverage for 19 independently selected required positives while preserving all 52 negative controls. The detector remains advisory because broad change exposure can be intentional architecture even when the measurement itself is reliable.
 
 ### Non-goals
 
 - Broad impact does not imply decomposition is required.
 - A stable shared contract may remain intentionally central.
 - A single catalog/gateway does not transfer its blast radius to every leaf beneath it.
-- Metadata-only reuse is weaker impact evidence than behavioral, inheritance, or concrete contract dependency.
-
-The detector remains advisory while the corrected real-world recall calibration is tuned.
+- Metadata-only reuse is not sufficient direct-impact evidence.
 
 ## Related docs
 
