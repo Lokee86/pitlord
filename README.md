@@ -133,6 +133,7 @@ pitlord schema
 pitlord verify-mutation
 pitlord diff
 pitlord scan
+pitlord docs
 pitlord calibrate
 pitlord inspect
 pitlord generate
@@ -157,6 +158,15 @@ pitlord inspect \
 pitlord scan \
   --repo /path/to/repository \
   --path-prefix services/game-server \
+  --format json
+```
+
+`pitlord docs` is the blocking documentation guard. Demon Docs remains authoritative for codemap parsing and resolution: Pitlord consumes the schema-1 dataset from `ddocs codemaps export`, while Arcana supplies the repository code-file inventory. Every Arcana code file must resolve from at least one authored codemap entry in the selected Demon Docs root. With `--changed-from`, every changed mapped code file must also have at least one of its owning codemap documents changed in the same Git range. Directory-only codemap entries do not satisfy per-file coverage; exact or symbol-backed file resolutions and resolved glob matches do. Pitlord does not validate Markdown structure, document schemas, indexes, or navigation; those remain Demon Docs CI responsibilities.
+
+```text
+pitlord docs \
+  --repo /path/to/repository \
+  --changed-from origin/main \
   --format json
 ```
 

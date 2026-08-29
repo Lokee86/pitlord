@@ -38,9 +38,11 @@ Snapshot diff evaluates the full selected policy against both snapshots before c
 
 ### Documentation semantics
 
-Pitlord can enforce required paths and content, but it does not understand Markdown index completeness, link resolution, document classes, or semantic implementation coverage. Those checks are owned by Demon Docs and the shared documentation checker.
+`pitlord docs` now owns two blocking repository-health checks: every Arcana code file must resolve from at least one authored codemap entry in the selected Demon Docs root, and every changed mapped code file must have at least one owning codemap document changed in the same Git range. Pitlord consumes Demon Docs' schema-1 codemap export and does not parse or validate Markdown itself.
 
-**Removal condition:** none currently planned; this is an explicit tool boundary rather than a defect.
+Pitlord still does not own document structure or schema enforcement, index completeness, link resolution, document classes, heading/front-matter rules, or navigation health. Those checks are Demon Docs CI responsibilities. The guard currently evaluates the current resolved codemap dataset and current Arcana file inventory; historical reconstruction of a deleted file's prior codemap ownership is not a separate data source.
+
+**Removal condition:** none currently planned for the ownership boundary; richer historical deletion evidence may be added if current-state coverage plus Git change evidence proves insufficient.
 
 ### Arcana query bounds and deadline policy
 
@@ -74,4 +76,4 @@ All entries are current as of August 28, 2026.
 
 ## Notes
 
-The documentation-semantics boundary is deliberate: Pitlord enforces repository policy; Demon Docs and the shared checker own document structure and navigation.
+The documentation-semantics boundary is deliberate: Pitlord owns codemap coverage and changed-code documentation guarding; Demon Docs CI owns document structure, schema, and navigation.

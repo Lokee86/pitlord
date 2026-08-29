@@ -8,7 +8,7 @@ This document defines Pitlord's implemented ownership, data flow, evaluation mod
 
 ## Overview
 
-Pitlord is a standalone repository-policy evaluator and deterministic architecture-diagnostics CLI. Lightweight content and path rules scan source files directly; semantic dependency, ownership, and cycle rules evaluate Arcana's immutable repository graph. The policy-free generalized scan surface owns a stable finding contract and repository-relative scope. Its first five opinionated detectors measure outgoing cross-file dependency pressure, strongly connected dependency knots, semantic-region boundary/cohesion anomalies, many-to-many behavioral coordination bottlenecks, and broad direct or independently amplified transitive blast radius using language-neutral Arcana relationships and production repository paths. Pitlord is not a parser, language server, graph store, or source mutation engine.
+Pitlord is a standalone repository-policy evaluator and deterministic architecture-diagnostics CLI. Lightweight content and path rules scan source files directly; semantic dependency, ownership, and cycle rules evaluate Arcana's immutable repository graph. The documentation guard consumes Demon Docs codemap ownership, Arcana's code-file inventory, and Git change evidence without parsing Markdown itself. The policy-free generalized scan surface owns a stable finding contract and repository-relative scope. Its first five opinionated detectors measure outgoing cross-file dependency pressure, strongly connected dependency knots, semantic-region boundary/cohesion anomalies, many-to-many behavioral coordination bottlenecks, and broad direct or independently amplified transitive blast radius using language-neutral Arcana relationships and production repository paths. Pitlord is not a parser, language server, graph store, or source mutation engine.
 
 ## Data flow
 
@@ -51,6 +51,7 @@ Arcana owns:
 Pitlord owns:
 
 - repository content and path checks;
+- per-code-file codemap coverage and changed-code-to-owning-document guard semantics;
 - modular policy composition;
 - named architecture areas;
 - repository-owned policy and rule semantics;
@@ -62,8 +63,16 @@ Pitlord owns:
 - deterministic diagnostic evidence and fingerprints; and
 - output formats and baselines.
 
+Demon Docs owns Markdown parsing, documentation schema and structure enforcement, configured documentation-root selection, and authored codemap extraction/resolution. Pitlord consumes the exported codemap dataset but does not reinterpret Markdown syntax.
+
 Homunculus owns controlled source mutations and expected architecture deltas used to
 calibrate Pitlord behavior.
+
+## Documentation guard
+
+`pitlord docs` is a separate blocking guard rather than a generic policy rule. It asks Demon Docs for the current schema-1 codemap dataset, loads all Arcana `file` nodes for the current or explicit immutable snapshot, and compares the merge base of `--changed-from` and `HEAD` against the current worktree. A code file passes coverage only when at least one dataset entry resolves to that exact file; resolved file/symbol targets and non-directory pattern matches qualify, while a directory target alone does not cover every descendant.
+
+The codemap ownership relation also defines change expectations. When a mapped code file changes, at least one document currently mapping that file must appear in the same Git change set. Findings and expected owner-document lists are sorted deterministically. Pitlord does not decide whether a document has valid front matter, headings, indexes, links, schema, or other structural semantics; Demon Docs CI owns those checks.
 
 ## Repository and snapshot loading
 
