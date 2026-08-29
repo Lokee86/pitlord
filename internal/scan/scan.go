@@ -48,6 +48,7 @@ func analyzeGraph(pathPrefix string, graph arcana.Graph) Result {
 	findings := detectDependencyPressure(graph, pathPrefix)
 	findings = append(findings, detectHubBottlenecks(graph, pathPrefix)...)
 	findings = append(findings, detectDependencyKnots(graph, pathPrefix)...)
+	findings = append(findings, detectDependencyDepth(graph, pathPrefix)...)
 	findings = append(findings, detectBoundaryCohesion(graph, pathPrefix)...)
 	findings = append(findings, detectImpactBlastRadius(graph, pathPrefix)...)
 	return finalize(Result{

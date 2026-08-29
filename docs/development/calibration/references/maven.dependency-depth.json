@@ -1,0 +1,14 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "java-maven",
+  "source_revision": "b646a7a38e920f7590e7b25fb43b5756d8bf2b4d",
+  "detector": "dependency-depth",
+  "expectations": [
+    {
+      "id": "metadata-generator-control",
+      "path": "compat/maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/VersionsMetadataGeneratorFactory.java",
+      "class": "contained-single-region-chain",
+      "finding": "absent"
+    }
+  ]
+}

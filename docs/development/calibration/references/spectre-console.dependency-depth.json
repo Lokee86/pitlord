@@ -1,0 +1,14 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "cs-spectre",
+  "source_revision": "555a00ae317abc9b7a49100cda3251584b0a8861",
+  "detector": "dependency-depth",
+  "expectations": [
+    {
+      "id": "contained-exception-pipeline",
+      "path": "src/Spectre.Console/AnsiConsole.Exceptions.cs",
+      "class": "four-hop-contained-feature-pipeline",
+      "finding": "absent"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "java-jmh",
+  "source_revision": "a194eead0136bb66e5e59e4fdb2e18543e730929",
+  "detector": "dependency-depth",
+  "expectations": [
+    {
+      "id": "runner-output-result-corridor",
+      "path": "jmh-core/src/main/java/org/openjdk/jmh/Main.java",
+      "class": "cross-region-behavioral-depth-corridor",
+      "finding": "required",
+      "min_severity": "warning",
+      "max_severity": "warning"
+    },
+    {
+      "id": "result-statistics-control",
+      "path": "jmh-core/src/main/java/org/openjdk/jmh/results/Result.java",
+      "class": "short-result-statistics-chain",
+      "finding": "absent"
+    }
+  ]
+}

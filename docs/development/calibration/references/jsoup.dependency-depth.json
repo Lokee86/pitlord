@@ -1,0 +1,14 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "java-jsoup",
+  "source_revision": "d24b16d952530f3aefe87e91c344b23fe4b8a7fc",
+  "detector": "dependency-depth",
+  "expectations": [
+    {
+      "id": "cdata-serialization-control",
+      "path": "src/main/java/org/jsoup/nodes/CDataNode.java",
+      "class": "short-cross-region-chain",
+      "finding": "absent"
+    }
+  ]
+}

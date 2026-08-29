@@ -1,0 +1,14 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "java-gson",
+  "source_revision": "aebc51a56ca0793c13b841c29f73433b82446695",
+  "detector": "dependency-depth",
+  "expectations": [
+    {
+      "id": "adapter-writer-control",
+      "path": "extras/src/main/java/com/google/gson/typeadapters/UtcDateTypeAdapter.java",
+      "class": "shallow-adapter-chain",
+      "finding": "absent"
+    }
+  ]
+}
