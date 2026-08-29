@@ -47,14 +47,39 @@ func TestImpactBlastRadiusKeepsDominantBranchAmplificationQuiet(t *testing.T) {
 	}
 }
 
-func TestImpactBlastRadiusKeepsPureDirectSharedLeafQuiet(t *testing.T) {
+func TestImpactBlastRadiusFindsBroadDirectExposure(t *testing.T) {
+	graph := dependencyTestGraph(64)
+	addCalibrationNamespaceRegions(&graph, 8)
+	for source := uint32(2); source <= 40; source++ {
+		addDependency(&graph, source, 1, "calls")
+	}
+	findings := detectImpactBlastRadius(graph, ".")
+	for _, finding := range findings {
+		if finding.Scope.Path == filePath(1) {
+			return
+		}
+	}
+	t.Fatalf("expected broad direct impact foundation %s, got %#v", filePath(1), findings)
+}
+
+func TestImpactBlastRadiusKeepsMetadataOnlyDirectExposureQuiet(t *testing.T) {
 	graph := dependencyTestGraph(64)
 	addCalibrationNamespaceRegions(&graph, 8)
 	for source := uint32(2); source <= 40; source++ {
 		addDependency(&graph, source, 1, "references")
 	}
 	if findings := detectImpactBlastRadius(graph, "."); len(findings) != 0 {
-		t.Fatalf("direct fan-in without transitive amplification belongs to centrality analysis: %#v", findings)
+		t.Fatalf("metadata-only direct fan-in should not establish change exposure: %#v", findings)
+	}
+}
+
+func TestImpactBlastRadiusKeepsSingleRegionDirectExposureQuiet(t *testing.T) {
+	graph := dependencyTestGraph(64)
+	for source := uint32(2); source <= 40; source++ {
+		addDependency(&graph, source, 1, "calls")
+	}
+	if findings := detectImpactBlastRadius(graph, "."); len(findings) != 0 {
+		t.Fatalf("single-region direct fan-in should not establish architectural blast radius: %#v", findings)
 	}
 }
 
