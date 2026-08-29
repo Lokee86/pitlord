@@ -27,6 +27,12 @@
       "path": "notes/Code/ScriptLibraries/OpenLogFunctions.lss",
       "class": "shared-logging-contract",
       "finding": "allowed"
+    },
+    {
+      "id": "audit-05",
+      "path": "notes/Code/ScriptLibraries/NotesHttpRequestHelper.lss",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
     }
   ]
 }

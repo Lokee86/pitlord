@@ -81,6 +81,30 @@
       "path": "gson/src/main/java/com/google/gson/stream/JsonToken.java",
       "class": "shared-stream-contract",
       "finding": "allowed"
+    },
+    {
+      "id": "audit-14",
+      "path": "gson/src/main/java/com/google/gson/JsonElement.java",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-15",
+      "path": "gson/src/main/java/com/google/gson/TypeAdapterFactory.java",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-16",
+      "path": "gson/src/main/java/com/google/gson/reflect/TypeToken.java",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-17",
+      "path": "gson/src/main/java/com/google/gson/stream/JsonWriter.java",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
     }
   ]
 }

@@ -21,6 +21,18 @@
       "path": "src/app/utils/layouts.ts",
       "class": "shared-layout-utility",
       "finding": "allowed"
+    },
+    {
+      "id": "audit-04",
+      "path": "src/app/components/Draggable.svelte",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-05",
+      "path": "src/app/utils/phonetics.ts",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
     }
   ]
 }

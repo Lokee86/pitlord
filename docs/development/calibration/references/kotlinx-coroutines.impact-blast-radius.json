@@ -21,6 +21,18 @@
       "path": "kotlinx-coroutines-core/common/src/JobSupport.kt",
       "class": "core-job-runtime",
       "finding": "allowed"
+    },
+    {
+      "id": "audit-04",
+      "path": "kotlinx-coroutines-core/common/src/AbstractCoroutine.kt",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-05",
+      "path": "kotlinx-coroutines-core/common/src/Delay.kt",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
     }
   ]
 }

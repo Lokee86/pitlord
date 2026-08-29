@@ -15,6 +15,54 @@
       "path": "src/Polly.Core/Telemetry/ResilienceStrategyTelemetry.cs",
       "class": "clean-control",
       "finding": "absent"
+    },
+    {
+      "id": "audit-03",
+      "path": "src/LegacySupport/DynamicDependencyAttribute.cs",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-04",
+      "path": "src/Polly.Core/ResilienceStrategyOptions.cs",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-05",
+      "path": "src/Polly.Core/Telemetry/ExecutionAttemptArguments.cs",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-06",
+      "path": "src/Polly.Core/Telemetry/ResilienceEvent.cs",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-07",
+      "path": "src/Polly.Core/Telemetry/ResilienceEventSeverity.cs",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-08",
+      "path": "src/Polly/AsyncPolicy.ContextAndKeys.cs",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-09",
+      "path": "src/Polly/Policy.SyncNonGenericImplementation.cs",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-10",
+      "path": "src/Polly/ResultPredicates.cs",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
     }
   ]
 }

@@ -27,6 +27,24 @@
       "path": "services/game-server/internal/logging/logger.go",
       "class": "clean-control",
       "finding": "absent"
+    },
+    {
+      "id": "audit-05",
+      "path": "client/scripts/logging/logger.gd",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-06",
+      "path": "shared/go/observabilityevent/contract_generated.go",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-07",
+      "path": "shared/go/observabilityevent/types.go",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
     }
   ]
 }

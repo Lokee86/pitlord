@@ -147,6 +147,18 @@
       "path": "impl/maven-core/src/main/java/org/apache/maven/project/MavenProject.java",
       "class": "central-project-model",
       "finding": "required"
+    },
+    {
+      "id": "audit-25",
+      "path": "compat/maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojo.java",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-26",
+      "path": "impl/maven-core/src/main/java/org/apache/maven/execution/MavenSession.java",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
     }
   ]
 }

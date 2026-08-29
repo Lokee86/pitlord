@@ -112,11 +112,13 @@ DUnit LotusScript and JSONParser LotusScript do not provide meaningful file-leve
 
 ## Corrected frozen projection
 
-The 16 `*.impact-blast-radius.json` references now contain **114 expectations**:
+The 16 `*.impact-blast-radius.json` references now contain **150 expectations**:
 
 - **19 `required`** real-world positives;
-- **43 `allowed`** intentional or ambiguous broad maintenance watches; and
+- **79 `allowed`** intentional or ambiguous broad maintenance watches; and
 - **52 `absent`** negative controls.
+
+The additional 36 `allowed` expectations were frozen from the independent direct-fan-in percentile/region audit before corpus scoring of the two-lane implementation. They cover clearly broad shared contracts such as console/runtime interfaces, serializer/parser contracts, benchmark parameters/results, session/project models, coroutine abstractions, and generated/shared service contracts that would be inappropriate to suppress merely to avoid unlabelled findings.
 
 No label in this corrected projection was selected because a tuned detector emitted it. The required positives were selected from the independent graph/source audit, including many files that neither historical detector reported.
 

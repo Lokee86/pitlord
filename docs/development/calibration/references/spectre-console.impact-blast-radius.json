@@ -135,6 +135,36 @@
       "path": "src/Spectre.Console/Rendering/IRenderable.cs",
       "class": "foundational-rendering-contract",
       "finding": "required"
+    },
+    {
+      "id": "audit-23",
+      "path": "src/Spectre.Console/Extensions/Bcl/EnumerableExtensions.cs",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-24",
+      "path": "src/Spectre.Console/IAnsiConsole.cs",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-25",
+      "path": "src/Spectre.Console/Rendering/Measurement.cs",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-26",
+      "path": "src/Spectre.Console/Rendering/Segment.cs",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-27",
+      "path": "src/Spectre.Console/Widgets/Markup.cs",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
     }
   ]
 }

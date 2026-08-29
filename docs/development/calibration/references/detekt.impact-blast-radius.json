@@ -27,6 +27,12 @@
       "path": "detekt-api/src/main/kotlin/dev/detekt/api/Rule.kt",
       "class": "core-rule-extension-contract",
       "finding": "required"
+    },
+    {
+      "id": "audit-05",
+      "path": "detekt-api/src/main/kotlin/dev/detekt/api/RequiresAnalysisApi.kt",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
     }
   ]
 }

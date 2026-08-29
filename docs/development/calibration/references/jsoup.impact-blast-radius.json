@@ -51,6 +51,18 @@
       "path": "src/main/java/org/jsoup/parser/Parser.java",
       "class": "parser-entry-contract",
       "finding": "required"
+    },
+    {
+      "id": "audit-09",
+      "path": "src/main/java/org/jsoup/internal/StringUtil.java",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-10",
+      "path": "src/main/java/org/jsoup/nodes/Document.java",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
     }
   ]
 }

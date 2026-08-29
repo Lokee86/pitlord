@@ -93,6 +93,42 @@
       "path": "jmh-core/src/main/java/org/openjdk/jmh/util/TempFileManager.java",
       "class": "shared-framework-contract-or-utility",
       "finding": "absent"
+    },
+    {
+      "id": "audit-16",
+      "path": "jmh-core/src/main/java/org/openjdk/jmh/generators/core/ClassInfo.java",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-17",
+      "path": "jmh-core/src/main/java/org/openjdk/jmh/infra/BenchmarkParams.java",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-18",
+      "path": "jmh-core/src/main/java/org/openjdk/jmh/infra/IterationParams.java",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-19",
+      "path": "jmh-core/src/main/java/org/openjdk/jmh/results/BenchmarkResult.java",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-20",
+      "path": "jmh-core/src/main/java/org/openjdk/jmh/results/IterationResult.java",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
+    },
+    {
+      "id": "audit-21",
+      "path": "jmh-core/src/main/java/org/openjdk/jmh/util/Utils.java",
+      "class": "broad-direct-exposure-watch",
+      "finding": "allowed"
     }
   ]
 }
