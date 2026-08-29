@@ -102,15 +102,38 @@ unlabelled findings: 0
 
 Because the real-corpus projection has no required positive, labelled recall is not a meaningful validation claim. Synthetic topology remains the positive constraint while tuning targets the observed false-positive classes.
 
-## Tuning requirements
+## Tuned detector
 
-Tuning must preserve the synthetic transitive-amplification positive without encoding corpus-specific names or paths. In particular:
+The tuned implementation is commit `b681dfa` (`Tune impact blast radius detector`). It preserves the untouched reach, percentile, amplification, region, and family-wide candidate gates, then adds an independent-branch discriminator.
+
+For each direct dependent, Pitlord measures that first-hop branch's downstream closure and counts the files contributed exclusively by that branch. A candidate is reported only when:
+
+- at least **3 first-hop dependent branches** each contribute an exclusive downstream set;
+- each substantial branch contributes at least **5% of total transitive reach**, with a minimum of two exclusive files; and
+- the largest first-hop branch contributes no more than **80%** of total transitive reach.
+
+This distinguishes independently expanding change surfaces from inherited closure. A leaf below one registry or gateway no longer receives the gateway's whole blast radius, while the gateway itself can still be reported if it independently fans into several large downstream branches. Ordinary layered reuse is now a negative control; the positive synthetic fixture contains three balanced independently expanding branches.
+
+Against the unchanged 81 frozen expectations, the tuned detector scores:
+
+```text
+TP: 0
+TN: 81
+FP: 0
+FN: 0
+severity mismatches: 0
+unlabelled findings: 0
+```
+
+All 74 untouched false positives are removed without path-, name-, language-, or corpus-specific exceptions. The result validates the frozen false-positive classes, but there is still no required real-world positive, so real-world recall is not established and the detector remains advisory.
+
+## Ownership boundaries
 
 - direct fan-in remains owned by `hub-bottleneck` unless transitive propagation adds independent impact;
-- a single registry, catalog, facade, or gateway must not automatically transfer its entire downstream closure to every leaf beneath it;
-- stable annotations, contracts, base types, exceptions, enums, and simple shared utilities must not become hotspots solely because many higher-level files ultimately depend on them;
-- transitive impact should require evidence that the candidate independently supports multiple dependent branches or otherwise contributes non-trivially to the broad change surface; and
-- the detector must remain advisory until real positive recall coverage exists.
+- a single registry, catalog, facade, or gateway does not transfer its entire downstream closure to every leaf beneath it;
+- stable annotations, contracts, base types, exceptions, enums, and simple shared utilities are not hotspots solely because many higher-level files ultimately depend on them;
+- impact/blast-radius owns broad transitive reach only when multiple first-hop branches independently contribute substantial downstream surface; and
+- real positive recall coverage is still required before guard readiness can be claimed.
 
 ## Related docs
 
