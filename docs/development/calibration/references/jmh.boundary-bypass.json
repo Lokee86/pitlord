@@ -1,0 +1,9 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "java-jmh",
+  "source_revision": "a194eead0136bb66e5e59e4fdb2e18543e730929",
+  "detector": "boundary-bypass",
+  "expectations": [
+    {"id": "profiler-timevalue-shared-target", "path": "jmh-core/src/main/java/org/openjdk/jmh/profile/LinuxPerfC2CProfiler.java", "class": "shared-target-control", "finding": "absent"}
+  ]
+}

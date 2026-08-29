@@ -1,0 +1,9 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "java-maven",
+  "source_revision": "b646a7a38e920f7590e7b25fb43b5756d8bf2b4d",
+  "detector": "boundary-bypass",
+  "expectations": [
+    {"id": "proto-session-shared-api", "path": "impl/maven-impl/src/main/java/org/apache/maven/impl/DefaultSettingsBuilder.java", "class": "shared-target-control", "finding": "absent"}
+  ]
+}
