@@ -1,0 +1,14 @@
+{
+    "schema":  "pitlord.calibration.v1",
+    "corpus":  "volt-mx-ls-toolkit",
+    "source_revision":  "48d0c5b14cef215dabeefa3c182caa11036c0ad8",
+    "detector":  "unstable-dependency-direction",
+    "expectations":  [
+                         {
+                             "id":  "clean-direction-control",
+                             "path":  "node-red/EchoDoc.lsa",
+                             "class":  "clean-direction-control",
+                             "finding":  "absent"
+                         }
+                     ]
+}

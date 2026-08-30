@@ -1,0 +1,14 @@
+{
+    "schema":  "pitlord.calibration.v1",
+    "corpus":  "cs-dapper",
+    "source_revision":  "72a54c475f75e18cb93cba0809d00a5e6e49efd9",
+    "detector":  "unstable-dependency-direction",
+    "expectations":  [
+                         {
+                             "id":  "clean-direction-control",
+                             "path":  "Dapper/SqlMapper.Async.cs",
+                             "class":  "clean-direction-control",
+                             "finding":  "absent"
+                         }
+                     ]
+}

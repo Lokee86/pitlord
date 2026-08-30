@@ -1,0 +1,14 @@
+{
+    "schema":  "pitlord.calibration.v1",
+    "corpus":  "kotlin-coroutines",
+    "source_revision":  "04ada74fae2e8914ae92ece34e06e80bb15385e9",
+    "detector":  "unstable-dependency-direction",
+    "expectations":  [
+                         {
+                             "id":  "clean-direction-control",
+                             "path":  "kotlinx-coroutines-core/common/src/flow/operators/Lint.kt",
+                             "class":  "clean-direction-control",
+                             "finding":  "absent"
+                         }
+                     ]
+}

@@ -1,0 +1,14 @@
+{
+    "schema":  "pitlord.calibration.v1",
+    "corpus":  "java-gson",
+    "source_revision":  "aebc51a56ca0793c13b841c29f73433b82446695",
+    "detector":  "unstable-dependency-direction",
+    "expectations":  [
+                         {
+                             "id":  "clean-direction-control",
+                             "path":  "gson/src/main/java/com/google/gson/internal/bind/ReflectiveTypeAdapterFactory.java",
+                             "class":  "clean-direction-control",
+                             "finding":  "absent"
+                         }
+                     ]
+}

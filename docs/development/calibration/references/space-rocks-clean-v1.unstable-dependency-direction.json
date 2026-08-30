@@ -1,0 +1,14 @@
+{
+    "schema":  "pitlord.calibration.v1",
+    "corpus":  "space-rocks-clean-v1",
+    "source_revision":  "361dcdb4054725c8f1bb58727ff402fcfedf6d18",
+    "detector":  "unstable-dependency-direction",
+    "expectations":  [
+                         {
+                             "id":  "clean-direction-control",
+                             "path":  "services/game-server/internal/rooms/room_creation.go",
+                             "class":  "clean-direction-control",
+                             "finding":  "absent"
+                         }
+                     ]
+}

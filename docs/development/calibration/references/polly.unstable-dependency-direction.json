@@ -1,0 +1,14 @@
+{
+    "schema":  "pitlord.calibration.v1",
+    "corpus":  "cs-polly",
+    "source_revision":  "9fd716c1e84288a6a8a1c7ad9426fb8a8e66942d",
+    "detector":  "unstable-dependency-direction",
+    "expectations":  [
+                         {
+                             "id":  "clean-direction-control",
+                             "path":  "src/Polly.Core/Utils/Pipeline/DelegatingComponent.cs",
+                             "class":  "clean-direction-control",
+                             "finding":  "absent"
+                         }
+                     ]
+}

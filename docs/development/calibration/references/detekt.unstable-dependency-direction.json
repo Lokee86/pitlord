@@ -1,0 +1,14 @@
+{
+    "schema":  "pitlord.calibration.v1",
+    "corpus":  "kotlin-detekt",
+    "source_revision":  "f9e1d5cc239ab740ce499b1edb36b872012648e2",
+    "detector":  "unstable-dependency-direction",
+    "expectations":  [
+                         {
+                             "id":  "clean-direction-control",
+                             "path":  "detekt-cli/src/main/kotlin/dev/detekt/cli/Main.kt",
+                             "class":  "clean-direction-control",
+                             "finding":  "absent"
+                         }
+                     ]
+}

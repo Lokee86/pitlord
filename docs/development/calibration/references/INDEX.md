@@ -10,17 +10,18 @@ This folder contains the machine-readable `pitlord.calibration.v1` scoring proje
 
 Each JSON reference pins one exact corpus revision and translates its manually adjudicated architecture baseline into detector-specific `required`, `absent`, or `allowed` expectations. The Markdown calibration baseline remains the source of architectural rationale.
 
-The 16 frozen corpora currently have seven projections each:
+The 16 frozen corpora currently have eight projections each:
 
 - `<corpus>.json` — calibrated `dependency-pressure` projection;
 - `<corpus>.dependency-knots.json` — frozen `dependency-knots` projection used to measure the initial knot detector before tuning;
 - `<corpus>.dependency-depth.json` — independently audited `dependency-depth` projection separating cross-region behavioral corridors from contained, import-only, cyclic, convergent, and shared-foundation paths;
+- `<corpus>.unstable-dependency-direction.json` — independently audited region-level `unstable-dependency-direction` false-positive projection covering cycle deferral, supported stability gradients, JMH generator/runtime coupling, and Maven compatibility layering while real-world positive recall remains unvalidated;
 - `<corpus>.boundary-bypass.json` — independently audited file/region `boundary-bypass` false-positive projection covering nested ownership, shared targets, weak gateway concentration, and clean controls while real-world positive recall remains unvalidated;
 - `<corpus>.boundary-cohesion.json` — frozen `boundary-cohesion` projection used to constrain real-corpus false positives while synthetic topology supplies the current positive control; and
 - `<corpus>.hub-bottleneck.json` — frozen `hub-bottleneck` projection separating genuine central maintenance gravity from healthy shared abstractions and data/contracts; and
 - `<corpus>.impact-blast-radius.json` — independently audited `impact-blast-radius` projection covering required broad direct/transitive change surfaces, allowed intentional maintenance watches, and absent inherited/metadata controls.
 
-The projections intentionally need not classify the same architectural condition as required. A real source-concentration problem, for example, can be outside dependency-pressure, dependency-knot, dependency-depth, boundary-bypass, boundary/cohesion, hub/bottleneck, and impact/blast-radius ownership.
+The projections intentionally need not classify the same architectural condition as required. A real source-concentration problem, for example, can be outside dependency-pressure, dependency-knot, dependency-depth, unstable-dependency-direction, boundary-bypass, boundary/cohesion, hub/bottleneck, and impact/blast-radius ownership.
 
 ## Direct files
 
@@ -80,6 +81,25 @@ The projections intentionally need not classify the same architectural condition
 - `dunit-lotusscript.dependency-depth.json`
 - `jsonparser-lotusscript.dependency-depth.json`
 - `volt-mx-lotusscript-toolkit.dependency-depth.json`
+
+### Unstable dependency direction
+
+- `space-rocks-clean-v1.unstable-dependency-direction.json`
+- `dapper.unstable-dependency-direction.json`
+- `jsoup.unstable-dependency-direction.json`
+- `detekt.unstable-dependency-direction.json`
+- `lexicanter.unstable-dependency-direction.json`
+- `polly.unstable-dependency-direction.json`
+- `spectre-console.unstable-dependency-direction.json`
+- `gson.unstable-dependency-direction.json`
+- `hikaricp.unstable-dependency-direction.json`
+- `jmh.unstable-dependency-direction.json`
+- `maven.unstable-dependency-direction.json`
+- `kotlinx-coroutines.unstable-dependency-direction.json`
+- `now-in-android.unstable-dependency-direction.json`
+- `dunit-lotusscript.unstable-dependency-direction.json`
+- `jsonparser-lotusscript.unstable-dependency-direction.json`
+- `volt-mx-lotusscript-toolkit.unstable-dependency-direction.json`
 
 ### Boundary bypass
 
@@ -162,6 +182,7 @@ The projections intentionally need not classify the same architectural condition
 - [Calibration evaluation harness](../HARNESS.md)
 - [Dependency-knot baseline](../dependency-knots.md)
 - [Dependency-depth baseline](../dependency-depth.md)
+- [Unstable-dependency-direction baseline](../unstable-dependency-direction.md)
 - [Boundary-bypass baseline](../boundary-bypass.md)
 - [Boundary/cohesion baseline](../boundary-cohesion.md)
 - [Hub/bottleneck baseline](../hub-bottleneck.md)

@@ -1,0 +1,14 @@
+{
+    "schema":  "pitlord.calibration.v1",
+    "corpus":  "cs-spectre",
+    "source_revision":  "555a00ae317abc9b7a49100cda3251584b0a8861",
+    "detector":  "unstable-dependency-direction",
+    "expectations":  [
+                         {
+                             "id":  "clean-direction-control",
+                             "path":  "src/Spectre.Console/AnsiConsole.Exceptions.cs",
+                             "class":  "clean-direction-control",
+                             "finding":  "absent"
+                         }
+                     ]
+}
