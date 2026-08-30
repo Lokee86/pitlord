@@ -8,7 +8,7 @@ This document owns the current machine-readable calibration contract used to sco
 
 ## Overview
 
-`pitlord calibrate` evaluates one pinned corpus at a time against a strict JSON reference. It reuses the normal generalized scan engine, verifies the corpus revision before evaluation, and reports only what the frozen labels support.
+`pitlord calibrate` evaluates one pinned corpus at a time against a strict JSON reference. It reuses the normal generalized scan engine, verifies the corpus revision and any optional frozen worktree diff before evaluation, and reports only what the frozen labels support.
 
 ## Reference contract
 
@@ -18,9 +18,12 @@ Each reference pins:
 
 - corpus name;
 - exact Git source revision;
+- optional SHA-256 of the complete tracked worktree diff;
 - detector under evaluation;
 - optional scan path prefix; and
 - labelled path or path-prefix expectations.
+
+`worktree_diff_sha256` is used for controlled mutation specimens. Pitlord does not apply the mutation; it hashes `git diff --binary --full-index --no-ext-diff HEAD --` and fails closed if the supplied worktree does not match the frozen specimen.
 
 Each expectation has one detector-specific behavior:
 
@@ -40,7 +43,7 @@ pitlord calibrate \
   --reference docs/development/calibration/references/jsoup.json
 ```
 
-The command verifies Git `HEAD` against `source_revision` before scanning. `--skip-revision-check` exists only for controlled diagnostics and should not be used for canonical calibration runs.
+The command verifies Git `HEAD` against `source_revision` before scanning. When `worktree_diff_sha256` is present it also verifies the exact tracked diff. `--skip-revision-check` skips both state checks and exists only for controlled diagnostics; it should not be used for canonical calibration runs.
 
 `--format json` emits the machine-readable evaluation result. `--fail-on-mismatch` exits `1` when a labelled false positive, false negative, or severity mismatch exists. Without that flag the command reports mismatches but exits `0`, allowing an intentionally failing detector baseline to be measured.
 
@@ -55,6 +58,8 @@ The harness reports:
 - unlabelled detector findings separately.
 
 Unlabelled findings are never silently treated as correct or incorrect. They indicate that the frozen reference does not currently assign detector-specific judgment to that finding.
+
+An expectation may use `path_prefix: "."` to match the entire repository. Detector-wide negative controls use this form so any new finding is scored against the absent expectation instead of escaping as unlabelled output.
 
 ## Ground-truth ownership
 

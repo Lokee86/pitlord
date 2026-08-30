@@ -15,10 +15,11 @@ A baseline may distinguish real architectural pressure, intentional broad seams,
 ## Direct files
 
 - [Calibration evaluation harness](HARNESS.md) — Machine-readable `pitlord.calibration.v1` references, pinned-revision verification, labelled scoring, and command usage.
-- [Calibration references](references/INDEX.md) — The 128 machine-readable detector scoring projections for the 16 frozen corpora across dependency pressure, dependency knots, dependency depth, unstable dependency direction, boundary bypass, boundary/cohesion, hub/bottleneck, and impact/blast-radius analysis.
+- [Calibration references](references/INDEX.md) — The 145 machine-readable detector scoring projections: nine projections for each of the 16 frozen corpora plus one diff-pinned Space Rocks symbol-bypass mutation positive.
 - [Dependency-knot baseline](dependency-knots.md) — First real-corpus knot audit, including required package knots, allowed cyclic seams, and false callback/directory cycles.
 - [Dependency-depth baseline](dependency-depth.md) — Independent 16-corpus behavioral-depth audit with one required JMH cross-region corridor and 16 negative controls; final projection: 1 TP / 16 TN / 0 FP / 0 FN.
 - [Boundary-bypass baseline](boundary-bypass.md) — File/region intermediary-bypass audit: 18 initial false gateway inferences, tuned shared-target/concentration/ownership controls, and a final 0 TP / 16 TN / 0 FP / 0 FN projection with recall explicitly unvalidated.
+- [Symbol-intermediary-bypass baseline](symbol-intermediary-bypass.md) — Symbol-level repeated-pipeline bypass calibration: one diff-pinned real Space Rocks mutation positive, 16 whole-repository negative controls, and source-audited jsoup/Maven false-positive suppression.
 - [Unstable-dependency-direction baseline](unstable-dependency-direction.md) — Region-level Stable Dependencies Principle audit: zero raw findings, source-audited JMH and Maven near misses, retained SCC/cross-half/support/gap discriminators, and a 0 TP / 16 TN / 0 FP / 0 FN precision projection with recall explicitly unvalidated.
 - [Boundary/cohesion baseline](boundary-cohesion.md) — First real-corpus boundary/cohesion audit, including the untouched zero-output failure, 30 negative controls, and the limits of positive-corpus coverage.
 - [Hub/bottleneck baseline](hub-bottleneck.md) — Centrality audit and tuning record: one required real-world maintenance gravity well, 33 labelled untouched false positives, and the tuned many-to-many behavioral-waist projection at 1 TP / 43 TN / 0 FP / 0 FN.

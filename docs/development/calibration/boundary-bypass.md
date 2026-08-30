@@ -95,7 +95,7 @@ handleDebugAddScore
 -> AddPlayerScore
 ```
 
-A mutation that changed the first call to reach `AddPlayerScore` directly was a genuine symbol-level intermediary bypass, but both local functions live in the same source file. The current file-level detector cannot observe that lost intermediary edge. Symbol-level intermediary-bypass detection therefore remains separate follow-on work rather than being inferred from file topology.
+A mutation that changed the first call to reach `AddPlayerScore` directly was a genuine symbol-level intermediary bypass, but both local functions live in the same source file. The file-level detector cannot observe that lost intermediary edge. The separate `symbol-intermediary-bypass` detector now owns that case directly from resolved call evidence rather than inferring symbol shortcuts from file topology.
 
 ## Removal condition
 
