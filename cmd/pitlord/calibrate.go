@@ -64,6 +64,17 @@ func runCalibrateWithDependencies(
 			fmt.Fprintln(stderr, err)
 			return 2
 		}
+		if reference.WorktreeDiffSHA256 != "" {
+			diffResolver, ok := revisions.(calibration.WorktreeDiffResolver)
+			if !ok {
+				fmt.Fprintln(stderr, "worktree diff resolver is required")
+				return 2
+			}
+			if err := calibration.VerifyWorktreeDiff(diffResolver, *repo, reference.WorktreeDiffSHA256); err != nil {
+				fmt.Fprintln(stderr, err)
+				return 2
+			}
+		}
 	}
 
 	resolvedSnapshot, err := snapshot.Resolve(*repo, *explicitSnapshot)

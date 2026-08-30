@@ -1,0 +1,17 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "space-rocks-symbol-bypass-mut",
+  "source_revision": "361dcdb4054725c8f1bb58727ff402fcfedf6d18",
+  "worktree_diff_sha256": "a3df7f53c63db4b4ec7b1d5b9484938dabce474422cd8c431ec66df7285a5445",
+  "detector": "symbol-intermediary-bypass",
+  "expectations": [
+    {
+      "id": "debug-score-symbol-intermediary-bypass",
+      "path": "services/game-server/internal/devtools/player_counters.go",
+      "class": "symbol-intermediary-bypass",
+      "finding": "required",
+      "min_severity": "warning",
+      "max_severity": "warning"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "space-rocks-clean-v1",
+  "source_revision": "361dcdb4054725c8f1bb58727ff402fcfedf6d18",
+  "detector": "symbol-intermediary-bypass",
+  "expectations": [
+    {
+      "id": "clean-symbol-intermediary-bypass-control",
+      "path_prefix": ".",
+      "class": "clean-symbol-intermediary-bypass-control",
+      "finding": "absent"
+    }
+  ]
+}

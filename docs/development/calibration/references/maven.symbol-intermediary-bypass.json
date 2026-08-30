@@ -1,0 +1,14 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "java-maven",
+  "source_revision": "b646a7a38e920f7590e7b25fb43b5756d8bf2b4d",
+  "detector": "symbol-intermediary-bypass",
+  "expectations": [
+    {
+      "id": "clean-symbol-intermediary-bypass-control",
+      "path_prefix": ".",
+      "class": "clean-symbol-intermediary-bypass-control",
+      "finding": "absent"
+    }
+  ]
+}

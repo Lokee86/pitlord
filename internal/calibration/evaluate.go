@@ -75,6 +75,9 @@ func matchesPath(expectation Expectation, value string) bool {
 		return value == normalizePath(expectation.Path)
 	}
 	prefix := strings.TrimSuffix(normalizePath(expectation.PathPrefix), "/")
+	if prefix == "." {
+		return true
+	}
 	return value == prefix || strings.HasPrefix(value, prefix+"/")
 }
 

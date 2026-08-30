@@ -39,6 +39,24 @@ func TestEvaluateScoresRequiredAbsentAllowedAndUnlabelled(t *testing.T) {
 	}
 }
 
+func TestEvaluateRootPrefixMatchesAllRepositoryFindings(t *testing.T) {
+	reference := Reference{
+		Schema:         Schema,
+		Corpus:         "fixture",
+		SourceRevision: "abc123",
+		Detector:       "symbol-intermediary-bypass",
+		Expectations: []Expectation{
+			{ID: "clean", PathPrefix: ".", Class: "clean", Finding: FindingAbsent},
+		},
+	}
+	result := Evaluate(reference, scan.Result{Findings: []scan.Finding{
+		{Detector: "symbol-intermediary-bypass", Severity: scan.SeverityWarning, Scope: scan.Scope{Path: "src/nested/file.go"}},
+	}})
+	if result.Summary.FalsePositive != 1 || result.Summary.UnlabelledFindings != 0 {
+		t.Fatalf("root prefix did not cover repository finding: %+v", result.Summary)
+	}
+}
+
 func TestEvaluateReportsFalseNegativeAndSeverityMismatch(t *testing.T) {
 	reference := Reference{
 		Schema:         Schema,

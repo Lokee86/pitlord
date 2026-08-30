@@ -23,12 +23,13 @@ type Expectation struct {
 }
 
 type Reference struct {
-	Schema         string        `json:"schema"`
-	Corpus         string        `json:"corpus"`
-	SourceRevision string        `json:"source_revision"`
-	Detector       string        `json:"detector"`
-	PathPrefix     string        `json:"path_prefix,omitempty"`
-	Expectations   []Expectation `json:"expectations"`
+	Schema             string        `json:"schema"`
+	Corpus             string        `json:"corpus"`
+	SourceRevision     string        `json:"source_revision"`
+	WorktreeDiffSHA256 string        `json:"worktree_diff_sha256,omitempty"`
+	Detector           string        `json:"detector"`
+	PathPrefix         string        `json:"path_prefix,omitempty"`
+	Expectations       []Expectation `json:"expectations"`
 }
 
 type Outcome string

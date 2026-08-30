@@ -11,10 +11,15 @@ import (
 
 type fixedRevisionResolver struct {
 	revision string
+	diffHash string
 }
 
 func (resolver fixedRevisionResolver) Resolve(string) (string, error) {
 	return resolver.revision, nil
+}
+
+func (resolver fixedRevisionResolver) ResolveWorktreeDiffSHA256(string) (string, error) {
+	return resolver.diffHash, nil
 }
 
 func TestCalibrateFailsOnLabelledMismatchWhenRequested(t *testing.T) {
@@ -53,6 +58,59 @@ func TestCalibrateFailsOnLabelledMismatchWhenRequested(t *testing.T) {
 	}
 	if !bytes.Contains(stdout.Bytes(), []byte(`"false_negative": 1`)) {
 		t.Fatalf("unexpected output: %s", stdout.String())
+	}
+}
+
+func TestCalibrateAcceptsPinnedWorktreeDiff(t *testing.T) {
+	dir := t.TempDir()
+	reference := filepath.Join(dir, "reference.json")
+	diffHash := "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+	if err := os.WriteFile(reference, []byte(`{
+		"schema":"pitlord.calibration.v1",
+		"corpus":"fixture",
+		"source_revision":"abc123",
+		"worktree_diff_sha256":"`+diffHash+`",
+		"detector":"dependency-pressure",
+		"expectations":[{"id":"clean","path_prefix":".","class":"clean","finding":"absent"}]
+	}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	var stdout, stderr bytes.Buffer
+	code := runCalibrateWithDependencies(
+		[]string{"--repo", dir, "--reference", reference, "--snapshot", dir},
+		&stdout,
+		&stderr,
+		commandScanLoader{graph: arcana.Graph{Outgoing: map[uint32][]arcana.Relationship{}}},
+		fixedRevisionResolver{revision: "abc123", diffHash: diffHash},
+	)
+	if code != 0 {
+		t.Fatalf("expected pinned worktree calibration to pass, got code=%d stderr=%s", code, stderr.String())
+	}
+}
+
+func TestCalibrateRejectsWorktreeDiffMismatch(t *testing.T) {
+	dir := t.TempDir()
+	reference := filepath.Join(dir, "reference.json")
+	if err := os.WriteFile(reference, []byte(`{
+		"schema":"pitlord.calibration.v1",
+		"corpus":"fixture",
+		"source_revision":"abc123",
+		"worktree_diff_sha256":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+		"detector":"dependency-pressure",
+		"expectations":[{"id":"clean","path_prefix":".","class":"clean","finding":"absent"}]
+	}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	var stdout, stderr bytes.Buffer
+	code := runCalibrateWithDependencies(
+		[]string{"--repo", dir, "--reference", reference, "--snapshot", dir},
+		&stdout,
+		&stderr,
+		commandScanLoader{graph: arcana.Graph{Outgoing: map[uint32][]arcana.Relationship{}}},
+		fixedRevisionResolver{revision: "abc123", diffHash: "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+	)
+	if code != 2 || !bytes.Contains(stderr.Bytes(), []byte("worktree diff mismatch")) {
+		t.Fatalf("expected worktree diff mismatch, got code=%d stderr=%s", code, stderr.String())
 	}
 }
 

@@ -41,6 +41,9 @@ func validateReference(reference Reference) error {
 	if strings.TrimSpace(reference.SourceRevision) == "" {
 		return fmt.Errorf("calibration source_revision is required")
 	}
+	if reference.WorktreeDiffSHA256 != "" && !validSHA256(reference.WorktreeDiffSHA256) {
+		return fmt.Errorf("calibration worktree_diff_sha256 must be 64 hexadecimal characters")
+	}
 	if strings.TrimSpace(reference.Detector) == "" {
 		return fmt.Errorf("calibration detector is required")
 	}
@@ -72,7 +75,7 @@ func validateExpectation(expectation Expectation) error {
 			return fmt.Errorf("path: %w", err)
 		}
 	}
-	if expectation.PathPrefix != "" {
+	if expectation.PathPrefix != "" && strings.TrimSpace(expectation.PathPrefix) != "." {
 		if err := validateRelativePath(expectation.PathPrefix); err != nil {
 			return fmt.Errorf("path_prefix: %w", err)
 		}
@@ -110,4 +113,17 @@ func validSeverity(value string) bool {
 	default:
 		return false
 	}
+}
+
+func validSHA256(value string) bool {
+	value = strings.TrimSpace(value)
+	if len(value) != 64 {
+		return false
+	}
+	for _, char := range value {
+		if !strings.ContainsRune("0123456789abcdefABCDEF", char) {
+			return false
+		}
+	}
+	return true
 }

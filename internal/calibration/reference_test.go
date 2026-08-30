@@ -24,6 +24,37 @@ func TestDecodeReferenceRejectsAmbiguousPathMatcher(t *testing.T) {
 	}
 }
 
+func TestDecodeReferenceAcceptsRootPrefixAndWorktreeDiffHash(t *testing.T) {
+	reference, err := DecodeReference(strings.NewReader(`{
+		"schema":"pitlord.calibration.v1",
+		"corpus":"fixture",
+		"source_revision":"abc",
+		"worktree_diff_sha256":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+		"detector":"symbol-intermediary-bypass",
+		"expectations":[{"id":"clean","path_prefix":".","class":"clean","finding":"absent"}]
+	}`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if reference.WorktreeDiffSHA256 == "" || reference.Expectations[0].PathPrefix != "." {
+		t.Fatalf("unexpected reference: %+v", reference)
+	}
+}
+
+func TestDecodeReferenceRejectsInvalidWorktreeDiffHash(t *testing.T) {
+	_, err := DecodeReference(strings.NewReader(`{
+		"schema":"pitlord.calibration.v1",
+		"corpus":"fixture",
+		"source_revision":"abc",
+		"worktree_diff_sha256":"not-a-sha256",
+		"detector":"symbol-intermediary-bypass",
+		"expectations":[{"id":"clean","path_prefix":".","class":"clean","finding":"absent"}]
+	}`))
+	if err == nil || !strings.Contains(err.Error(), "worktree_diff_sha256") {
+		t.Fatalf("expected worktree diff hash validation error, got %v", err)
+	}
+}
+
 func TestDecodeReferenceRejectsUnknownField(t *testing.T) {
 	_, err := DecodeReference(strings.NewReader(`{
 		"schema":"pitlord.calibration.v1",
