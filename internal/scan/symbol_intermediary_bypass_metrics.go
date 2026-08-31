@@ -43,7 +43,11 @@ func buildSymbolCallGraph(graph arcana.Graph) symbolCallGraph {
 				continue
 			}
 			target := relationship.Node
-			result.nodes[target.NodeID] = target
+			if sourceNode, exists := result.nodes[target.NodeID]; exists {
+				target = sourceNode
+			} else {
+				result.nodes[target.NodeID] = target
+			}
 			if result.outgoing[sourceID] == nil {
 				result.outgoing[sourceID] = make(map[uint32]struct{})
 			}

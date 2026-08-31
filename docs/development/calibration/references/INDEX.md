@@ -10,7 +10,7 @@ This folder contains the machine-readable `pitlord.calibration.v1` scoring proje
 
 Each JSON reference pins one exact corpus revision and translates its manually adjudicated architecture baseline into detector-specific `required`, `absent`, or `allowed` expectations. The Markdown calibration baseline remains the source of architectural rationale.
 
-The 16 frozen corpora currently have nine projections each, plus one diff-pinned mutation positive:
+The 16 frozen corpora currently have ten projections each, plus two diff-pinned mutation positives:
 
 - `<corpus>.json` — calibrated `dependency-pressure` projection;
 - `<corpus>.dependency-knots.json` — frozen `dependency-knots` projection used to measure the initial knot detector before tuning;
@@ -19,11 +19,13 @@ The 16 frozen corpora currently have nine projections each, plus one diff-pinned
 - `<corpus>.boundary-bypass.json` — independently audited file/region `boundary-bypass` false-positive projection covering nested ownership, shared targets, weak gateway concentration, and clean controls while real-world positive recall remains unvalidated;
 - `<corpus>.symbol-intermediary-bypass.json` — whole-repository absent control for the symbol-level repeated-pipeline bypass detector;
 - `space-rocks-symbol-bypass.symbol-intermediary-bypass.json` — diff-pinned required positive for the known Space Rocks `handleDebugAddScore` mutation;
+- `<corpus>.cross-file-intermediary-bypass.json` — whole-repository absent control for the conservative cross-file seam-bypass detector;
+- `space-rocks-match-decision.cross-file-intermediary-bypass.json` — diff-pinned required positive for the Space Rocks `Control.MatchDecision` bypass mutation;
 - `<corpus>.boundary-cohesion.json` — frozen `boundary-cohesion` projection used to constrain real-corpus false positives while synthetic topology supplies the current positive control; and
 - `<corpus>.hub-bottleneck.json` — frozen `hub-bottleneck` projection separating genuine central maintenance gravity from healthy shared abstractions and data/contracts; and
 - `<corpus>.impact-blast-radius.json` — independently audited `impact-blast-radius` projection covering required broad direct/transitive change surfaces, allowed intentional maintenance watches, and absent inherited/metadata controls.
 
-The projections intentionally need not classify the same architectural condition as required. A real source-concentration problem, for example, can be outside dependency-pressure, dependency-knot, dependency-depth, unstable-dependency-direction, boundary-bypass, symbol-intermediary-bypass, boundary/cohesion, hub/bottleneck, and impact/blast-radius ownership.
+The projections intentionally need not classify the same architectural condition as required. A real source-concentration problem, for example, can be outside dependency-pressure, dependency-knot, dependency-depth, unstable-dependency-direction, boundary-bypass, symbol-intermediary-bypass, cross-file-intermediary-bypass, boundary/cohesion, hub/bottleneck, and impact/blast-radius ownership.
 
 ## Direct files
 
@@ -142,6 +144,26 @@ The projections intentionally need not classify the same architectural condition
 - `volt-mx-lotusscript-toolkit.symbol-intermediary-bypass.json`
 - `space-rocks-symbol-bypass.symbol-intermediary-bypass.json` — diff-pinned required-positive mutation
 
+### Cross-file intermediary bypass
+
+- `space-rocks-clean-v1.cross-file-intermediary-bypass.json`
+- `dapper.cross-file-intermediary-bypass.json`
+- `jsoup.cross-file-intermediary-bypass.json`
+- `detekt.cross-file-intermediary-bypass.json`
+- `lexicanter.cross-file-intermediary-bypass.json`
+- `polly.cross-file-intermediary-bypass.json`
+- `spectre-console.cross-file-intermediary-bypass.json`
+- `gson.cross-file-intermediary-bypass.json`
+- `hikaricp.cross-file-intermediary-bypass.json`
+- `jmh.cross-file-intermediary-bypass.json`
+- `maven.cross-file-intermediary-bypass.json`
+- `kotlinx-coroutines.cross-file-intermediary-bypass.json`
+- `now-in-android.cross-file-intermediary-bypass.json`
+- `dunit-lotusscript.cross-file-intermediary-bypass.json`
+- `jsonparser-lotusscript.cross-file-intermediary-bypass.json`
+- `volt-mx-lotusscript-toolkit.cross-file-intermediary-bypass.json`
+- `space-rocks-match-decision.cross-file-intermediary-bypass.json` — diff-pinned required-positive mutation
+
 ### Boundary / cohesion
 
 - `space-rocks-clean-v1.boundary-cohesion.json`
@@ -207,6 +229,7 @@ The projections intentionally need not classify the same architectural condition
 - [Unstable-dependency-direction baseline](../unstable-dependency-direction.md)
 - [Boundary-bypass baseline](../boundary-bypass.md)
 - [Symbol-intermediary-bypass baseline](../symbol-intermediary-bypass.md)
+- [Cross-file-intermediary-bypass baseline](../cross-file-intermediary-bypass.md)
 - [Boundary/cohesion baseline](../boundary-cohesion.md)
 - [Hub/bottleneck baseline](../hub-bottleneck.md)
 - [Impact/blast-radius baseline](../impact-blast-radius.md)

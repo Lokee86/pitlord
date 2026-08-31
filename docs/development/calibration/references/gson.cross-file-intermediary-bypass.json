@@ -1,0 +1,14 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "java-gson",
+  "source_revision": "aebc51a56ca0793c13b841c29f73433b82446695",
+  "detector": "cross-file-intermediary-bypass",
+  "expectations": [
+    {
+      "id": "clean-cross-file-intermediary-bypass-control",
+      "path_prefix": ".",
+      "class": "clean-cross-file-intermediary-bypass-control",
+      "finding": "absent"
+    }
+  ]
+}

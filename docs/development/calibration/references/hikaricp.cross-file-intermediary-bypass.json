@@ -1,0 +1,14 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "java-hikaricp",
+  "source_revision": "a4d93f4f85517f90e632b795486d7102e933d7ff",
+  "detector": "cross-file-intermediary-bypass",
+  "expectations": [
+    {
+      "id": "clean-cross-file-intermediary-bypass-control",
+      "path_prefix": ".",
+      "class": "clean-cross-file-intermediary-bypass-control",
+      "finding": "absent"
+    }
+  ]
+}

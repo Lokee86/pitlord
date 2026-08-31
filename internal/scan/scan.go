@@ -51,6 +51,7 @@ func analyzeGraph(pathPrefix string, graph arcana.Graph) Result {
 	findings = append(findings, detectDependencyDepth(graph, pathPrefix)...)
 	findings = append(findings, detectUnstableDependencyDirection(graph, pathPrefix)...)
 	findings = append(findings, detectSymbolIntermediaryBypass(graph, pathPrefix)...)
+	findings = append(findings, detectCrossFileIntermediaryBypass(graph, pathPrefix)...)
 	findings = append(findings, detectBoundaryBypass(graph, pathPrefix)...)
 	findings = append(findings, detectBoundaryCohesion(graph, pathPrefix)...)
 	findings = append(findings, detectImpactBlastRadius(graph, pathPrefix)...)

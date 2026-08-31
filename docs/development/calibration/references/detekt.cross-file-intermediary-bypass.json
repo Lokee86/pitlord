@@ -1,0 +1,14 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "kotlin-detekt",
+  "source_revision": "f9e1d5cc239ab740ce499b1edb36b872012648e2",
+  "detector": "cross-file-intermediary-bypass",
+  "expectations": [
+    {
+      "id": "clean-cross-file-intermediary-bypass-control",
+      "path_prefix": ".",
+      "class": "clean-cross-file-intermediary-bypass-control",
+      "finding": "absent"
+    }
+  ]
+}

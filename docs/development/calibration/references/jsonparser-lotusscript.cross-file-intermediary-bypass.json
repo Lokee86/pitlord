@@ -1,0 +1,14 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "jsonparser-ls",
+  "source_revision": "2406bc4431225ef83276700bda853ae247bd9cfd",
+  "detector": "cross-file-intermediary-bypass",
+  "expectations": [
+    {
+      "id": "clean-cross-file-intermediary-bypass-control",
+      "path_prefix": ".",
+      "class": "clean-cross-file-intermediary-bypass-control",
+      "finding": "absent"
+    }
+  ]
+}

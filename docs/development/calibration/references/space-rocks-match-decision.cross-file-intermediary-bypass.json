@@ -1,0 +1,17 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "space-rocks-match-decision-bypass-mut",
+  "source_revision": "361dcdb4054725c8f1bb58727ff402fcfedf6d18",
+  "worktree_diff_sha256": "834aeb40ad87969144277ecce73582e06f2969a437d1b69ef183a011ad9e75d3",
+  "detector": "cross-file-intermediary-bypass",
+  "expectations": [
+    {
+      "id": "match-decision-cross-file-intermediary-bypass",
+      "path": "services/game-server/internal/game/control_match.go",
+      "class": "cross-file-intermediary-bypass",
+      "finding": "required",
+      "min_severity": "warning",
+      "max_severity": "warning"
+    }
+  ]
+}

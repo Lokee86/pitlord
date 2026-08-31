@@ -1,0 +1,14 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "kotlin-nowinandroid",
+  "source_revision": "7d45eae4f8720a0c77f507712ba2437ff974b6ed",
+  "detector": "cross-file-intermediary-bypass",
+  "expectations": [
+    {
+      "id": "clean-cross-file-intermediary-bypass-control",
+      "path_prefix": ".",
+      "class": "clean-cross-file-intermediary-bypass-control",
+      "finding": "absent"
+    }
+  ]
+}
