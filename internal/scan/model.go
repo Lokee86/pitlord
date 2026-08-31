@@ -30,17 +30,52 @@ type Evidence struct {
 	Message string `json:"message"`
 }
 
+type SourceSpan struct {
+	Path        string `json:"path"`
+	StartLine   int    `json:"start_line,omitempty"`
+	StartColumn int    `json:"start_column,omitempty"`
+	EndLine     int    `json:"end_line,omitempty"`
+	EndColumn   int    `json:"end_column,omitempty"`
+}
+
+type Applicability string
+
+const (
+	ApplicabilityMachine         Applicability = "machine-applicable"
+	ApplicabilityMaybe           Applicability = "maybe-incorrect"
+	ApplicabilityHasPlaceholders Applicability = "has-placeholders"
+	ApplicabilityUnspecified     Applicability = "unspecified"
+	ApplicabilityManual          Applicability = "manual"
+)
+
+type TextEdit struct {
+	Span        SourceSpan `json:"span"`
+	Replacement string     `json:"replacement"`
+}
+
+type SuggestedFix struct {
+	Message       string        `json:"message"`
+	Applicability Applicability `json:"applicability"`
+	Edits         []TextEdit    `json:"edits,omitempty"`
+}
+
 type Finding struct {
-	ID                string      `json:"id"`
-	Detector          string      `json:"detector"`
-	Disposition       Disposition `json:"disposition"`
-	Severity          Severity    `json:"severity"`
-	Scope             Scope       `json:"scope"`
-	Summary           string      `json:"summary"`
-	Rationale         string      `json:"rationale"`
-	Evidence          []Evidence  `json:"evidence"`
-	RequiredOutcome   string      `json:"required_outcome"`
-	RecommendedAction string      `json:"recommended_action"`
+	ID                string        `json:"id"`
+	RuleID            string        `json:"rule_id,omitempty"`
+	Analyzer          string        `json:"analyzer,omitempty"`
+	Detector          string        `json:"detector"`
+	Language          string        `json:"language,omitempty"`
+	Category          string        `json:"category,omitempty"`
+	Disposition       Disposition   `json:"disposition"`
+	Severity          Severity      `json:"severity"`
+	Scope             Scope         `json:"scope"`
+	Location          *SourceSpan   `json:"location,omitempty"`
+	Summary           string        `json:"summary"`
+	Rationale         string        `json:"rationale"`
+	Evidence          []Evidence    `json:"evidence"`
+	RequiredOutcome   string        `json:"required_outcome"`
+	RecommendedAction string        `json:"recommended_action"`
+	SuggestedFix      *SuggestedFix `json:"suggested_fix,omitempty"`
 }
 
 type Summary struct {

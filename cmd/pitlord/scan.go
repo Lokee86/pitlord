@@ -53,8 +53,9 @@ func runScanWithLoader(args []string, stdout, stderr io.Writer, loader scan.Grap
 	ctx, cancel := context.WithTimeout(context.Background(), *timeout)
 	defer cancel()
 	result, err := (scan.Engine{Loader: loader}).Run(ctx, scan.Input{
-		SnapshotPath: resolvedSnapshot,
-		PathPrefix:   *pathPrefix,
+		RepositoryRoot: *repo,
+		SnapshotPath:   resolvedSnapshot,
+		PathPrefix:     *pathPrefix,
 	})
 	if err != nil {
 		fmt.Fprintln(stderr, err)

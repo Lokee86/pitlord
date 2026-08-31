@@ -19,7 +19,7 @@ func WriteScanText(writer io.Writer, result scan.Result) error {
 	if len(result.Findings) == 0 {
 		_, err := fmt.Fprintf(
 			writer,
-			"Pitlord scan: no generalized architecture findings in %s.\n",
+			"Pitlord scan: no findings in %s.\n",
 			scanScope(result.Scope),
 		)
 		return err
@@ -30,13 +30,18 @@ func WriteScanText(writer io.Writer, result scan.Result) error {
 			"%s %s %s: %s\n",
 			strings.ToUpper(string(finding.Severity)),
 			strings.ToUpper(string(finding.Disposition)),
-			finding.Detector,
+			scanRuleLabel(finding),
 			finding.Summary,
 		); err != nil {
 			return err
 		}
 		if _, err := fmt.Fprintf(writer, "  Scope: %s\n", scanScope(finding.Scope)); err != nil {
 			return err
+		}
+		if finding.Location != nil {
+			if _, err := fmt.Fprintf(writer, "  Location: %s\n", scanLocation(*finding.Location)); err != nil {
+				return err
+			}
 		}
 		if finding.Rationale != "" {
 			if _, err := fmt.Fprintf(writer, "  Why: %s\n", finding.Rationale); err != nil {
@@ -58,6 +63,11 @@ func WriteScanText(writer io.Writer, result scan.Result) error {
 				return err
 			}
 		}
+		if finding.SuggestedFix != nil {
+			if _, err := fmt.Fprintf(writer, "  Fix%s: %s\n", scanApplicability(finding.SuggestedFix.Applicability), finding.SuggestedFix.Message); err != nil {
+				return err
+			}
+		}
 	}
 	_, err := fmt.Fprintf(
 		writer,
@@ -71,6 +81,31 @@ func WriteScanText(writer io.Writer, result scan.Result) error {
 		result.Summary.Info,
 	)
 	return err
+}
+
+func scanRuleLabel(finding scan.Finding) string {
+	if finding.RuleID != "" {
+		return finding.RuleID
+	}
+	return finding.Detector
+}
+
+func scanLocation(span scan.SourceSpan) string {
+	location := span.Path
+	if span.StartLine > 0 {
+		location = fmt.Sprintf("%s:%d", location, span.StartLine)
+		if span.StartColumn > 0 {
+			location = fmt.Sprintf("%s:%d", location, span.StartColumn)
+		}
+	}
+	return location
+}
+
+func scanApplicability(applicability scan.Applicability) string {
+	if applicability == "" {
+		return ""
+	}
+	return fmt.Sprintf(" (%s)", applicability)
 }
 
 func scanScope(scope scan.Scope) string {
