@@ -41,6 +41,10 @@ func (analyzer graphAnalyzer) Analyze(_ context.Context, input AnalyzerContext) 
 }
 
 func defaultAnalyzers() []Analyzer {
+	return ArchitectureAnalyzers()
+}
+
+func ArchitectureAnalyzers() []Analyzer {
 	return []Analyzer{
 		architectureAnalyzer(DetectorDependencyPressure, detectDependencyPressure),
 		architectureAnalyzer(DetectorHubBottleneck, detectHubBottlenecks),
@@ -60,6 +64,40 @@ func architectureAnalyzer(id string, detect func(arcana.Graph, string) []Finding
 		metadata: AnalyzerMetadata{ID: id, Category: "architecture", RequiresGraph: true},
 		detect:   detect,
 	}
+}
+
+func BuiltInAnalyzers(spec string) ([]Analyzer, error) {
+	if strings.TrimSpace(spec) == "" {
+		spec = "architecture"
+	}
+	var analyzers []Analyzer
+	seen := make(map[string]struct{})
+	for _, raw := range strings.Split(spec, ",") {
+		name := strings.TrimSpace(raw)
+		if name == "" {
+			continue
+		}
+		if _, exists := seen[name]; exists {
+			return nil, fmt.Errorf("duplicate built-in analyzer group %q", name)
+		}
+		seen[name] = struct{}{}
+		switch name {
+		case "architecture":
+			analyzers = append(analyzers, ArchitectureAnalyzers()...)
+		case AnalyzerClippy:
+			analyzers = append(analyzers, NewClippyAnalyzer())
+		default:
+			return nil, fmt.Errorf("unknown built-in analyzer %q", name)
+		}
+	}
+	if len(analyzers) == 0 {
+		return nil, fmt.Errorf("at least one scan analyzer is required")
+	}
+	return analyzers, nil
+}
+
+func AnalyzersRequireGraph(analyzers []Analyzer) bool {
+	return analyzersRequireGraph(analyzers)
 }
 
 func analyzersRequireGraph(analyzers []Analyzer) bool {

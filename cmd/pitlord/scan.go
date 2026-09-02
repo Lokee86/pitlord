@@ -24,6 +24,7 @@ func runScanWithLoader(args []string, stdout, stderr io.Writer, loader scan.Grap
 	explicitSnapshot := flags.String("snapshot", "", "explicit Arcana snapshot directory")
 	arcanaCommand := flags.String("arcana", "", "Arcana executable override")
 	pathPrefix := flags.String("path-prefix", ".", "repository-relative path prefix to scan")
+	analyzerSpec := flags.String("analyzers", "architecture", "built-in analyzers: architecture, clippy, or a comma-separated combination")
 	format := flags.String("format", "text", "output format: text or json")
 	timeout := flags.Duration("timeout", 4*time.Minute, "maximum scan duration")
 	if err := flags.Parse(args); err != nil {
@@ -37,22 +38,30 @@ func runScanWithLoader(args []string, stdout, stderr io.Writer, loader scan.Grap
 		fmt.Fprintln(stderr, "--timeout must be positive")
 		return 2
 	}
-	resolvedSnapshot, err := snapshot.Resolve(*repo, *explicitSnapshot)
+	analyzers, err := scan.BuiltInAnalyzers(*analyzerSpec)
 	if err != nil {
 		fmt.Fprintln(stderr, err)
 		return 2
 	}
-	if loader == nil {
-		resolvedCommand, resolveErr := arcana.ResolveCommand(*repo, *arcanaCommand)
-		if resolveErr != nil {
-			fmt.Fprintln(stderr, resolveErr)
+	resolvedSnapshot := ""
+	if scan.AnalyzersRequireGraph(analyzers) {
+		resolvedSnapshot, err = snapshot.Resolve(*repo, *explicitSnapshot)
+		if err != nil {
+			fmt.Fprintln(stderr, err)
 			return 2
 		}
-		loader = arcana.Client{Command: resolvedCommand}
+		if loader == nil {
+			resolvedCommand, resolveErr := arcana.ResolveCommand(*repo, *arcanaCommand)
+			if resolveErr != nil {
+				fmt.Fprintln(stderr, resolveErr)
+				return 2
+			}
+			loader = arcana.Client{Command: resolvedCommand}
+		}
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), *timeout)
 	defer cancel()
-	result, err := (scan.Engine{Loader: loader}).Run(ctx, scan.Input{
+	result, err := (scan.Engine{Loader: loader, Analyzers: analyzers}).Run(ctx, scan.Input{
 		RepositoryRoot: *repo,
 		SnapshotPath:   resolvedSnapshot,
 		PathPrefix:     *pathPrefix,

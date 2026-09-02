@@ -41,6 +41,16 @@ func TestScanRunsWithoutPolicy(t *testing.T) {
 	}
 }
 
+func TestScanRejectsUnknownBuiltInAnalyzer(t *testing.T) {
+	var stdout, stderr bytes.Buffer
+	if code := runScanWithLoader([]string{"--analyzers", "unknown"}, &stdout, &stderr, nil); code != 2 {
+		t.Fatalf("expected usage failure, got %d", code)
+	}
+	if !bytes.Contains(stderr.Bytes(), []byte(`unknown built-in analyzer "unknown"`)) {
+		t.Fatalf("unexpected stderr: %s", stderr.String())
+	}
+}
+
 func TestScanResolvesRepositorySnapshot(t *testing.T) {
 	repo := t.TempDir()
 	digest := "abc123"
