@@ -20,6 +20,7 @@ type AnalyzerMetadata struct {
 	Category      string
 	Language      string
 	RequiresGraph bool
+	Capabilities  []SemanticCapability
 }
 
 type Analyzer interface {
@@ -66,6 +67,10 @@ func architectureAnalyzer(id string, detect func(arcana.Graph, string) []Finding
 	}
 }
 
+func SemanticAnalyzers() []Analyzer {
+	return []Analyzer{swallowedErrorAnalyzer{}}
+}
+
 func BuiltInAnalyzers(spec string) ([]Analyzer, error) {
 	if strings.TrimSpace(spec) == "" {
 		spec = "architecture"
@@ -86,6 +91,8 @@ func BuiltInAnalyzers(spec string) ([]Analyzer, error) {
 			analyzers = append(analyzers, ArchitectureAnalyzers()...)
 		case AnalyzerClippy:
 			analyzers = append(analyzers, NewClippyAnalyzer())
+		case "semantic":
+			analyzers = append(analyzers, SemanticAnalyzers()...)
 		default:
 			return nil, fmt.Errorf("unknown built-in analyzer %q", name)
 		}
@@ -125,6 +132,9 @@ func runAnalyzers(ctx context.Context, input AnalyzerContext, analyzers []Analyz
 			return nil, fmt.Errorf("duplicate scan analyzer %q", metadata.ID)
 		}
 		seen[metadata.ID] = struct{}{}
+		if err := validateAnalyzerCapabilities(metadata, input.Graph); err != nil {
+			return nil, err
+		}
 		analyzerFindings, err := analyzer.Analyze(ctx, input)
 		if err != nil {
 			return nil, fmt.Errorf("scan analyzer %q: %w", metadata.ID, err)
