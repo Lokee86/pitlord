@@ -10,10 +10,11 @@ import (
 type SemanticCapability string
 
 const (
-	CapabilityControlFlow   SemanticCapability = "control-flow"
-	CapabilityErrorHandling SemanticCapability = "error-handling"
-	CapabilityCalls         SemanticCapability = "calls"
-	CapabilitySourceSpans   SemanticCapability = "source-spans"
+	CapabilityControlFlow        SemanticCapability = "control-flow"
+	CapabilityErrorHandling      SemanticCapability = "error-handling"
+	CapabilityCalls              SemanticCapability = "calls"
+	CapabilitySourceSpans        SemanticCapability = "source-spans"
+	CapabilityOutcomeObligations SemanticCapability = "outcome-obligations"
 )
 
 const semanticCapabilityPrefix = "semantic-capabilities:"

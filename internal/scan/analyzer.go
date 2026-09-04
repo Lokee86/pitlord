@@ -68,7 +68,7 @@ func architectureAnalyzer(id string, detect func(arcana.Graph, string) []Finding
 }
 
 func SemanticAnalyzers() []Analyzer {
-	return []Analyzer{swallowedErrorAnalyzer{}}
+	return []Analyzer{swallowedErrorAnalyzer{}, unobservedOutcomeAnalyzer{}}
 }
 
 func BuiltInAnalyzers(spec string) ([]Analyzer, error) {

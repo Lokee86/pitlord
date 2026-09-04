@@ -42,12 +42,16 @@ func TestBuiltInSemanticAnalyzerRequiresDeclaredCapabilities(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(analyzers) != 1 || !AnalyzersRequireGraph(analyzers) {
+	if len(analyzers) != 2 || !AnalyzersRequireGraph(analyzers) {
 		t.Fatalf("unexpected semantic analyzer registry: %+v", analyzers)
 	}
 	metadata := analyzers[0].Metadata()
 	if metadata.ID != AnalyzerSwallowedError || len(metadata.Capabilities) != len(swallowedErrorCapabilities) {
 		t.Fatalf("unexpected semantic analyzer metadata: %+v", metadata)
+	}
+	outcomeMetadata := analyzers[1].Metadata()
+	if outcomeMetadata.ID != AnalyzerUnobservedOutcome || len(outcomeMetadata.Capabilities) != len(unobservedOutcomeCapabilities) {
+		t.Fatalf("unexpected outcome analyzer metadata: %+v", outcomeMetadata)
 	}
 }
 
