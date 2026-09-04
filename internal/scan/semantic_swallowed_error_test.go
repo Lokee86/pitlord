@@ -15,8 +15,8 @@ func TestSwallowedErrorAnalyzerUsesNormalizedSemanticFactsAcrossLanguages(t *tes
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(result.Findings) != 2 {
-		t.Fatalf("expected Rust and TypeScript swallowed errors, got %+v", result.Findings)
+	if len(result.Findings) != 3 {
+		t.Fatalf("expected Rust, TypeScript, and Python swallowed errors, got %+v", result.Findings)
 	}
 	languages := map[string]bool{}
 	for _, finding := range result.Findings {
@@ -25,7 +25,7 @@ func TestSwallowedErrorAnalyzerUsesNormalizedSemanticFactsAcrossLanguages(t *tes
 			t.Fatalf("unexpected finding: %+v", finding)
 		}
 	}
-	if !languages["rust"] || !languages["typescript"] {
+	if !languages["rust"] || !languages["typescript"] || !languages["python"] {
 		t.Fatalf("missing cross-language findings: %+v", result.Findings)
 	}
 }
@@ -61,6 +61,8 @@ func semanticFixtureGraph() arcana.Graph {
 		{NodeID: 5, Kind: "protocol", Path: "src/handled.rs", Name: "error-action:record"},
 		{NodeID: 6, Kind: "protocol", Path: "src/app.ts", Name: fmt.Sprintf(capabilities, "typescript")},
 		{NodeID: 7, Kind: "protocol", Path: "src/app.ts", Name: "error-handler:typescript", Identity: "ts-swallowed", Span: &arcana.Span{Path: "src/app.ts", StartLine: 7, StartColumn: 18, EndLine: 7, EndColumn: 28}},
+		{NodeID: 8, Kind: "protocol", Path: "src/app.py", Name: fmt.Sprintf(capabilities, "python")},
+		{NodeID: 9, Kind: "protocol", Path: "src/app.py", Name: "error-handler:python", Identity: "python-swallowed", Span: &arcana.Span{Path: "src/app.py", StartLine: 6, StartColumn: 5, EndLine: 7, EndColumn: 13}},
 	}
 	return arcana.Graph{Sources: nodes, Outgoing: map[uint32][]arcana.Relationship{
 		3: {{Relation: "contains", Node: nodes[4]}},
