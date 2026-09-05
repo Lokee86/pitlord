@@ -21,7 +21,7 @@ Pitlord currently provides:
 - architecture-community inspection through Arcana;
 - a policy-free `scan` command with the deterministic `pitlord.scan.v1` finding envelope, repository-relative scope, severity counts, and text/JSON output;
 - a Rust `clippy` analyzer that runs Cargo Clippy in machine-readable mode, deduplicates repeated target diagnostics, and normalizes Clippy rule IDs, source spans, severity, and structured suggestions including machine-applicable edits;
-- a graph-backed `semantic` analyzer group whose rules declare language-neutral capabilities supplied by Lexicon adapters; `swallowed-error` reports semantically empty handlers and `unobserved-outcome` reports proven fallible/async outcomes that are discarded without consumption across Rust, TypeScript, JavaScript, and Python;
+- a graph-backed `semantic` analyzer group whose rules declare language-neutral capabilities supplied by Lexicon adapters; `swallowed-error` reports handlers with neither a local error action nor a proven downstream fallback, enclosing propagation, or explicit suppression disposition, while `unobserved-outcome` reports proven fallible/async outcomes that are discarded without consumption across Rust, TypeScript, JavaScript, and Python;
 - a language-neutral dependency-pressure detector that aggregates normalized Arcana relationships by repository file path, separates production from common test/benchmark/tooling peers, requires extreme outgoing fan-out plus cross-region boundary spread, and defers conventional composition seams and highly reused central hubs to the detector families that own those roles;
 - a calibrated language-neutral `dependency-knots` detector that finds strongly connected production-file components over static source-dependency relations, uses semantic namespace/module regions before directory fallback, excludes runtime calls from source-cycle direction, and uses density only as a narrowed single-region fallback;
 - a calibrated advisory language-neutral `dependency-depth` detector that finds narrow acyclic behavioral dependency corridors spanning at least four architectural regions, excludes import/reference-only propagation, and stops depth inheritance at cycles, shared convergence points, and highly reused central foundations;
@@ -284,7 +284,7 @@ are resolved through Arcana rather than matched by source text.
 
 ## Ownership boundaries
 
-- Lexicon owns parsing, semantic resolution, normalized relationships, semantic capability/error-handler facts, identities, and spans.
+- Lexicon owns parsing, semantic resolution, normalized relationships, semantic capabilities, error-handler/action facts, downstream error-flow facts, outcome-obligation facts, identities, and spans.
 - Arcana owns graph ingestion, immutable snapshots, adjacency, traversal, and graph algorithms.
 - Pitlord owns policy, area projection, generalized scan judgments, rule evaluation, diagnostic identity, and presentation.
 - Homunculus owns deterministic source mutations and their expected architecture deltas.

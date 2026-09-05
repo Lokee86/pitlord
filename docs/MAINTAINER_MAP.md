@@ -18,6 +18,10 @@ Use this map when the owner of a policy, analysis, baseline, mutation, or report
 | Policy loading, validation, matching, ownership, and dependency rules | [Policy reference](POLICY.md), [Architecture](ARCHITECTURE.md) | `internal/policy/`, `internal/schema/` | Policy and schema tests |
 | Arcana process lifecycle, protocol validation, and graph loading | [Arcana process boundary](ARCANA_PROCESS_BOUNDARY.md), [Architecture](ARCHITECTURE.md) | `internal/arcana/` | Arcana process, pagination, and graph-loading tests |
 | Architecture analysis over Arcana evidence | [Architecture](ARCHITECTURE.md) | `internal/policy/analysis*.go` | Analysis and policy tests |
+| Policy-free architecture and semantic scan analyzers, capability gating, and finding normalization | [Architecture](ARCHITECTURE.md), [Current limitations](limits/current-limitations.md), [Semantic calibration](development/calibration/semantic-lints.md) | `internal/scan/` | Scan, semantic-rule, source-role, and detector tests |
+| Native analyzer normalization through Clippy | [Architecture](ARCHITECTURE.md), [README](../README.md) | `internal/scan/rust_clippy*.go` | `internal/scan/rust_clippy_test.go`, scan command tests |
+| Frozen corpus and real-source calibration evidence | [Calibration index](development/calibration/INDEX.md), [Calibration harness](development/calibration/HARNESS.md) | `internal/calibration/`, `internal/scan/` | Calibration and detector-specific reference tests |
+| Documentation ownership guard | [Architecture](ARCHITECTURE.md), [Current limitations](limits/current-limitations.md) | `internal/docguard/`, `cmd/pitlord/docs.go` | Docguard and docs command tests |
 | Baseline fingerprints and accepted findings | [Baselines and CI](BASELINES-AND-CI.md) | `internal/baseline/` | Baseline and fingerprint tests |
 | Snapshot selection and before/after comparison | [Baselines and CI](BASELINES-AND-CI.md), [Architecture](ARCHITECTURE.md) | `internal/snapshot/`, `internal/snapshotdiff/` | Snapshot and diff tests |
 | Mutation plans and post-mutation verification | [Architecture](ARCHITECTURE.md) | `internal/mutation/` | Mutation load and verification tests |
@@ -28,6 +32,8 @@ Use this map when the owner of a policy, analysis, baseline, mutation, or report
 
 - `internal/policy/` owns rule semantics; `internal/report/` only renders evaluated findings.
 - `internal/arcana/` supplies graph evidence but does not own policy decisions.
+- Lexicon owns language-specific semantic facts; `internal/scan/` may require and interpret normalized semantic capabilities but must not reconstruct language syntax.
+- Native analyzer adapters normalize external diagnostics into Pitlord findings; they do not make Pitlord the owner of the upstream lint rule semantics.
 - Baselines accept known evidence fingerprints; they do not redefine rule behavior.
 - Maintainer navigation belongs here; focused package and flow details remain in `ARCHITECTURE.md` and `POLICY.md`.
 

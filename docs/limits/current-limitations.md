@@ -40,6 +40,18 @@ The impact/blast-radius detector is advisory but now has corrected real-world re
 
 **Removal condition:** boundary/cohesion, file/region boundary-bypass, and unstable-dependency-direction gain required real-world positive coverage, both intermediary-bypass detectors gain independent validation/holdout positive coverage beyond their development mutations, dependency-depth gains broader positive diversity beyond its single JMH corridor, and each generalized detector has sufficient recall evidence to support its intended advisory or guard disposition without weakening the current false-positive controls.
 
+### Semantic analyzers and native-tool normalization
+
+The graph-backed `semantic` analyzer group currently contains two advisory rules over Lexicon-normalized facts: `swallowed-error` and `unobserved-outcome`. `swallowed-error` suppresses a handler only when Lexicon proves a local propagate/record/recover action or a downstream `fallback`, `enclosing-propagation`, or `intentional-suppression` disposition. A generic `continuation` fact is retained as evidence but does not suppress the finding. `unobserved-outcome` reports only adapter-proven fallible or async operations whose outcome has no normalized consumption action.
+
+Real-source semantic calibration is intentionally narrower than the 16-corpus architecture suite because most frozen architecture corpora do not exercise the implemented Rust, TypeScript/JavaScript, or Python semantic adapters. The current frozen semantic rerun preserves one genuine Lexicanter Rust `swallowed-error`, one Space Rocks TypeScript `unobserved-outcome`, and one intentionally unresolved Space Rocks Python `swallowed-error`. This is evidence that the current proof boundaries can remove known noise without hiding the known Lexicanter positive; it is not sufficient for broad precision or recall claims.
+
+Two adapter-scale ceilings also remain visible from calibration. Lexicanter's checked-in generated JavaScript bundle is still loaded into the TypeScript compiler program before semantic-fact suppression, so whole-repository TypeScript analysis remains impractical for that corpus. Large Rust repositories can also exceed the current whole-repository adapter latency budget; Lore's 861-file Rust pass exceeded the five-minute calibration bound. These are Lexicon analysis limits exposed through Pitlord's semantic workflow, not Pitlord rule failures.
+
+Pitlord also ships one graph-free native analyzer integration: Rust Clippy. It normalizes upstream diagnostics into the Pitlord finding contract but does not make Pitlord the owner of Clippy rule semantics. Equivalent ESLint, Ruff, or other per-language wrappers are not a current expansion priority; new semantic work should justify itself through repository-wide, cross-file, boundary, or cross-language value rather than duplicate ordinary local linting.
+
+**Removal condition:** purpose-selected semantic corpora provide broader independent coverage for each supported language and rule; Lexicon resolves the generated-bundle and large-repository analysis ceilings relevant to Pitlord semantic scans; and any semantic rule promoted beyond advisory status has sufficient independent evidence for that disposition.
+
 ### Change-aware policy scope
 
 Snapshot diff evaluates the full selected policy against both snapshots before comparing evidence. It does not yet restrict evaluation to changed policy scopes.
@@ -76,7 +88,7 @@ Pitlord has no independent daemon. Warlock may invoke it against changed snapsho
 
 ## Status
 
-All entries are current as of August 30, 2026.
+All entries are current as of September 5, 2026.
 
 ## Related docs
 

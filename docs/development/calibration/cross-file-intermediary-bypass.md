@@ -1,8 +1,12 @@
 # Cross-File-Intermediary-Bypass Calibration
 
+Parent index: [Diagnosis Calibration Baselines](INDEX.md)
+
 ## Purpose
 
 This document records the first real-repository calibration of Pitlord's `cross-file-intermediary-bypass` detector.
+
+## Overview
 
 The detector is intentionally narrower than a generic call-chain-bypass recognizer. Homunculus can produce many mechanically valid `caller -> intermediary -> target` shortcuts that do not imply an architectural violation. Pitlord reports only cases where the graph contains deterministic evidence that the intermediary is an established, narrow same-region seam.
 
@@ -79,3 +83,15 @@ Together with the development specimen, the frozen labelled evidence is 1 TP / 1
 The regenerated pinned Homunculus corpus contains 94 mechanically eligible call-chain bypasses, but only MatchDecision satisfies this detector's declared structural contract. The stream-runtime validation mutation remains deliberately outside scope because static post-mutation evidence does not establish which symmetric wrapper owns the route.
 
 Future recall evidence should come from a different repository or a newly frozen corpus containing cross-file intermediary seams that satisfy the detector contract before mutation selection.
+
+## Related docs
+
+- [Calibration evaluation harness](HARNESS.md)
+- [Calibration references](references/INDEX.md)
+- [Symbol-intermediary-bypass baseline](symbol-intermediary-bypass.md)
+- [Architecture](../../ARCHITECTURE.md)
+- [Current limitations](../../limits/current-limitations.md)
+
+## Notes
+
+The MatchDecision specimen is development evidence because it shaped the detector. It must not be presented as independent holdout recall validation.

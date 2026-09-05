@@ -6,6 +6,10 @@ Parent index: [Diagnosis Calibration Baselines](INDEX.md)
 
 This record calibrates the first language-neutral semantic lint rules over real source repositories. It is an adjudication record, not a claim that the existing 16-corpus architecture suite provides semantic-language coverage.
 
+## Overview
+
+The calibration tests Pitlord's reusable semantic rules against normalized Lexicon evidence, separates rule-policy problems from adapter-fact problems, and records the current language and scalability limits without treating the small corpus as broad precision or recall proof.
+
 ## Scope
 
 The frozen architecture corpus is mostly C#, Java, Kotlin, LotusScript, C++, and GDScript. Only two frozen repositories currently exercise the implemented Rust, TypeScript/JavaScript, and Python semantic adapters:
@@ -119,3 +123,14 @@ This calibration reinforces Pitlord's product direction: prioritize semantic rul
 - Lexicanter TypeScript whole-repository analysis remains unresolved because generated/bundled source is still loaded by the TypeScript program before semantic-fact suppression. Semantic suppression fixes finding quality, not compiler-program construction cost.
 - Large Rust repositories can exceed the present whole-repository adapter latency budget; Lore timed out during the exploratory holdout scan.
 - The frozen architecture corpus has weak Rust/TypeScript/Python representation, so semantic calibration needs additional purpose-selected corpora before precision/recall claims are warranted.
+
+## Related docs
+
+- [Calibration index](INDEX.md)
+- [Architecture](../../ARCHITECTURE.md)
+- [Current limitations](../../limits/current-limitations.md)
+- [Roadmap](../../planning/roadmap.md)
+
+## Notes
+
+The frozen semantic rerun is evidence about the current rule and adapter proof boundaries. It does not convert the exploratory production-repository scan into a scored baseline and does not justify blocking disposition.

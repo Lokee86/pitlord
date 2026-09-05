@@ -4,19 +4,19 @@ Parent index: [Development Documentation](../INDEX.md)
 
 ## Purpose
 
-This index owns manually adjudicated reference architecture ground truth produced by calibration audits and used to calibrate Pitlord's generalized diagnosis detectors.
+This index owns manually adjudicated real-source calibration evidence for Pitlord's generalized architecture detectors and language-neutral semantic analyzers.
 
 ## Overview
 
-Calibration baselines pin an exact corpus revision and record the expected architectural interpretation independently of Pitlord's current detector output. Detector changes are evaluated against these labels instead of redefining the expected result when thresholds or graph heuristics change.
+Architecture calibration baselines pin an exact corpus revision and record the expected architectural interpretation independently of Pitlord's current detector output. Detector changes are evaluated against these labels instead of redefining the expected result when thresholds or graph heuristics change.
 
-A baseline may distinguish real architectural pressure, intentional broad seams, clean regions, peer-class exceptions, and graph-granularity false positives. The target is architectural judgment quality, not a predetermined warning count.
+Semantic calibration records may instead adjudicate concrete rule findings and adapter evidence when the existing architecture corpus does not cover the required languages. In both cases, calibration evidence stays separate from current implementation claims and records limitations explicitly rather than treating warning count as ground truth.
 
 ## Direct files
 
 - [Calibration evaluation harness](HARNESS.md) — Machine-readable `pitlord.calibration.v1` references, pinned-revision verification, labelled scoring, and command usage.
 - [Calibration references](references/INDEX.md) — The 162 machine-readable detector scoring projections: ten projections for each of the 16 frozen corpora plus two diff-pinned Space Rocks intermediary-bypass mutation positives.
-- [Semantic lint calibration](semantic-lints.md) — First real-source calibration of `swallowed-error` and `unobserved-outcome` across Rust, TypeScript/JavaScript, and Python, including generated-source and fallback-recovery corrections plus remaining control-flow limitations.
+- [Semantic lint calibration](semantic-lints.md) — Real-source calibration of `swallowed-error` and `unobserved-outcome` across Rust, TypeScript/JavaScript, and Python, including generated-source handling, downstream error-flow dispositions, and current corpus/scalability limits.
 - [Dependency-knot baseline](dependency-knots.md) — First real-corpus knot audit, including required package knots, allowed cyclic seams, and false callback/directory cycles.
 - [Dependency-depth baseline](dependency-depth.md) — Independent 16-corpus behavioral-depth audit with one required JMH cross-region corridor and 16 negative controls; final projection: 1 TP / 16 TN / 0 FP / 0 FN.
 - [Boundary-bypass baseline](boundary-bypass.md) — File/region intermediary-bypass audit: 18 initial false gateway inferences, tuned shared-target/concentration/ownership controls, and a final 0 TP / 16 TN / 0 FP / 0 FN projection with recall explicitly unvalidated.

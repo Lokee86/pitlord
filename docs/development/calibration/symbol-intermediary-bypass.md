@@ -6,6 +6,10 @@ Parent index: [Diagnosis Calibration Baselines](INDEX.md)
 
 This document records the first real-repository calibration of Pitlord's symbol-level `symbol-intermediary-bypass` detector.
 
+## Overview
+
+The calibration freezes one real Space Rocks development mutation and a 16-corpus negative projection, while keeping development evidence distinct from independent validation or holdout recall.
+
 ## Owned shape
 
 The detector owns a narrower condition than file/region `boundary-bypass`: one caller bypasses a local behavioral intermediary while sibling call paths still establish that intermediary layer at symbol granularity.

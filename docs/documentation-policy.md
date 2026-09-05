@@ -20,7 +20,7 @@ Pitlord follows the shared CLI-product profile with the `stateful` capability. C
 | Baselines, fingerprints, SARIF, and CI workflows | `docs/BASELINES-AND-CI.md` |
 | Package, command, and stateful-flow coverage | `docs/development/documentation-coverage.md` |
 | Critical invariants and protecting tests | `docs/development/behavioral-contract-matrix.md` |
-| Human-adjudicated diagnosis calibration ground truth | `docs/development/calibration/` |
+| Human-adjudicated architecture and semantic-analyzer calibration evidence | `docs/development/calibration/` |
 | Future work | `docs/planning/roadmap.md` |
 | Current gaps and defects | `docs/limits/current-limitations.md` |
 | Agent editing and verification rules | `AGENTS.md` |

@@ -42,7 +42,7 @@ pinned corpus + calibration reference
 Lexicon owns:
 
 - language parsing and semantic resolution;
-- normalized symbols, relationships, semantic error-handler facts, and outcome-obligation facts;
+- normalized symbols, relationships, semantic capabilities, error-handler/action facts, downstream error-flow facts, and outcome-obligation facts;
 - stable node identities and source spans; and
 - content-addressed analysis snapshots.
 

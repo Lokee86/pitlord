@@ -17,7 +17,7 @@ Development documentation maps implementation boundaries to canonical documents 
 
 ## Direct folders
 
-- [Diagnosis calibration baselines](calibration/INDEX.md) — Manually adjudicated real-world architecture ground truth and machine-readable detector references used to tune generalized detectors.
+- [Diagnosis and semantic calibration](calibration/INDEX.md) — Manually adjudicated real-source architecture and semantic-analyzer evidence plus machine-readable detector references.
 
 ## Related docs
 
