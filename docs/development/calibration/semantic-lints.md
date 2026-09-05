@@ -75,17 +75,16 @@ The two generated TypeScript findings disappeared. The import-inside-handler Pyt
 
 ### Space Rocks Python swallowed handlers
 
-Five findings remain:
+The five-handler rerun motivated a downstream error-flow seam. Lexicon semantic adapters can now attach normalized flow facts to otherwise empty handlers: `fallback`, `enclosing-propagation`, `intentional-suppression`, or non-dispositive `continuation`. Pitlord suppresses `swallowed-error` for the first three but deliberately not for `continuation`.
 
-- optional-dependency fall-through after failed `tomllib` import;
-- optional-dependency fall-through after failed `tomli` import;
-- path-resolution fallback after `Path.relative_to` raises `ValueError`;
-- best-effort cleanup where unlink failure is ignored while the primary write error is re-raised;
-- fallback validation where a secondary parse failure is ignored and the original rich parse error is retained.
+A second frozen rerun reduced Space Rocks Python from five advisories to one:
 
-These are intentional suppression/fall-through patterns. They expose a limitation in the current `swallowed-error` evidence model: the rule only sees actions contained by the handler and does not yet reason about recovery encoded immediately after the handler or propagation by an enclosing failure path.
+- the two optional-dependency fallback chains are represented as `fallback`;
+- the path-resolution fallback is represented as `fallback`;
+- best-effort cleanup followed by propagation of the primary failure is represented as `enclosing-propagation`;
+- the validation path that catches a secondary parse failure and then appends the original rich error is represented only as `continuation`, so it remains advisory.
 
-A blanket exemption for empty handlers or `pass` would suppress genuine cases such as the Lexicanter finding, so no such exemption was added.
+Lexicanter's `Err(_) => {}` remains reportable even though later loop work continues, proving that generic continuation is not treated as recovery. A blanket exemption for empty handlers or `pass` was not added.
 
 ## Exploratory holdout evidence
 
@@ -97,24 +96,23 @@ That scan was not a scored baseline: Lore's 861-file Rust pass exceeded the five
 
 Regression suites after tuning:
 
-- Python adapter: 24 passed;
-- TypeScript/JavaScript adapter: 17 passed;
+- Python adapter: 25 passed;
+- TypeScript/JavaScript adapter: 18 passed;
 - Rust adapter: 20 passed;
-- Rust release adapter rebuilt successfully;
-- frozen semantic rerun completed successfully for Lexicanter Rust and Space Rocks TypeScript/Python.
+- semantic-contract validator passed;
+- Rust release adapter and Arcana rebuilt successfully;
+- Pitlord full Go suite passed;
+- frozen semantic rerun preserved Lexicanter's one Rust finding and Space Rocks' one TypeScript outcome finding while reducing Space Rocks Python swallowed-error findings from five to one.
 
 ## Conclusions
 
 `unobserved-outcome` currently has the cleaner evidence boundary, but much of its local value may overlap language-native tooling.
 
-`swallowed-error` is useful as an advisory but currently too context-local to serve as a high-confidence guard. The next useful improvement is not broader suppression. It is richer normalized control-flow evidence that can distinguish:
+`swallowed-error` now distinguishes handler-local actions from proven downstream flow. The remaining ambiguous Space Rocks case demonstrates the intended boundary: later work can be recorded as `continuation` without being promoted to recovery unless the adapter can prove fallback, enclosing propagation, or explicit suppression.
 
-- genuine silent discard;
-- deliberate fall-through to a fallback;
-- best-effort cleanup while an enclosing error is propagated;
-- explicit intentional suppression.
+The rule should remain advisory until additional corpora validate those distinctions. Future precision work should strengthen proof of `intentional-suppression` or richer boundary/context semantics rather than treating arbitrary continuation as success.
 
-This calibration therefore reinforces Pitlord's product direction: prioritize semantic rules whose value comes from repository-wide, cross-file, boundary, or cross-language context rather than reproducing ordinary local linters.
+This calibration reinforces Pitlord's product direction: prioritize semantic rules whose value comes from repository-wide, cross-file, boundary, or cross-language context rather than reproducing ordinary local linters.
 
 ## Known coverage gaps
 

@@ -15,8 +15,8 @@ func TestSwallowedErrorAnalyzerUsesNormalizedSemanticFactsAcrossLanguages(t *tes
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(result.Findings) != 3 {
-		t.Fatalf("expected Rust, TypeScript, and Python swallowed errors, got %+v", result.Findings)
+	if len(result.Findings) != 4 {
+		t.Fatalf("expected three language findings plus continued Python handler, got %+v", result.Findings)
 	}
 	languages := map[string]bool{}
 	for _, finding := range result.Findings {
@@ -27,6 +27,11 @@ func TestSwallowedErrorAnalyzerUsesNormalizedSemanticFactsAcrossLanguages(t *tes
 	}
 	if !languages["rust"] || !languages["typescript"] || !languages["python"] {
 		t.Fatalf("missing cross-language findings: %+v", result.Findings)
+	}
+	for _, finding := range result.Findings {
+		if finding.Scope.Path == "src/fallback.py" {
+			t.Fatalf("fallback flow should suppress swallowed-error: %+v", finding)
+		}
 	}
 }
 
@@ -67,8 +72,16 @@ func semanticFixtureGraph() arcana.Graph {
 		{NodeID: 7, Kind: "protocol", Path: "src/app.ts", Name: "error-handler:typescript", Identity: "ts-swallowed", Span: &arcana.Span{Path: "src/app.ts", StartLine: 7, StartColumn: 18, EndLine: 7, EndColumn: 28}},
 		{NodeID: 8, Kind: "protocol", Path: "src/app.py", Name: fmt.Sprintf(capabilities, "python")},
 		{NodeID: 9, Kind: "protocol", Path: "src/app.py", Name: "error-handler:python", Identity: "python-swallowed", Span: &arcana.Span{Path: "src/app.py", StartLine: 6, StartColumn: 5, EndLine: 7, EndColumn: 13}},
+		{NodeID: 10, Kind: "protocol", Path: "src/fallback.py", Name: fmt.Sprintf(capabilities, "python")},
+		{NodeID: 11, Kind: "protocol", Path: "src/fallback.py", Name: "error-handler:python", Identity: "python-fallback"},
+		{NodeID: 12, Kind: "protocol", Path: "src/fallback.py", Name: "error-flow:fallback"},
+		{NodeID: 13, Kind: "protocol", Path: "src/continued.py", Name: fmt.Sprintf(capabilities, "python")},
+		{NodeID: 14, Kind: "protocol", Path: "src/continued.py", Name: "error-handler:python", Identity: "python-continued", Span: &arcana.Span{Path: "src/continued.py", StartLine: 3, StartColumn: 5, EndLine: 4, EndColumn: 13}},
+		{NodeID: 15, Kind: "protocol", Path: "src/continued.py", Name: "error-flow:continuation"},
 	}
 	return arcana.Graph{Sources: nodes, Outgoing: map[uint32][]arcana.Relationship{
-		3: {{Relation: "contains", Node: nodes[4]}},
+		3:  {{Relation: "contains", Node: nodes[4]}},
+		11: {{Relation: "contains", Node: nodes[11]}},
+		14: {{Relation: "contains", Node: nodes[14]}},
 	}}
 }

@@ -38,7 +38,7 @@ func (swallowedErrorAnalyzer) Analyze(_ context.Context, input AnalyzerContext) 
 		if _, supported := supportedPaths[normalizedUnitPath(node.Path)]; !supported {
 			continue
 		}
-		if handlerHasAction(input.Graph, node.NodeID) {
+		if handlerHasDisposition(input.Graph, node.NodeID) {
 			continue
 		}
 		findings = append(findings, swallowedErrorFinding(node))
@@ -56,13 +56,14 @@ func semanticCapabilityPaths(graph arcana.Graph, required []SemanticCapability) 
 	return paths
 }
 
-func handlerHasAction(graph arcana.Graph, nodeID uint32) bool {
+func handlerHasDisposition(graph arcana.Graph, nodeID uint32) bool {
 	for _, relationship := range graph.Outgoing[nodeID] {
 		if relationship.Relation != "contains" || relationship.Node.Kind != "protocol" {
 			continue
 		}
 		switch relationship.Node.Name {
-		case "error-action:propagate", "error-action:record", "error-action:recover":
+		case "error-action:propagate", "error-action:record", "error-action:recover",
+			"error-flow:fallback", "error-flow:enclosing-propagation", "error-flow:intentional-suppression":
 			return true
 		}
 	}
@@ -88,10 +89,10 @@ func swallowedErrorFinding(node arcana.Node) Finding {
 		Severity:          SeverityWarning,
 		Scope:             Scope{Kind: "file", Path: normalizedUnitPath(node.Path)},
 		Location:          location,
-		Summary:           "Error handler does not propagate, record, or explicitly recover from the error",
-		Rationale:         "The language adapter identified an error-handling branch without a semantic error action.",
+		Summary:           "Error handler has no explicit action or proven downstream disposition",
+		Rationale:         "The language adapter identified an error-handling branch without a semantic error action or suppressing error-flow disposition.",
 		Evidence:          []Evidence{{Kind: "semantic-error-handler", Message: language}},
-		RequiredOutcome:   "The handler must propagate the error, record it, or perform an explicit recovery action.",
+		RequiredOutcome:   "The handler must propagate, record, recover, reach a proven fallback or enclosing propagation path, or explicitly suppress the error.",
 		RecommendedAction: "Handle the error explicitly instead of silently discarding it.",
 	}
 }
