@@ -15,7 +15,7 @@ Semantic calibration records may instead adjudicate concrete rule findings and a
 ## Direct files
 
 - [Calibration evaluation harness](HARNESS.md) — Machine-readable `pitlord.calibration.v1` references, pinned-revision verification, labelled scoring, and command usage.
-- [Calibration references](references/INDEX.md) — The 162 machine-readable detector scoring projections: ten projections for each of the 16 frozen corpora plus two diff-pinned Space Rocks intermediary-bypass mutation positives.
+- [Calibration references](references/INDEX.md) — The 165 machine-readable scoring projections: ten architecture projections for each of the 16 frozen corpora, two diff-pinned Space Rocks intermediary-bypass mutation positives, and three strict semantic analyzer references.
 - [Semantic lint calibration](semantic-lints.md) — Real-source calibration of `swallowed-error` and `unobserved-outcome` across Rust, TypeScript/JavaScript, and Python, including generated-source handling, downstream error-flow dispositions, and current corpus/scalability limits.
 - [Dependency-knot baseline](dependency-knots.md) — First real-corpus knot audit, including required package knots, allowed cyclic seams, and false callback/directory cycles.
 - [Dependency-depth baseline](dependency-depth.md) — Independent 16-corpus behavioral-depth audit with one required JMH cross-region corridor and 16 negative controls; final projection: 1 TP / 16 TN / 0 FP / 0 FN.

@@ -1,0 +1,25 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "space-rocks-clean-v1",
+  "source_revision": "361dcdb4054725c8f1bb58727ff402fcfedf6d18",
+  "analyzer": "swallowed-error",
+  "rule_id": "swallowed-error",
+  "language": "python",
+  "require_fully_labelled": true,
+  "expectations": [
+    {
+      "id": "space-rocks-python-swallowed-secondary-parse-error",
+      "path": "tools/data_sync/data_sync/validate.py",
+      "location": {
+        "start_line": 142,
+        "start_column": 9,
+        "end_line": 143,
+        "end_column": 17
+      },
+      "class": "swallowed-error",
+      "finding": "required",
+      "min_severity": "warning",
+      "max_severity": "warning"
+    }
+  ]
+}

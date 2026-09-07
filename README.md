@@ -32,7 +32,7 @@ Pitlord currently provides:
 - an advisory language-neutral `boundary-cohesion` detector that evaluates semantic namespace/module regions for broad independent target-region spread combined with both relatively and absolutely weak internal collaboration, while deferring incoming-heavy regions to the detector family that owns central coordination;
 - a calibrated advisory language-neutral `hub-bottleneck` detector that requires extreme direct fan-in plus a many-to-many behavioral waist: `calls`/`reads`/`writes` must arrive from at least six architectural regions, leave toward at least four regions, and preserve at least 40% outgoing-to-incoming behavioral flow;
 - a calibrated advisory language-neutral `impact-blast-radius` detector with two evidence lanes: repository-relative broad direct change exposure backed by non-metadata dependency evidence, or unusually broad transitive dependent surfaces that expand through at least three substantial independent first-hop branches with no single branch owning more than 80% of the closure;
-- a `calibrate` evaluation harness that verifies pinned corpus revisions plus optional exact worktree-diff hashes and scores detector output against machine-readable frozen reference labels without treating unlabelled findings as ground truth;
+- a `calibrate` evaluation harness that verifies pinned corpus revisions plus optional exact worktree-diff hashes and scores one exact built-in detector/analyzer target against machine-readable frozen reference labels, including optional rule/language/source-location selectors and strict fully-labelled regression mode;
 - direct Homunculus specimen-manifest conversion and expected-diagnostic validation;
 - exact Homunculus mutation verification across baseline and mutated snapshots;
 - snapshot-to-snapshot policy diffing with introduced, resolved, and persistent evidence;
@@ -195,7 +195,7 @@ pitlord docs \
   --format json
 ```
 
-`pitlord calibrate` runs the selected generalized detector against a frozen corpus reference. It verifies the repository Git revision by default and, when supplied, the exact SHA-256 of the tracked worktree diff. It distinguishes required findings, findings that must be absent, allowed maintenance-watch findings, severity mismatches, and unlabelled detector output:
+`pitlord calibrate` runs the exact built-in detector or analyzer named by a frozen corpus reference. Legacy `detector` references remain valid; analyzer references can additionally constrain `rule_id`, `language`, and exact source location. The command verifies the repository Git revision by default and, when supplied, the exact SHA-256 of the tracked worktree diff. It distinguishes required findings, findings that must be absent, allowed findings, severity mismatches, and unlabelled target output:
 
 ```text
 pitlord calibrate \
@@ -204,7 +204,7 @@ pitlord calibrate \
   --format json
 ```
 
-Use `--fail-on-mismatch` when the reference is expected to pass. Canonical detector-tuning runs omit that flag so current false positives and false negatives can be measured without aborting the batch.
+Use `--fail-on-mismatch` when the reference is expected to pass. References with `require_fully_labelled: true` also fail when the selected detector/analyzer produces an unexpected unlabelled finding. Canonical exploratory detector-tuning runs may omit that flag so current false positives and false negatives can be measured without aborting the batch.
 
 ## Baselines and CI
 

@@ -71,6 +71,16 @@ func SemanticAnalyzers() []Analyzer {
 	return []Analyzer{swallowedErrorAnalyzer{}, unobservedOutcomeAnalyzer{}}
 }
 
+func BuiltInAnalyzer(id string) (Analyzer, error) {
+	id = strings.TrimSpace(id)
+	for _, analyzer := range append(append(ArchitectureAnalyzers(), SemanticAnalyzers()...), NewClippyAnalyzer()) {
+		if analyzer.Metadata().ID == id {
+			return analyzer, nil
+		}
+	}
+	return nil, fmt.Errorf("unknown built-in analyzer %q", id)
+}
+
 func BuiltInAnalyzers(spec string) ([]Analyzer, error) {
 	if strings.TrimSpace(spec) == "" {
 		spec = "architecture"

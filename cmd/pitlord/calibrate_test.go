@@ -114,6 +114,50 @@ func TestCalibrateRejectsWorktreeDiffMismatch(t *testing.T) {
 	}
 }
 
+func TestCalibrateRunsTargetedSemanticAnalyzer(t *testing.T) {
+	dir := t.TempDir()
+	reference := filepath.Join(dir, "reference.json")
+	if err := os.WriteFile(reference, []byte(`{
+		"schema":"pitlord.calibration.v1",
+		"corpus":"fixture",
+		"source_revision":"abc123",
+		"analyzer":"swallowed-error",
+		"rule_id":"swallowed-error",
+		"language":"python",
+		"require_fully_labelled":true,
+		"expectations":[{
+			"id":"python-swallowed",
+			"path":"src/app.py",
+			"location":{"start_line":12,"start_column":5,"end_line":13,"end_column":9},
+			"class":"swallowed-error",
+			"finding":"required"
+		}]
+	}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	graph := arcana.Graph{
+		Sources: []arcana.Node{
+			{NodeID: 1, Kind: "protocol", Path: "src/app.py", Name: "semantic-capabilities:python:calls,control-flow,error-handling,source-spans"},
+			{NodeID: 2, Kind: "protocol", Path: "src/app.py", Name: "error-handler:python", Identity: "handler", Span: &arcana.Span{Path: "src/app.py", StartLine: 12, StartColumn: 5, EndLine: 13, EndColumn: 9}},
+		},
+		Outgoing: map[uint32][]arcana.Relationship{},
+	}
+	var stdout, stderr bytes.Buffer
+	code := runCalibrateWithDependencies(
+		[]string{"--repo", dir, "--reference", reference, "--snapshot", dir, "--format", "json", "--fail-on-mismatch"},
+		&stdout,
+		&stderr,
+		commandScanLoader{graph: graph},
+		fixedRevisionResolver{revision: "abc123"},
+	)
+	if code != 0 {
+		t.Fatalf("expected semantic calibration to pass, got code=%d stderr=%s", code, stderr.String())
+	}
+	if !bytes.Contains(stdout.Bytes(), []byte(`"true_positive": 1`)) || !bytes.Contains(stdout.Bytes(), []byte(`"language": "python"`)) {
+		t.Fatalf("unexpected semantic calibration output: %s", stdout.String())
+	}
+}
+
 func TestCalibrateRejectsRevisionMismatch(t *testing.T) {
 	dir := t.TempDir()
 	reference := filepath.Join(dir, "reference.json")

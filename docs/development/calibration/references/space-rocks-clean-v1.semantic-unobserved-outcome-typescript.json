@@ -1,0 +1,25 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "space-rocks-clean-v1",
+  "source_revision": "361dcdb4054725c8f1bb58727ff402fcfedf6d18",
+  "analyzer": "unobserved-outcome",
+  "rule_id": "unobserved-outcome",
+  "language": "typescript",
+  "require_fully_labelled": true,
+  "expectations": [
+    {
+      "id": "space-rocks-typescript-unobserved-font-ready",
+      "path": "web-astro/src/components/Homepage.tsx",
+      "location": {
+        "start_line": 91,
+        "start_column": 5,
+        "end_line": 91,
+        "end_column": 44
+      },
+      "class": "unobserved-outcome",
+      "finding": "required",
+      "min_severity": "warning",
+      "max_severity": "warning"
+    }
+  ]
+}

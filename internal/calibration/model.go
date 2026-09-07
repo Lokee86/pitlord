@@ -12,24 +12,36 @@ const (
 	FindingAllowed  FindingExpectation = "allowed"
 )
 
+type LocationExpectation struct {
+	StartLine   int `json:"start_line,omitempty"`
+	StartColumn int `json:"start_column,omitempty"`
+	EndLine     int `json:"end_line,omitempty"`
+	EndColumn   int `json:"end_column,omitempty"`
+}
+
 type Expectation struct {
-	ID          string             `json:"id"`
-	Path        string             `json:"path,omitempty"`
-	PathPrefix  string             `json:"path_prefix,omitempty"`
-	Class       string             `json:"class"`
-	Finding     FindingExpectation `json:"finding"`
-	MinSeverity scan.Severity      `json:"min_severity,omitempty"`
-	MaxSeverity scan.Severity      `json:"max_severity,omitempty"`
+	ID          string               `json:"id"`
+	Path        string               `json:"path,omitempty"`
+	PathPrefix  string               `json:"path_prefix,omitempty"`
+	Location    *LocationExpectation `json:"location,omitempty"`
+	Class       string               `json:"class"`
+	Finding     FindingExpectation   `json:"finding"`
+	MinSeverity scan.Severity        `json:"min_severity,omitempty"`
+	MaxSeverity scan.Severity        `json:"max_severity,omitempty"`
 }
 
 type Reference struct {
-	Schema             string        `json:"schema"`
-	Corpus             string        `json:"corpus"`
-	SourceRevision     string        `json:"source_revision"`
-	WorktreeDiffSHA256 string        `json:"worktree_diff_sha256,omitempty"`
-	Detector           string        `json:"detector"`
-	PathPrefix         string        `json:"path_prefix,omitempty"`
-	Expectations       []Expectation `json:"expectations"`
+	Schema               string        `json:"schema"`
+	Corpus               string        `json:"corpus"`
+	SourceRevision       string        `json:"source_revision"`
+	WorktreeDiffSHA256   string        `json:"worktree_diff_sha256,omitempty"`
+	Detector             string        `json:"detector,omitempty"`
+	Analyzer             string        `json:"analyzer,omitempty"`
+	RuleID               string        `json:"rule_id,omitempty"`
+	Language             string        `json:"language,omitempty"`
+	RequireFullyLabelled bool          `json:"require_fully_labelled,omitempty"`
+	PathPrefix           string        `json:"path_prefix,omitempty"`
+	Expectations         []Expectation `json:"expectations"`
 }
 
 type Outcome string
@@ -68,17 +80,22 @@ type Summary struct {
 }
 
 type Result struct {
-	Schema             string         `json:"schema"`
-	Corpus             string         `json:"corpus"`
-	SourceRevision     string         `json:"source_revision"`
-	Detector           string         `json:"detector"`
-	Items              []Item         `json:"items"`
-	UnlabelledFindings []scan.Finding `json:"unlabelled_findings"`
-	Summary            Summary        `json:"summary"`
+	Schema               string         `json:"schema"`
+	Corpus               string         `json:"corpus"`
+	SourceRevision       string         `json:"source_revision"`
+	Detector             string         `json:"detector,omitempty"`
+	Analyzer             string         `json:"analyzer,omitempty"`
+	RuleID               string         `json:"rule_id,omitempty"`
+	Language             string         `json:"language,omitempty"`
+	RequireFullyLabelled bool           `json:"require_fully_labelled,omitempty"`
+	Items                []Item         `json:"items"`
+	UnlabelledFindings   []scan.Finding `json:"unlabelled_findings"`
+	Summary              Summary        `json:"summary"`
 }
 
 func (result Result) HasMismatch() bool {
 	return result.Summary.FalsePositive > 0 ||
 		result.Summary.FalseNegative > 0 ||
-		result.Summary.SeverityMismatches > 0
+		result.Summary.SeverityMismatches > 0 ||
+		(result.RequireFullyLabelled && result.Summary.UnlabelledFindings > 0)
 }

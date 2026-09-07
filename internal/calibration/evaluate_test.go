@@ -57,6 +57,70 @@ func TestEvaluateRootPrefixMatchesAllRepositoryFindings(t *testing.T) {
 	}
 }
 
+func TestEvaluateFiltersAnalyzerRuleLanguageAndExactLocation(t *testing.T) {
+	reference := Reference{
+		Schema:         Schema,
+		Corpus:         "fixture",
+		SourceRevision: "abc123",
+		Analyzer:       "swallowed-error",
+		RuleID:         "swallowed-error",
+		Language:       "python",
+		Expectations: []Expectation{
+			{
+				ID:       "python-swallowed",
+				Path:     "src/app.py",
+				Location: &LocationExpectation{StartLine: 12, StartColumn: 5, EndLine: 13, EndColumn: 9},
+				Class:    "swallowed-error",
+				Finding:  FindingRequired,
+			},
+		},
+	}
+	result := Evaluate(reference, scan.Result{Findings: []scan.Finding{
+		{
+			Analyzer: "swallowed-error", RuleID: "swallowed-error", Detector: "swallowed-error", Language: "python",
+			Severity: scan.SeverityWarning, Scope: scan.Scope{Path: "src/app.py"},
+			Location: &scan.SourceSpan{Path: "src/app.py", StartLine: 12, StartColumn: 5, EndLine: 13, EndColumn: 9},
+		},
+		{
+			Analyzer: "swallowed-error", RuleID: "swallowed-error", Detector: "swallowed-error", Language: "rust",
+			Severity: scan.SeverityWarning, Scope: scan.Scope{Path: "src/app.py"},
+			Location: &scan.SourceSpan{Path: "src/app.py", StartLine: 12, StartColumn: 5, EndLine: 13, EndColumn: 9},
+		},
+		{
+			Analyzer: "swallowed-error", RuleID: "swallowed-error", Detector: "swallowed-error", Language: "python",
+			Severity: scan.SeverityWarning, Scope: scan.Scope{Path: "src/app.py"},
+			Location: &scan.SourceSpan{Path: "src/app.py", StartLine: 20, StartColumn: 5, EndLine: 21, EndColumn: 9},
+		},
+	}})
+	if result.Summary.TruePositive != 1 || result.Summary.UnlabelledFindings != 1 {
+		t.Fatalf("unexpected semantic score: %+v", result.Summary)
+	}
+	if result.Analyzer != "swallowed-error" || result.Language != "python" {
+		t.Fatalf("semantic selectors not preserved: %+v", result)
+	}
+}
+
+func TestEvaluateStrictReferenceTreatsUnlabelledFindingAsMismatch(t *testing.T) {
+	reference := Reference{
+		Schema:               Schema,
+		Corpus:               "fixture",
+		SourceRevision:       "abc123",
+		Analyzer:             "swallowed-error",
+		Language:             "python",
+		RequireFullyLabelled: true,
+		Expectations: []Expectation{
+			{ID: "known", Path: "src/app.py", Class: "swallowed-error", Finding: FindingRequired},
+		},
+	}
+	result := Evaluate(reference, scan.Result{Findings: []scan.Finding{
+		{Analyzer: "swallowed-error", Detector: "swallowed-error", Language: "python", Scope: scan.Scope{Path: "src/app.py"}},
+		{Analyzer: "swallowed-error", Detector: "swallowed-error", Language: "python", Scope: scan.Scope{Path: "src/other.py"}},
+	}})
+	if result.Summary.UnlabelledFindings != 1 || !result.HasMismatch() {
+		t.Fatalf("strict reference should fail on unlabelled finding: %+v", result.Summary)
+	}
+}
+
 func TestEvaluateReportsFalseNegativeAndSeverityMismatch(t *testing.T) {
 	reference := Reference{
 		Schema:         Schema,

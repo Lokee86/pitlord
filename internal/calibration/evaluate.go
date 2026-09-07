@@ -1,9 +1,7 @@
 package calibration
 
 import (
-	"path"
 	"sort"
-	"strings"
 
 	"github.com/Lokee86/pitlord/internal/scan"
 )
@@ -16,7 +14,7 @@ func Evaluate(reference Reference, scanResult scan.Result) Result {
 	expectations := append([]Expectation(nil), reference.Expectations...)
 	sort.Slice(expectations, func(i, j int) bool { return expectations[i].ID < expectations[j].ID })
 	for _, expectation := range expectations {
-		findings, indexes := matchFindings(reference.Detector, expectation, scanResult.Findings)
+		findings, indexes := matchFindings(reference, expectation, scanResult.Findings)
 		for _, index := range indexes {
 			matched[index] = struct{}{}
 		}
@@ -34,7 +32,7 @@ func Evaluate(reference Reference, scanResult scan.Result) Result {
 
 	unlabelled := make([]scan.Finding, 0)
 	for index, finding := range scanResult.Findings {
-		if finding.Detector != reference.Detector {
+		if !matchesReference(reference, finding) {
 			continue
 		}
 		if _, ok := matched[index]; !ok {
@@ -46,44 +44,18 @@ func Evaluate(reference Reference, scanResult scan.Result) Result {
 	summary.LabeledRecall = ratio(summary.TruePositive, summary.TruePositive+summary.FalseNegative)
 
 	return Result{
-		Schema:             Schema,
-		Corpus:             reference.Corpus,
-		SourceRevision:     reference.SourceRevision,
-		Detector:           reference.Detector,
-		Items:              items,
-		UnlabelledFindings: unlabelled,
-		Summary:            summary,
+		Schema:               Schema,
+		Corpus:               reference.Corpus,
+		SourceRevision:       reference.SourceRevision,
+		Detector:             reference.Detector,
+		Analyzer:             reference.Analyzer,
+		RuleID:               reference.RuleID,
+		Language:             reference.Language,
+		RequireFullyLabelled: reference.RequireFullyLabelled,
+		Items:                items,
+		UnlabelledFindings:   unlabelled,
+		Summary:              summary,
 	}
-}
-
-func matchFindings(detector string, expectation Expectation, findings []scan.Finding) ([]scan.Finding, []int) {
-	matched := make([]scan.Finding, 0)
-	indexes := make([]int, 0)
-	for index, finding := range findings {
-		if finding.Detector != detector || !matchesPath(expectation, finding.Scope.Path) {
-			continue
-		}
-		matched = append(matched, finding)
-		indexes = append(indexes, index)
-	}
-	return matched, indexes
-}
-
-func matchesPath(expectation Expectation, value string) bool {
-	value = normalizePath(value)
-	if expectation.Path != "" {
-		return value == normalizePath(expectation.Path)
-	}
-	prefix := strings.TrimSuffix(normalizePath(expectation.PathPrefix), "/")
-	if prefix == "." {
-		return true
-	}
-	return value == prefix || strings.HasPrefix(value, prefix+"/")
-}
-
-func normalizePath(value string) string {
-	value = strings.ReplaceAll(strings.TrimSpace(value), "\\", "/")
-	return strings.TrimPrefix(path.Clean(value), "./")
 }
 
 func classifyOutcome(expectation FindingExpectation, found bool) Outcome {

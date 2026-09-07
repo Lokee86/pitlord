@@ -77,25 +77,39 @@ func runCalibrateWithDependencies(
 		}
 	}
 
-	resolvedSnapshot, err := snapshot.Resolve(*repo, *explicitSnapshot)
+	analyzerID := reference.Detector
+	if reference.Analyzer != "" {
+		analyzerID = reference.Analyzer
+	}
+	analyzer, err := scan.BuiltInAnalyzer(analyzerID)
 	if err != nil {
 		fmt.Fprintln(stderr, err)
 		return 2
 	}
-	if loader == nil {
-		resolvedCommand, resolveErr := arcana.ResolveCommand(*repo, *arcanaCommand)
-		if resolveErr != nil {
-			fmt.Fprintln(stderr, resolveErr)
+	analyzers := []scan.Analyzer{analyzer}
+	resolvedSnapshot := ""
+	if scan.AnalyzersRequireGraph(analyzers) {
+		resolvedSnapshot, err = snapshot.Resolve(*repo, *explicitSnapshot)
+		if err != nil {
+			fmt.Fprintln(stderr, err)
 			return 2
 		}
-		loader = arcana.Client{Command: resolvedCommand}
+		if loader == nil {
+			resolvedCommand, resolveErr := arcana.ResolveCommand(*repo, *arcanaCommand)
+			if resolveErr != nil {
+				fmt.Fprintln(stderr, resolveErr)
+				return 2
+			}
+			loader = arcana.Client{Command: resolvedCommand}
+		}
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), *timeout)
 	defer cancel()
-	scanResult, err := (scan.Engine{Loader: loader}).Run(ctx, scan.Input{
-		SnapshotPath: resolvedSnapshot,
-		PathPrefix:   reference.PathPrefix,
+	scanResult, err := (scan.Engine{Loader: loader, Analyzers: analyzers}).Run(ctx, scan.Input{
+		RepositoryRoot: *repo,
+		SnapshotPath:   resolvedSnapshot,
+		PathPrefix:     reference.PathPrefix,
 	})
 	if err != nil {
 		fmt.Fprintln(stderr, err)

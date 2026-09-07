@@ -1,0 +1,25 @@
+{
+  "schema": "pitlord.calibration.v1",
+  "corpus": "lexicanter",
+  "source_revision": "eac754788b3cf18a930c085c1c49f8f353e18107",
+  "analyzer": "swallowed-error",
+  "rule_id": "swallowed-error",
+  "language": "rust",
+  "require_fully_labelled": true,
+  "expectations": [
+    {
+      "id": "lexicanter-rust-swallowed-parse-error",
+      "path": "library/tadpole_ffi/src/lexc/mod.rs",
+      "location": {
+        "start_line": 51,
+        "start_column": 17,
+        "end_line": 51,
+        "end_column": 29
+      },
+      "class": "swallowed-error",
+      "finding": "required",
+      "min_severity": "warning",
+      "max_severity": "warning"
+    }
+  ]
+}

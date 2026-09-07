@@ -4,13 +4,13 @@ Parent index: [Diagnosis Calibration Baselines](../INDEX.md)
 
 ## Purpose
 
-This folder contains the machine-readable `pitlord.calibration.v1` scoring projections for the frozen real-world calibration corpora.
+This folder contains the machine-readable `pitlord.calibration.v1` scoring projections for frozen real-world architecture and semantic calibration corpora.
 
 ## Overview
 
-Each JSON reference pins one exact corpus revision and translates its manually adjudicated architecture baseline into detector-specific `required`, `absent`, or `allowed` expectations. The Markdown calibration baseline remains the source of architectural rationale.
+Each JSON reference pins one exact corpus revision and translates its manually adjudicated calibration record into `required`, `absent`, or `allowed` expectations. Architecture references target one detector. Semantic references target one analyzer/rule/language tuple and may require exact source locations plus fully labelled output. The corresponding Markdown calibration record remains the human-readable source of rationale.
 
-The 16 frozen corpora currently have ten projections each, plus two diff-pinned mutation positives:
+The 16 frozen architecture corpora currently have ten projections each, plus two diff-pinned mutation positives. Three additional semantic references pin the first audited Rust, TypeScript, and Python semantic findings:
 
 - `<corpus>.json` — calibrated `dependency-pressure` projection;
 - `<corpus>.dependency-knots.json` — frozen `dependency-knots` projection used to measure the initial knot detector before tuning;
@@ -23,11 +23,20 @@ The 16 frozen corpora currently have ten projections each, plus two diff-pinned 
 - `space-rocks-match-decision.cross-file-intermediary-bypass.json` — diff-pinned required positive for the Space Rocks `Control.MatchDecision` bypass mutation;
 - `<corpus>.boundary-cohesion.json` — frozen `boundary-cohesion` projection used to constrain real-corpus false positives while synthetic topology supplies the current positive control; and
 - `<corpus>.hub-bottleneck.json` — frozen `hub-bottleneck` projection separating genuine central maintenance gravity from healthy shared abstractions and data/contracts; and
-- `<corpus>.impact-blast-radius.json` — independently audited `impact-blast-radius` projection covering required broad direct/transitive change surfaces, allowed intentional maintenance watches, and absent inherited/metadata controls.
+- `<corpus>.impact-blast-radius.json` — independently audited `impact-blast-radius` projection covering required broad direct/transitive change surfaces, allowed intentional maintenance watches, and absent inherited/metadata controls;
+- `lexicanter.semantic-swallowed-error-rust.json` — strict Rust `swallowed-error` reference for the frozen Lexicanter parse-error handler;
+- `space-rocks-clean-v1.semantic-unobserved-outcome-typescript.json` — strict TypeScript `unobserved-outcome` reference for the frozen font-readiness Promise; and
+- `space-rocks-clean-v1.semantic-swallowed-error-python.json` — strict Python `swallowed-error` reference for the remaining ambiguous secondary-parse handler.
 
-The projections intentionally need not classify the same architectural condition as required. A real source-concentration problem, for example, can be outside dependency-pressure, dependency-knot, dependency-depth, unstable-dependency-direction, boundary-bypass, symbol-intermediary-bypass, cross-file-intermediary-bypass, boundary/cohesion, hub/bottleneck, and impact/blast-radius ownership.
+Architecture projections intentionally need not classify the same architectural condition as required. A real source-concentration problem, for example, can be outside dependency-pressure, dependency-knot, dependency-depth, unstable-dependency-direction, boundary-bypass, symbol-intermediary-bypass, cross-file-intermediary-bypass, boundary/cohesion, hub/bottleneck, and impact/blast-radius ownership.
 
 ## Direct files
+
+### Semantic analyzers
+
+- `lexicanter.semantic-swallowed-error-rust.json`
+- `space-rocks-clean-v1.semantic-unobserved-outcome-typescript.json`
+- `space-rocks-clean-v1.semantic-swallowed-error-python.json`
 
 ### Dependency pressure
 
@@ -224,6 +233,7 @@ The projections intentionally need not classify the same architectural condition
 ## Related docs
 
 - [Calibration evaluation harness](../HARNESS.md)
+- [Semantic lint calibration](../semantic-lints.md)
 - [Dependency-knot baseline](../dependency-knots.md)
 - [Dependency-depth baseline](../dependency-depth.md)
 - [Unstable-dependency-direction baseline](../unstable-dependency-direction.md)

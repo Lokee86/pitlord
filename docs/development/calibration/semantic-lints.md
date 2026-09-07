@@ -108,6 +108,18 @@ Regression suites after tuning:
 - Pitlord full Go suite passed;
 - frozen semantic rerun preserved Lexicanter's one Rust finding and Space Rocks' one TypeScript outcome finding while reducing Space Rocks Python swallowed-error findings from five to one.
 
+## Machine-readable regression references
+
+The three final audited findings are now frozen as strict `pitlord.calibration.v1` references:
+
+- `references/lexicanter.semantic-swallowed-error-rust.json`;
+- `references/space-rocks-clean-v1.semantic-unobserved-outcome-typescript.json`;
+- `references/space-rocks-clean-v1.semantic-swallowed-error-python.json`.
+
+Each reference targets one analyzer/rule/language tuple, pins the exact source path and span, constrains severity to `warning`, and sets `require_fully_labelled: true`. Canonical `pitlord calibrate --fail-on-mismatch` runs therefore fail on a missing expected finding, a severity change, or any additional matching semantic finding that is not explicitly labelled.
+
+The initial strict runs all score `1 TP / 0 FP / 0 FN / 0 severity mismatches / 0 unlabelled findings`. Semantic snapshots are currently supplied explicitly because the frozen corpora's ordinary `.arcana/CURRENT` snapshots predate semantic facts; the reference contract freezes source adjudication, not generated snapshot bytes.
+
 ## Conclusions
 
 `unobserved-outcome` currently has the cleaner evidence boundary, but much of its local value may overlap language-native tooling.

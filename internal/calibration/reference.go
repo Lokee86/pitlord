@@ -44,8 +44,13 @@ func validateReference(reference Reference) error {
 	if reference.WorktreeDiffSHA256 != "" && !validSHA256(reference.WorktreeDiffSHA256) {
 		return fmt.Errorf("calibration worktree_diff_sha256 must be 64 hexadecimal characters")
 	}
-	if strings.TrimSpace(reference.Detector) == "" {
-		return fmt.Errorf("calibration detector is required")
+	detector := strings.TrimSpace(reference.Detector)
+	analyzer := strings.TrimSpace(reference.Analyzer)
+	if (detector == "") == (analyzer == "") {
+		return fmt.Errorf("calibration requires exactly one of detector or analyzer")
+	}
+	if analyzer == "" && (strings.TrimSpace(reference.RuleID) != "" || strings.TrimSpace(reference.Language) != "") {
+		return fmt.Errorf("calibration rule_id and language require analyzer targeting")
 	}
 	if len(reference.Expectations) == 0 {
 		return fmt.Errorf("calibration expectations are required")
@@ -80,6 +85,14 @@ func validateExpectation(expectation Expectation) error {
 			return fmt.Errorf("path_prefix: %w", err)
 		}
 	}
+	if expectation.Location != nil {
+		if expectation.Path == "" {
+			return fmt.Errorf("location requires exact path")
+		}
+		if err := validateLocation(*expectation.Location); err != nil {
+			return fmt.Errorf("location: %w", err)
+		}
+	}
 	if strings.TrimSpace(expectation.Class) == "" {
 		return fmt.Errorf("class is required")
 	}
@@ -93,6 +106,19 @@ func validateExpectation(expectation Expectation) error {
 	}
 	if !validSeverity(string(expectation.MinSeverity)) || !validSeverity(string(expectation.MaxSeverity)) {
 		return fmt.Errorf("invalid severity constraint")
+	}
+	return nil
+}
+
+func validateLocation(location LocationExpectation) error {
+	if location.StartLine <= 0 {
+		return fmt.Errorf("start_line must be positive")
+	}
+	if location.StartColumn < 0 || location.EndLine < 0 || location.EndColumn < 0 {
+		return fmt.Errorf("columns and end_line must not be negative")
+	}
+	if location.EndLine > 0 && location.EndLine < location.StartLine {
+		return fmt.Errorf("end_line must not precede start_line")
 	}
 	return nil
 }
