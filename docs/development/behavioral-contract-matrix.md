@@ -39,7 +39,7 @@ The matrix prevents durable safety and compatibility contracts from depending on
 | Baselines suppress evidence rather than entire rules | `internal/baseline/baseline_test.go` |
 | Snapshot diffs classify introduced, resolved, and persistent evidence by stable fingerprint | `internal/snapshotdiff/compare_test.go` |
 | Mutation verification requires exact absent/present transitions | `internal/mutation/verify_test.go` |
-| Arcana provider discovery prefers explicit/configured and repository-prepared Grimoire/Lexicon providers before generic PATH fallback | `internal/arcana/command_test.go` |
+| Arcana discovery prefers explicit Pitlord configuration and repository-prepared Lexicon + Arcana installations, supports combined-release and nearby source-checkout layouts, and does not consult retired Grimoire provider state | `internal/arcana/command_test.go` |
 | Arcana graph loading requests the maximum neighbor page, validates returned relationship counts, and fails closed on truncation; node-list pagination also fails closed on invalid continuation state | `internal/arcana/client_test.go`, `internal/arcana/qualified_test.go`, `internal/arcana/pagination.go` coverage through graph-loading tests |
 | Arcana subprocesses terminate when the caller context expires | `internal/arcana/protocol_process_test.go` |
 | Incompatible Arcana protocol identifiers fail closed | `internal/arcana/protocol_process_test.go` |

@@ -35,15 +35,14 @@ The shell owns neither boundary. Pitlord resolves one Arcana executable, then in
 
 Graph-backed commands accept `--arcana` as an explicit override. Without that override, Pitlord resolves Arcana in deterministic order:
 
-1. `GRIMOIRE_ARCANA_COMMAND`;
-2. repository `.grimoire/providers.json` configuration;
-3. the Grimoire installation implied by `.lexicon/config.json` and its `adapter_root`;
-4. an Arcana executable adjacent to Pitlord;
-5. `GRIMOIRE_HOME`;
-6. an Arcana executable adjacent to a `grimoire` command on `PATH`;
-7. `arcana` on `PATH`.
+1. `PITLORD_ARCANA_COMMAND`;
+2. the Lexicon + Arcana installation implied by `.lexicon/config.json` and its `adapter_root`;
+3. an Arcana executable adjacent to Pitlord;
+4. an Arcana executable adjacent to `lexicon` on `PATH`;
+5. a nearby `lexicon-arcana` source checkout for development use;
+6. `arcana` on `PATH`.
 
-Repository-prepared state is preferred over a generic `PATH` match so a graph snapshot is normally read by the same Grimoire/Arcana installation family that prepared its Lexicon state. This avoids silently selecting an unrelated or stale Arcana executable when several toolchain builds exist on one machine. An unresolved explicit environment override fails instead of falling through to another provider.
+Repository-prepared Lexicon state is preferred over a generic `PATH` match so a graph snapshot is normally read by the same Lexicon + Arcana installation family that prepared its semantic state. Combined releases install `lexicon` and `arcana` side-by-side, while source checkouts resolve `arcana/target/release` or `arcana/target/debug`. An unresolved `PITLORD_ARCANA_COMMAND` fails instead of silently falling through. Retired `.grimoire` provider files and `GRIMOIRE_*` environment variables are not active discovery inputs.
 
 ## Deadline and cancellation contract
 

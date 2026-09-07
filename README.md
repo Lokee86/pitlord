@@ -53,9 +53,10 @@ go vet ./...
 Repository-only content and path policies require only the Pitlord executable. Policies
 containing dependency, ownership, or area-cycle rules additionally require an Arcana
 executable and current snapshot. `--arcana` is an explicit executable override. Otherwise
-Pitlord prefers the Arcana associated with the repository's prepared Grimoire/Lexicon
-state, then checks an adjacent/shared Grimoire installation and `GRIMOIRE_HOME`, and uses
-`PATH` only as the final fallback.
+Pitlord resolves Arcana from `PITLORD_ARCANA_COMMAND`, the repository's current Lexicon
+configuration, an adjacent Lexicon + Arcana installation, or `PATH`. Source checkouts also
+recognize a nearby `lexicon-arcana` development checkout. Retired Grimoire provider state
+is not part of active Arcana discovery.
 
 ## Install
 

@@ -10,19 +10,12 @@ import (
 	"strings"
 )
 
-const providerConfigVersion = 1
-
-type providerConfiguration struct {
-	Version       int    `json:"version"`
-	ArcanaCommand string `json:"arcana_command"`
-}
-
 type lexiconConfiguration struct {
 	AdapterRoot string `json:"adapter_root"`
 }
 
-// ResolveCommand finds the Arcana executable that belongs to the repository's
-// prepared Grimoire/Lexicon installation before falling back to PATH.
+// ResolveCommand finds the Arcana executable associated with the current
+// Lexicon + Arcana installation before falling back to PATH.
 func ResolveCommand(repositoryRoot, requested string) (string, error) {
 	executable, _ := os.Executable()
 	return resolveCommand(repositoryRoot, requested, executable)
@@ -35,14 +28,11 @@ func resolveCommand(repositoryRoot, requested, executable string) (string, error
 	if requested = strings.TrimSpace(requested); requested != "" {
 		return requested, nil
 	}
-	if configured := strings.TrimSpace(os.Getenv("GRIMOIRE_ARCANA_COMMAND")); configured != "" {
+	if configured := strings.TrimSpace(os.Getenv("PITLORD_ARCANA_COMMAND")); configured != "" {
 		if command := resolveConfiguredCommand(repositoryRoot, configured); command != "" {
 			return command, nil
 		}
-		return "", fmt.Errorf("GRIMOIRE_ARCANA_COMMAND %q does not resolve to an executable", configured)
-	}
-	if configured := repositoryConfiguredCommand(repositoryRoot); configured != "" {
-		return configured, nil
+		return "", fmt.Errorf("PITLORD_ARCANA_COMMAND %q does not resolve to an executable", configured)
 	}
 	if command := commandFromLexiconConfiguration(repositoryRoot); command != "" {
 		return command, nil
@@ -52,33 +42,18 @@ func resolveCommand(repositoryRoot, requested, executable string) (string, error
 			return command, nil
 		}
 	}
-	if home := strings.TrimSpace(os.Getenv("GRIMOIRE_HOME")); home != "" {
-		if command := commandUnderRoot(home); command != "" {
+	if lexicon, err := exec.LookPath("lexicon"); err == nil {
+		if command := commandInDirectory(filepath.Dir(lexicon)); command != "" {
 			return command, nil
 		}
 	}
-	if grimoire, err := exec.LookPath("grimoire"); err == nil {
-		if command := commandInDirectory(filepath.Dir(grimoire)); command != "" {
-			return command, nil
-		}
+	if command := commandFromDevelopmentCheckout(repositoryRoot); command != "" {
+		return command, nil
 	}
 	if command, err := exec.LookPath("arcana"); err == nil {
 		return command, nil
 	}
-	return "", fmt.Errorf("Arcana executable was not found; install the Grimoire bundle or use --arcana")
-}
-
-func repositoryConfiguredCommand(repositoryRoot string) string {
-	data, err := os.ReadFile(filepath.Join(repositoryRoot, ".grimoire", "providers.json"))
-	if err != nil {
-		return ""
-	}
-	var configuration providerConfiguration
-	if json.Unmarshal(data, &configuration) != nil ||
-		(configuration.Version != 0 && configuration.Version != providerConfigVersion) {
-		return ""
-	}
-	return resolveConfiguredCommand(repositoryRoot, configuration.ArcanaCommand)
+	return "", fmt.Errorf("Arcana executable was not found; install the Lexicon + Arcana bundle, put arcana on PATH, or use --arcana")
 }
 
 func commandFromLexiconConfiguration(repositoryRoot string) string {
@@ -111,11 +86,28 @@ func commandFromLexiconConfiguration(repositoryRoot string) string {
 	return ""
 }
 
+func commandFromDevelopmentCheckout(repositoryRoot string) string {
+	root, err := filepath.Abs(repositoryRoot)
+	if err != nil {
+		root = filepath.Clean(repositoryRoot)
+	}
+	for depth := 0; depth < 4; depth++ {
+		if command := commandUnderRoot(filepath.Join(root, "lexicon-arcana")); command != "" {
+			return command
+		}
+		parent := filepath.Dir(root)
+		if parent == root {
+			break
+		}
+		root = parent
+	}
+	return ""
+}
+
 func commandUnderRoot(root string) string {
 	for _, directory := range []string{
 		root,
 		filepath.Join(root, "bin"),
-		filepath.Join(root, "build", "bin"),
 		filepath.Join(root, "arcana", "target", "release"),
 		filepath.Join(root, "arcana", "target", "debug"),
 	} {
