@@ -79,5 +79,12 @@ func runScanWithLoader(args []string, stdout, stderr io.Writer, loader scan.Grap
 		fmt.Fprintln(stderr, err)
 		return 2
 	}
+	return scanResultExitCode(result)
+}
+
+func scanResultExitCode(result scan.Result) int {
+	if result.Summary.Guard > 0 {
+		return 1
+	}
 	return 0
 }

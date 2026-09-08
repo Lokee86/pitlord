@@ -41,6 +41,15 @@ func TestScanRunsWithoutPolicy(t *testing.T) {
 	}
 }
 
+func TestScanExitCodeBlocksGuardFindingsOnly(t *testing.T) {
+	if code := scanResultExitCode(scan.Result{Summary: scan.Summary{Advisory: 3}}); code != 0 {
+		t.Fatalf("advisory-only scan exit = %d, want 0", code)
+	}
+	if code := scanResultExitCode(scan.Result{Summary: scan.Summary{Guard: 1}}); code != 1 {
+		t.Fatalf("guard scan exit = %d, want 1", code)
+	}
+}
+
 func TestScanRejectsUnknownBuiltInAnalyzer(t *testing.T) {
 	var stdout, stderr bytes.Buffer
 	if code := runScanWithLoader([]string{"--analyzers", "unknown"}, &stdout, &stderr, nil); code != 2 {

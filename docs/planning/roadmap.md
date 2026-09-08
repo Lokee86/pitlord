@@ -41,7 +41,7 @@ The current planned sequence is:
 
 1. **Broaden independent evidence before promotion.** Continue the architecture-detector recall work from the August checkpoint and add purpose-selected semantic corpora for Rust, TypeScript/JavaScript, and Python so neither detector nor semantic-rule disposition rests on development examples or a tiny language sample.
 2. **Decide advisory versus blocking disposition from evidence.** Architecture detectors and semantic rules remain advisory unless independent calibration supports deterministic blocking use.
-3. **Build the deterministic post-change guard loop.** Coding-agent change -> Pitlord scan/guard -> finite mechanical findings -> repair -> deterministic re-verification, with no model judgement in pass/fail.
+3. **Build the deterministic post-change guard loop.** The scan result already carries advisory-versus-guard disposition and the CLI now fails deterministically when a guard finding is present. Complete the loop by promoting only evidence-supported conditions and adding repository-owned handling for pre-existing/intentional architecture; repair and re-verification remain model-free pass/fail.
 4. **Harden reproducibility and human disposition.** Guarantee stable finding identity/order/severity for the same snapshot and add repository-owned handling for intentional or ambiguous architecture before policy promotion.
 5. **Prefer differentiated semantic work.** New semantic rules should target repository-wide, cross-file, boundary, or cross-language problems. Do not expand native linter wrappers by default merely to duplicate ESLint, Ruff, or equivalent ecosystem diagnostics; the Clippy integration remains the normalization proof and useful Rust surface.
 

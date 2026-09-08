@@ -86,7 +86,7 @@ pitlord scan --repo <root> [--analyzers architecture,semantic,clippy] [--path-pr
 
 The default `architecture` group runs Pitlord's ten graph-backed architecture detectors. `semantic` runs Pitlord-owned cross-language semantic rules over Lexicon-normalized capabilities stored in Arcana. `clippy` normalizes Rust Clippy diagnostics and is graph-free. Analyzer groups may be combined.
 
-All architecture detectors and current semantic rules are advisory. Exact detector mechanics and thresholds belong in [Architecture](ARCHITECTURE.md); evidence strength and known limitations belong in [Current limitations](limits/current-limitations.md).
+All architecture detectors and current semantic rules are advisory. `scan` returns exit `1` when a selected analyzer produces one or more findings with `disposition: guard`; advisory-only findings do not fail the command. No current built-in detector or semantic rule is promoted to guard disposition. Exact detector mechanics and thresholds belong in [Architecture](ARCHITECTURE.md); evidence strength and known limitations belong in [Current limitations](limits/current-limitations.md).
 
 ### `analyze`
 
