@@ -14,17 +14,17 @@ Coverage includes packages, public command families, machine-readable contracts,
 
 | Surface | Implementation | Canonical current owner |
 | --- | --- | --- |
-| `check`, policy execution | `cmd/pitlord/check.go`, `internal/checker`, `internal/policy` | [README](../../README.md), [Policy](../POLICY.md), [Architecture](../ARCHITECTURE.md) |
-| `validate`, embedded schemas | `cmd/pitlord/validate.go`, `internal/schema`, `internal/policy` | [Policy](../POLICY.md) |
-| `baseline` | `cmd/pitlord/baseline.go`, `internal/baseline` | [Baselines and CI](../BASELINES-AND-CI.md) |
-| `diff` | `cmd/pitlord/diff.go`, `internal/snapshotdiff` | [Architecture](../ARCHITECTURE.md), [Baselines and CI](../BASELINES-AND-CI.md) |
-| `inspect`, `analyze` | `cmd/pitlord/inspect.go`, `cmd/pitlord/analyze.go`, `internal/arcana`, `internal/report` | [README](../../README.md), [Architecture](../ARCHITECTURE.md) |
-| `scan`, analyzer registry and policy-free architecture/semantic/native-analyzer execution | `cmd/pitlord/scan.go`, `internal/scan`, `internal/report` | [README](../../README.md), [Architecture](../ARCHITECTURE.md), [Current limitations](../limits/current-limitations.md), [Semantic calibration](calibration/semantic-lints.md) |
-| `docs`, codemap coverage and changed-document guard | `cmd/pitlord/docs.go`, `internal/docguard`, `internal/arcana` | [README](../../README.md), [Architecture](../ARCHITECTURE.md), [Current limitations](../limits/current-limitations.md) |
-| `calibrate`, frozen-corpus detector/analyzer evaluation and strict regression gating | `cmd/pitlord/calibrate.go`, `internal/calibration`, `internal/scan`, `internal/report` | [README](../../README.md), [Calibration harness](calibration/HARNESS.md), [Architecture](../ARCHITECTURE.md) |
-| `generate`, Homunculus policy conversion | `cmd/pitlord/generate.go`, `internal/policy/homunculus.go` | [README](../../README.md), [Architecture](../ARCHITECTURE.md) |
-| `verify-mutation` | `cmd/pitlord/verify_mutation.go`, `internal/mutation` | [README](../../README.md), [Architecture](../ARCHITECTURE.md) |
-| `schema` | `cmd/pitlord/schema.go`, `internal/schema` | [Policy](../POLICY.md) |
+| `check`, policy execution | `cmd/pitlord/check.go`, `internal/checker`, `internal/policy` | [Commands](../COMMANDS.md), [Policy](../POLICY.md), [Architecture](../ARCHITECTURE.md) |
+| `validate`, embedded schemas | `cmd/pitlord/validate.go`, `internal/schema`, `internal/policy` | [Commands](../COMMANDS.md), [Policy](../POLICY.md) |
+| `baseline` | `cmd/pitlord/baseline.go`, `internal/baseline` | [Commands](../COMMANDS.md), [Baselines and CI](../BASELINES-AND-CI.md) |
+| `diff` | `cmd/pitlord/diff.go`, `internal/snapshotdiff` | [Commands](../COMMANDS.md), [Architecture](../ARCHITECTURE.md), [Baselines and CI](../BASELINES-AND-CI.md) |
+| `inspect`, `analyze` | `cmd/pitlord/inspect.go`, `cmd/pitlord/analyze.go`, `internal/arcana`, `internal/report` | [Commands](../COMMANDS.md), [Architecture](../ARCHITECTURE.md) |
+| `scan`, analyzer registry and policy-free architecture/semantic/native-analyzer execution | `cmd/pitlord/scan.go`, `internal/scan`, `internal/report` | [Commands](../COMMANDS.md), [Architecture](../ARCHITECTURE.md), [Current limitations](../limits/current-limitations.md), [Semantic calibration](calibration/semantic-lints.md) |
+| `docs`, codemap coverage and changed-document guard | `cmd/pitlord/docs.go`, `internal/docguard`, `internal/arcana` | [Commands](../COMMANDS.md), [Architecture](../ARCHITECTURE.md), [Current limitations](../limits/current-limitations.md) |
+| `calibrate`, frozen-corpus detector/analyzer evaluation and strict regression gating | `cmd/pitlord/calibrate.go`, `internal/calibration`, `internal/scan`, `internal/report` | [Commands](../COMMANDS.md), [Calibration harness](calibration/HARNESS.md), [Architecture](../ARCHITECTURE.md) |
+| `generate`, Homunculus policy conversion | `cmd/pitlord/generate.go`, `internal/policy/homunculus.go` | [Commands](../COMMANDS.md), [Architecture](../ARCHITECTURE.md) |
+| `verify-mutation` | `cmd/pitlord/verify_mutation.go`, `internal/mutation` | [Commands](../COMMANDS.md), [Architecture](../ARCHITECTURE.md) |
+| `schema` | `cmd/pitlord/schema.go`, `internal/schema` | [Commands](../COMMANDS.md), [Policy](../POLICY.md) |
 
 ## Package ownership
 

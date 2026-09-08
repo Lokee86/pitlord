@@ -2,6 +2,8 @@ package main
 
 import (
 	"bytes"
+	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 )
@@ -13,6 +15,25 @@ func TestVersion(t *testing.T) {
 	}
 	if strings.TrimSpace(stdout.String()) != version {
 		t.Fatalf("unexpected version output %q", stdout.String())
+	}
+}
+
+func TestPublicCommandsAreDocumented(t *testing.T) {
+	commands := []string{
+		"check", "baseline", "validate", "schema", "verify-mutation", "diff",
+		"analyze", "scan", "docs", "calibrate", "inspect", "generate", "version",
+	}
+	for _, relative := range []string{"../../README.md", "../../docs/COMMANDS.md"} {
+		data, err := os.ReadFile(filepath.Clean(relative))
+		if err != nil {
+			t.Fatal(err)
+		}
+		content := string(data)
+		for _, command := range commands {
+			if !strings.Contains(content, "`"+command+"`") && !strings.Contains(content, "pitlord "+command) {
+				t.Errorf("%s does not document public command %q", relative, command)
+			}
+		}
 	}
 }
 

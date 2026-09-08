@@ -12,6 +12,7 @@ Pitlord documentation separates exact policy and CLI contracts, implemented arch
 
 ## Direct files
 
+- [Command reference](COMMANDS.md) — Public CLI roles, usage, and the distinction between inspect/analyze/check/scan.
 - [Architecture](ARCHITECTURE.md) — Implemented ownership, runtime flow, evaluation, snapshots, and mutation verification.
 - [Arcana process boundary](ARCANA_PROCESS_BOUNDARY.md) — Process ownership, deadlines, protocol compatibility, failure behavior, and observability.
 - [Architecture decisions](decisions/INDEX.md) — Consequential ownership, process, persistence, and compatibility decisions.
