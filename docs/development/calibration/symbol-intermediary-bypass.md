@@ -151,7 +151,7 @@ A reference can also use `path_prefix: "."` to cover the entire repository. This
 ## Related docs
 
 - [Calibration evaluation harness](HARNESS.md)
-- [Calibration references](references/INDEX.md)
+- [Calibration reference set](REFERENCE-SET.md)
 - [Boundary-bypass baseline](boundary-bypass.md)
 - [Architecture](../../ARCHITECTURE.md)
 - [Current limitations](../../limits/current-limitations.md)

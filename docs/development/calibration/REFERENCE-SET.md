@@ -1,14 +1,14 @@
-# Calibration References
+# Calibration Reference Set
 
-Parent index: [Diagnosis Calibration Baselines](../INDEX.md)
+Parent index: [Diagnosis Calibration Baselines](INDEX.md)
 
 ## Purpose
 
-This folder contains the machine-readable `pitlord.calibration.v1` scoring projections for frozen real-world architecture and semantic calibration corpora.
+This document indexes the machine-readable `pitlord.calibration.v1` scoring projections stored under `testdata/calibration/` for frozen real-world architecture and semantic calibration corpora.
 
 ## Overview
 
-Each JSON reference pins one exact corpus revision and translates its manually adjudicated calibration record into `required`, `absent`, or `allowed` expectations. Architecture references target one detector. Semantic references target one analyzer/rule/language tuple and may require exact source locations plus fully labelled output. The corresponding Markdown calibration record remains the human-readable source of rationale.
+Machine-readable reference data is test/evaluation state rather than documentation, so the JSON fixtures live outside the docs tree. The filenames below are relative to `testdata/calibration/`. Each JSON reference pins one exact corpus revision and translates its manually adjudicated calibration record into `required`, `absent`, or `allowed` expectations. Architecture references target one detector. Semantic references target one analyzer/rule/language tuple and may require exact source locations plus fully labelled output. The corresponding Markdown calibration record remains the human-readable source of rationale.
 
 The 16 frozen architecture corpora currently have ten projections each, plus two diff-pinned mutation positives. Three additional semantic references pin the first audited Rust, TypeScript, and Python semantic findings:
 
@@ -232,19 +232,19 @@ Architecture projections intentionally need not classify the same architectural 
 
 ## Related docs
 
-- [Calibration evaluation harness](../HARNESS.md)
-- [Semantic lint calibration](../semantic-lints.md)
-- [Dependency-knot baseline](../dependency-knots.md)
-- [Dependency-depth baseline](../dependency-depth.md)
-- [Unstable-dependency-direction baseline](../unstable-dependency-direction.md)
-- [Boundary-bypass baseline](../boundary-bypass.md)
-- [Symbol-intermediary-bypass baseline](../symbol-intermediary-bypass.md)
-- [Cross-file-intermediary-bypass baseline](../cross-file-intermediary-bypass.md)
-- [Boundary/cohesion baseline](../boundary-cohesion.md)
-- [Hub/bottleneck baseline](../hub-bottleneck.md)
-- [Impact/blast-radius baseline](../impact-blast-radius.md)
-- [Diagnosis calibration baselines](../INDEX.md)
+- [Calibration evaluation harness](HARNESS.md)
+- [Semantic lint calibration](semantic-lints.md)
+- [Dependency-knot baseline](dependency-knots.md)
+- [Dependency-depth baseline](dependency-depth.md)
+- [Unstable-dependency-direction baseline](unstable-dependency-direction.md)
+- [Boundary-bypass baseline](boundary-bypass.md)
+- [Symbol-intermediary-bypass baseline](symbol-intermediary-bypass.md)
+- [Cross-file-intermediary-bypass baseline](cross-file-intermediary-bypass.md)
+- [Boundary/cohesion baseline](boundary-cohesion.md)
+- [Hub/bottleneck baseline](hub-bottleneck.md)
+- [Impact/blast-radius baseline](impact-blast-radius.md)
+- [Diagnosis calibration baselines](INDEX.md)
 
 ## Notes
 
-Reference files are versioned reference ground truth. Detector tuning must not rewrite them merely to improve scores.
+Reference files under `testdata/calibration/` are versioned ground truth. Detector tuning must not rewrite them merely to improve scores; human rationale remains owned by the Markdown calibration records in this directory.

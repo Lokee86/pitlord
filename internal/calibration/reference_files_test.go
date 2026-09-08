@@ -7,7 +7,7 @@ import (
 )
 
 func TestRepositoryCalibrationReferencesDecode(t *testing.T) {
-	files, err := filepath.Glob(filepath.Join("..", "..", "docs", "development", "calibration", "references", "*.json"))
+	files, err := filepath.Glob(filepath.Join("..", "..", "testdata", "calibration", "*.json"))
 	if err != nil {
 		t.Fatal(err)
 	}

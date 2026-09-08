@@ -97,7 +97,7 @@ The detector therefore has one independently audited real-world recall case whil
 
 ## Related docs
 
-- [Calibration references](references/INDEX.md)
+- [Calibration reference set](REFERENCE-SET.md)
 - [Calibration evaluation harness](HARNESS.md)
 - [Architecture](../../ARCHITECTURE.md)
 - [Current limitations](../../limits/current-limitations.md)

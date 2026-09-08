@@ -201,7 +201,7 @@ This establishes real-world recall coverage for 19 independently selected requir
 ## Related docs
 
 - [Calibration evaluation harness](HARNESS.md)
-- [Calibration references](references/INDEX.md)
+- [Calibration reference set](REFERENCE-SET.md)
 - [Hub/bottleneck baseline](hub-bottleneck.md)
 - [Architecture diagnosis plan](../../planning/architecture-diagnosis-and-policy-authoring.md)
 

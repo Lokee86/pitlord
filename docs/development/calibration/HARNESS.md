@@ -12,7 +12,7 @@ This document owns the current machine-readable calibration contract used to sco
 
 ## Reference contract
 
-Calibration references live under `docs/development/calibration/references/` and use schema `pitlord.calibration.v1`.
+Calibration references live under `testdata/calibration/` and use schema `pitlord.calibration.v1`. Human adjudication and reference-set documentation remain under `docs/development/calibration/`.
 
 Each reference pins:
 
@@ -44,7 +44,7 @@ Run one pinned corpus with:
 ```text
 pitlord calibrate \
   --repo C:/!bin/workspace/corpus/java-jsoup \
-  --reference docs/development/calibration/references/jsoup.json
+  --reference testdata/calibration/jsoup.json
 ```
 
 The command verifies Git `HEAD` against `source_revision` before scanning. When `worktree_diff_sha256` is present it also verifies the exact tracked diff. `--skip-revision-check` skips both state checks and exists only for controlled diagnostics; it should not be used for canonical calibration runs.
@@ -80,7 +80,7 @@ That final case matters when a frozen architectural problem is real but the curr
 ## Related docs
 
 - [Calibration baselines](INDEX.md)
-- [Machine-readable references](references/INDEX.md)
+- [Machine-readable reference set](REFERENCE-SET.md)
 - [Architecture](../../ARCHITECTURE.md)
 - [Current limitations](../../limits/current-limitations.md)
 - [Behavioral contract matrix](../behavioral-contract-matrix.md)

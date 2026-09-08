@@ -17,7 +17,7 @@ Development documentation maps implementation boundaries to canonical documents 
 
 ## Direct folders
 
-- [Diagnosis and semantic calibration](calibration/INDEX.md) — Manually adjudicated real-source architecture and semantic-analyzer evidence plus machine-readable detector references.
+- [Diagnosis and semantic calibration](calibration/INDEX.md) — Manually adjudicated real-source architecture and semantic-analyzer evidence plus the human index for machine-readable fixtures under `testdata/calibration/`.
 
 ## Related docs
 

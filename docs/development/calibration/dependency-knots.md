@@ -104,7 +104,7 @@ The tuned semantics are deliberately narrower than the initial detector:
 - tiny two-file parent/`impl`, parent/`internal`, and parent/`implementation` cycles are deferred as bounded implementation seams; and
 - density alone no longer promotes a two-region knot to high severity.
 
-The machine-readable projections are the unchanged `*.dependency-knots.json` files in [Calibration references](references/INDEX.md).
+The machine-readable projections are the unchanged `*.dependency-knots.json` files in [Calibration reference set](REFERENCE-SET.md).
 
 ## Related docs
 

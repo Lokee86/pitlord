@@ -103,7 +103,7 @@ Real-world recall claims require at least one independently adjudicated required
 
 ## Related docs
 
-- [Calibration references](references/INDEX.md)
+- [Calibration reference set](REFERENCE-SET.md)
 - [Boundary/cohesion baseline](boundary-cohesion.md)
 - [Architecture](../../ARCHITECTURE.md)
 - [Current limitations](../../limits/current-limitations.md)

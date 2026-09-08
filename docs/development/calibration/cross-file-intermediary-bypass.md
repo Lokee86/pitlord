@@ -87,7 +87,7 @@ Future recall evidence should come from a different repository or a newly frozen
 ## Related docs
 
 - [Calibration evaluation harness](HARNESS.md)
-- [Calibration references](references/INDEX.md)
+- [Calibration reference set](REFERENCE-SET.md)
 - [Symbol-intermediary-bypass baseline](symbol-intermediary-bypass.md)
 - [Architecture](../../ARCHITECTURE.md)
 - [Current limitations](../../limits/current-limitations.md)

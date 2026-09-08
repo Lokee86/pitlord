@@ -103,7 +103,7 @@ The synthetic weak/outward region remains the positive control and the catalog, 
 ## Related docs
 
 - [Calibration evaluation harness](HARNESS.md)
-- [Calibration references](references/INDEX.md)
+- [Calibration reference set](REFERENCE-SET.md)
 - [Architecture diagnosis plan](../../planning/architecture-diagnosis-and-policy-authoring.md)
 
 ## Notes

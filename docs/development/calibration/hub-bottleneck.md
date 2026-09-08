@@ -164,7 +164,7 @@ This is strong evidence that the many-to-many behavioral-waist rule controls the
 ## Related docs
 
 - [Calibration evaluation harness](HARNESS.md)
-- [Calibration references](references/INDEX.md)
+- [Calibration reference set](REFERENCE-SET.md)
 - [Space Rocks Clean Control v1](space-rocks-clean-v1.md)
 - [Architecture diagnosis plan](../../planning/architecture-diagnosis-and-policy-authoring.md)
 

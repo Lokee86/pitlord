@@ -212,7 +212,7 @@ pitlord docs \
 ```text
 pitlord calibrate \
   --repo /path/to/pinned/corpus \
-  --reference docs/development/calibration/references/jsoup.json \
+  --reference testdata/calibration/jsoup.json \
   --fail-on-mismatch \
   --format json
 ```

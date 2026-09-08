@@ -131,7 +131,7 @@ Real-world recall claims require at least one independently adjudicated required
 
 ## Related docs
 
-- [Calibration references](references/INDEX.md)
+- [Calibration reference set](REFERENCE-SET.md)
 - [Dependency-knot baseline](dependency-knots.md)
 - [Dependency-depth baseline](dependency-depth.md)
 - [Architecture](../../ARCHITECTURE.md)
