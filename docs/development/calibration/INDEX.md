@@ -12,6 +12,34 @@ Architecture calibration baselines pin an exact corpus revision and record the e
 
 Semantic calibration records may instead adjudicate concrete rule findings and adapter evidence when the existing architecture corpus does not cover the required languages. In both cases, calibration evidence stays separate from current implementation claims and records limitations explicitly rather than treating warning count as ground truth.
 
+## Architecture detector evidence status
+
+Evidence status describes the strength of the current calibration record. It is not runtime disposition: all ten architecture detectors remain advisory, and a stronger evidence status does not by itself make a detector eligible for blocking use.
+
+Status meanings:
+
+- `validated` — multiple required real-source positives and real-source negative controls support the detector's current claim, with a fully labelled current projection and no known labelled errors;
+- `limited-evidence` — real-source positive evidence exists, but positive diversity or reference-set completeness is still too narrow for a broad recall claim;
+- `precision-only` — real-source negative or near-miss controls constrain false positives, but there is no required real-source positive establishing recall;
+- `development-positive` — a required real-source mutation positive exists, but it was used while shaping the detector and therefore is not independent recall validation.
+
+| Detector | Evidence status | Current evidence | Main gap |
+| --- | --- | --- | --- |
+| `dependency-pressure` | `limited-evidence` | 3 labelled TP / 105 TN / 0 labelled FP / 0 FN; 26 findings remain unlabelled | Complete adjudication and broader positive diversity. |
+| `dependency-knots` | `validated` | 7 TP / 39 TN / 0 FP / 0 FN; fully labelled | No current evidence gap for the advisory claim; blocking disposition remains a separate decision. |
+| `dependency-depth` | `limited-evidence` | 1 TP / 16 TN / 0 FP / 0 FN; fully labelled | Positive diversity beyond the single JMH corridor. |
+| `unstable-dependency-direction` | `precision-only` | 0 TP / 16 TN / 0 FP / 0 FN plus source-audited near misses | Required independent real-source positive. |
+| `boundary-bypass` | `precision-only` | 0 TP / 16 TN / 0 FP / 0 FN after false-positive tuning | Required independent real-source positive. |
+| `symbol-intermediary-bypass` | `development-positive` | 16 clean-corpus TN plus one diff-pinned Space Rocks development TP | Validation/holdout positive not used during detector design. |
+| `cross-file-intermediary-bypass` | `development-positive` | 16 clean-corpus TN plus one diff-pinned Space Rocks MatchDecision development TP | Validation/holdout positive not used during detector design. |
+| `boundary-cohesion` | `precision-only` | 30 frozen real-corpus TN / 0 FP; synthetic positive coverage | Required independent real-source positive. |
+| `hub-bottleneck` | `limited-evidence` | 1 TP / 43 TN / 0 FP / 0 FN; fully labelled | Positive diversity beyond the single Space Rocks anchor. |
+| `impact-blast-radius` | `validated` | 19 TP / 52 TN / 0 FP / 0 FN across 150 frozen expectations; fully labelled | No current evidence gap for the advisory claim; intentional broad impact still prevents automatic blocking semantics. |
+
+`validated` here means validated for the detector's present advisory claim against the current frozen evidence set. It does not mean universal architectural recall, and it does not replace the separate advisory-versus-blocking disposition decision.
+
+The semantic rules are not included in this detector table. Their three strict development-era references establish the current proof boundary, but independent Rust, TypeScript/JavaScript, and Python holdouts are still required before assigning comparable evidence maturity.
+
 ## Direct files
 
 - [Calibration evaluation harness](HARNESS.md) — Machine-readable `pitlord.calibration.v1` references, pinned-revision verification, labelled scoring, and command usage.

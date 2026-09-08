@@ -35,6 +35,8 @@ Since the August checkpoint, Pitlord added a general analyzer registry with expl
 
 The first real-source semantic calibration pass is complete enough to establish the current proof boundary but not broad precision or recall. Generated semantic sources are suppressed using trusted markers, Python import fallback is recognized as recovery, and downstream `fallback` / `enclosing-propagation` dispositions reduce Space Rocks Python `swallowed-error` findings from five to one while preserving Lexicanter's genuine Rust swallowed-error finding. `continuation` remains explicitly non-dispositive so arbitrary later work cannot hide a swallowed error. Those three final findings are now strict machine-readable calibration references with analyzer/rule/language and exact source-span selectors; each canonical `--fail-on-mismatch` run currently scores 1 TP / 0 FP / 0 FN / 0 severity mismatches / 0 unlabelled findings.
 
+The current architecture-detector evidence maturity is now classified explicitly in the [calibration index](../development/calibration/INDEX.md#architecture-detector-evidence-status). That classification is calibration metadata, not part of `pitlord.scan.v1`, and remains separate from advisory-versus-blocking runtime disposition.
+
 The current planned sequence is:
 
 1. **Broaden independent evidence before promotion.** Continue the architecture-detector recall work from the August checkpoint and add purpose-selected semantic corpora for Rust, TypeScript/JavaScript, and Python so neither detector nor semantic-rule disposition rests on development examples or a tiny language sample.
@@ -56,8 +58,8 @@ The semantic analyzer foundation does not reopen broad local-lint expansion. The
 
 ## Planned work
 
-1. Add required real-world positive calibration coverage for boundary/cohesion, file/region boundary-bypass, and unstable-dependency-direction; add independent validation/holdout positives for both intermediary-bypass detectors; broaden dependency-depth beyond its single JMH positive; and add purpose-selected semantic corpora for `swallowed-error` and `unobserved-outcome` across the supported semantic languages before broader recall or guard-readiness claims.
-2. Classify generalized detectors and semantic rules explicitly as advisory or blocking guard conditions and make every blocking finding a bounded, mechanically verifiable repair target for coding agents.
+1. Add required real-world positive calibration coverage for boundary/cohesion, file/region boundary-bypass, and unstable-dependency-direction; add independent validation/holdout positives for both intermediary-bypass detectors; broaden dependency-depth and hub-bottleneck beyond their single positive anchors; finish adjudicating dependency-pressure's unlabelled findings; and add purpose-selected semantic corpora for `swallowed-error` and `unobserved-outcome` across the supported semantic languages before broader recall or guard-readiness claims.
+2. Use the explicit detector evidence maturity classification to decide advisory or blocking guard disposition separately; classify semantic rules once independent holdout evidence exists, and make every blocking finding a bounded, mechanically verifiable repair target for coding agents.
 3. Add an immediate post-change guard workflow: agent changes code, Pitlord evaluates deterministically, the agent repairs the finite failures, and Pitlord verifies them without any model-based adjudication.
 4. Guarantee reproducible findings for the same snapshot, Pitlord version, configuration, and generalized profile, including finding identity, ordering, severity, evidence, and exit status.
 5. Add explicit human disposition for ambiguous advisory diagnoses: create a repository guardrail, accept the structure as intentional, or leave it unresolved.
