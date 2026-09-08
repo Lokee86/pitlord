@@ -81,12 +81,12 @@ Runs the blocking documentation guard over Demon Docs codemap ownership, Arcana 
 ### `scan`
 
 ```text
-pitlord scan --repo <root> [--analyzers architecture,semantic,clippy] [--path-prefix src] [--format text|json]
+pitlord scan --repo <root> [--analyzers architecture,semantic,clippy] [--guard-analyzers dependency-knots] [--path-prefix src] [--format text|json]
 ```
 
 The default `architecture` group runs Pitlord's ten graph-backed architecture detectors. `semantic` runs Pitlord-owned cross-language semantic rules over Lexicon-normalized capabilities stored in Arcana. `clippy` normalizes Rust Clippy diagnostics and is graph-free. Analyzer groups may be combined.
 
-All architecture detectors and current semantic rules are advisory. `scan` returns exit `1` when a selected analyzer produces one or more findings with `disposition: guard`; advisory-only findings do not fail the command. No current built-in detector or semantic rule is promoted to guard disposition. Exact detector mechanics and thresholds belong in [Architecture](ARCHITECTURE.md); evidence strength and known limitations belong in [Current limitations](limits/current-limitations.md).
+All architecture detectors and current semantic rules default to advisory. `--guard-analyzers` explicitly promotes findings from named, already-selected analyzer IDs to `disposition: guard` for that invocation; unknown or unselected IDs fail closed. Analyzer IDs are the individual detector/rule IDs such as `dependency-knots`, `swallowed-error`, or `clippy`, not group names such as `architecture` or `semantic`. `scan` returns exit `1` when one or more guard findings remain and exit `0` for advisory-only findings. No current built-in detector or semantic rule is promoted by default. Exact detector mechanics and thresholds belong in [Architecture](ARCHITECTURE.md); evidence strength and known limitations belong in [Current limitations](limits/current-limitations.md).
 
 ### `analyze`
 

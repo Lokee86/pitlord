@@ -50,6 +50,23 @@ func TestScanExitCodeBlocksGuardFindingsOnly(t *testing.T) {
 	}
 }
 
+func TestScanRejectsGuardAnalyzerThatIsNotSelected(t *testing.T) {
+	snapshotPath := t.TempDir()
+	var stdout, stderr bytes.Buffer
+	code := runScanWithLoader(
+		[]string{"--snapshot", snapshotPath, "--guard-analyzers", "missing"},
+		&stdout,
+		&stderr,
+		commandScanLoader{graph: arcana.Graph{Outgoing: map[uint32][]arcana.Relationship{}}},
+	)
+	if code != 2 {
+		t.Fatalf("expected usage failure, got %d", code)
+	}
+	if !bytes.Contains(stderr.Bytes(), []byte(`guard analyzer "missing" is not selected`)) {
+		t.Fatalf("unexpected stderr: %s", stderr.String())
+	}
+}
+
 func TestScanRejectsUnknownBuiltInAnalyzer(t *testing.T) {
 	var stdout, stderr bytes.Buffer
 	if code := runScanWithLoader([]string{"--analyzers", "unknown"}, &stdout, &stderr, nil); code != 2 {

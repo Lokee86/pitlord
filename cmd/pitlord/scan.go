@@ -25,6 +25,7 @@ func runScanWithLoader(args []string, stdout, stderr io.Writer, loader scan.Grap
 	arcanaCommand := flags.String("arcana", "", "Arcana executable override")
 	pathPrefix := flags.String("path-prefix", ".", "repository-relative path prefix to scan")
 	analyzerSpec := flags.String("analyzers", "architecture", "built-in analyzers: architecture, semantic, clippy, or a comma-separated combination")
+	guardAnalyzerSpec := flags.String("guard-analyzers", "", "selected analyzer IDs whose findings should use guard disposition")
 	format := flags.String("format", "text", "output format: text or json")
 	timeout := flags.Duration("timeout", 4*time.Minute, "maximum scan duration")
 	if err := flags.Parse(args); err != nil {
@@ -65,6 +66,7 @@ func runScanWithLoader(args []string, stdout, stderr io.Writer, loader scan.Grap
 		RepositoryRoot: *repo,
 		SnapshotPath:   resolvedSnapshot,
 		PathPrefix:     *pathPrefix,
+		GuardAnalyzers: splitCommaList(*guardAnalyzerSpec),
 	})
 	if err != nil {
 		fmt.Fprintln(stderr, err)

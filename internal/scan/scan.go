@@ -14,6 +14,7 @@ type Input struct {
 	RepositoryRoot string
 	SnapshotPath   string
 	PathPrefix     string
+	GuardAnalyzers []string
 }
 
 type GraphLoader interface {
@@ -39,6 +40,10 @@ func (engine Engine) Run(ctx context.Context, input Input) (Result, error) {
 		SnapshotPath:   input.SnapshotPath,
 		PathPrefix:     pathPrefix,
 	}
+	guardAnalyzers, err := selectedGuardAnalyzers(input.GuardAnalyzers, analyzers)
+	if err != nil {
+		return Result{}, err
+	}
 	if analyzersRequireGraph(analyzers) {
 		if strings.TrimSpace(input.SnapshotPath) == "" {
 			return Result{}, fmt.Errorf("Arcana snapshot is required")
@@ -55,7 +60,11 @@ func (engine Engine) Run(ctx context.Context, input Input) (Result, error) {
 		}
 		analyzerInput.Graph = graph
 	}
-	return analyzeWithAnalyzers(ctx, analyzerInput, analyzers)
+	result, err := analyzeWithAnalyzers(ctx, analyzerInput, analyzers)
+	if err != nil {
+		return Result{}, err
+	}
+	return applyGuardAnalyzers(result, guardAnalyzers), nil
 }
 
 func analyzeGraph(pathPrefix string, graph arcana.Graph) Result {
@@ -82,6 +91,46 @@ func analyzeWithAnalyzers(ctx context.Context, input AnalyzerContext, analyzers 
 		},
 		Findings: findings,
 	}), nil
+}
+
+func selectedGuardAnalyzers(requested []string, analyzers []Analyzer) (map[string]struct{}, error) {
+	if len(requested) == 0 {
+		return nil, nil
+	}
+	available := make(map[string]struct{}, len(analyzers))
+	for _, analyzer := range analyzers {
+		if analyzer == nil {
+			continue
+		}
+		available[strings.TrimSpace(analyzer.Metadata().ID)] = struct{}{}
+	}
+	selected := make(map[string]struct{}, len(requested))
+	for _, raw := range requested {
+		id := strings.TrimSpace(raw)
+		if id == "" {
+			continue
+		}
+		if _, duplicate := selected[id]; duplicate {
+			return nil, fmt.Errorf("duplicate guard analyzer %q", id)
+		}
+		if _, exists := available[id]; !exists {
+			return nil, fmt.Errorf("guard analyzer %q is not selected", id)
+		}
+		selected[id] = struct{}{}
+	}
+	return selected, nil
+}
+
+func applyGuardAnalyzers(result Result, selected map[string]struct{}) Result {
+	if len(selected) == 0 {
+		return result
+	}
+	for index := range result.Findings {
+		if _, promoted := selected[result.Findings[index].Analyzer]; promoted {
+			result.Findings[index].Disposition = DispositionGuard
+		}
+	}
+	return finalize(result)
 }
 
 func normalizePathPrefix(value string) (string, error) {

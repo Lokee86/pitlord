@@ -91,6 +91,41 @@ func TestEngineNormalizesRegisteredAnalyzerFindings(t *testing.T) {
 	}
 }
 
+func TestEnginePromotesSelectedAnalyzerToGuard(t *testing.T) {
+	analyzer := &fakeAnalyzer{
+		metadata: AnalyzerMetadata{ID: "cycle-check"},
+		findings: []Finding{{
+			ID:          "cycle-1",
+			Detector:    "cycle-check",
+			Disposition: DispositionAdvisory,
+			Severity:    SeverityWarning,
+			Scope:       Scope{Kind: "file", Path: "src/a.go"},
+		}},
+	}
+	result, err := (Engine{Analyzers: []Analyzer{analyzer}}).Run(context.Background(), Input{
+		GuardAnalyzers: []string{"cycle-check"},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(result.Findings) != 1 || result.Findings[0].Disposition != DispositionGuard {
+		t.Fatalf("finding was not promoted to guard: %+v", result.Findings)
+	}
+	if result.Summary.Guard != 1 || result.Summary.Advisory != 0 {
+		t.Fatalf("unexpected guard summary: %+v", result.Summary)
+	}
+}
+
+func TestEngineRejectsGuardAnalyzerThatIsNotSelected(t *testing.T) {
+	analyzer := &fakeAnalyzer{metadata: AnalyzerMetadata{ID: "selected"}}
+	_, err := (Engine{Analyzers: []Analyzer{analyzer}}).Run(context.Background(), Input{
+		GuardAnalyzers: []string{"missing"},
+	})
+	if err == nil || !strings.Contains(err.Error(), `guard analyzer "missing" is not selected`) {
+		t.Fatalf("unexpected guard analyzer error: %v", err)
+	}
+}
+
 func TestEnginePropagatesAnalyzerFailure(t *testing.T) {
 	analyzer := &fakeAnalyzer{metadata: AnalyzerMetadata{ID: "broken-linter"}, err: errors.New("tool failed")}
 	_, err := (Engine{Analyzers: []Analyzer{analyzer}}).Run(context.Background(), Input{})
