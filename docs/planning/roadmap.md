@@ -61,15 +61,17 @@ The semantic analyzer foundation does not reopen broad local-lint expansion. The
 1. Add required real-world positive calibration coverage for boundary/cohesion, file/region boundary-bypass, and unstable-dependency-direction; add independent validation/holdout positives for both intermediary-bypass detectors; broaden dependency-depth and hub-bottleneck beyond their single positive anchors; finish adjudicating dependency-pressure's unlabelled findings; and add purpose-selected semantic corpora for `swallowed-error` and `unobserved-outcome` across the supported semantic languages before broader recall or guard-readiness claims.
 2. Use the explicit detector evidence maturity classification to decide advisory or blocking guard disposition separately; classify semantic rules once independent holdout evidence exists, and make every blocking finding a bounded, mechanically verifiable repair target for coding agents.
 3. Add an immediate post-change guard workflow: agent changes code, Pitlord evaluates deterministically, the agent repairs the finite failures, and Pitlord verifies them without any model-based adjudication.
-4. Guarantee reproducible findings for the same snapshot, Pitlord version, configuration, and generalized profile, including finding identity, ordering, severity, evidence, and exit status.
-5. Add explicit human disposition for ambiguous advisory diagnoses: create a repository guardrail, accept the structure as intentional, or leave it unresolved.
-6. Add user-friendly policy authoring that can promote a diagnosis into validated policy without requiring JSON-schema knowledge, including a current-repository match preview before publication.
-7. Keep accepted architectural decisions semantically distinct from evidence baselines and define a durable repository-owned persistence contract for them.
-8. Extend calibration evidence without weakening existing separation cases, and select any next semantic rule from demonstrated repository-wide, cross-file, boundary, or cross-language gaps rather than expanding per-language native-linter wrappers by default.
-9. Add reusable policy packs with explicit versioning and compatibility.
-10. Integrate shared documentation-policy results into Warlock repository health.
-11. Add change-aware evaluation planning without weakening full-policy correctness.
-12. Improve cross-snapshot, diagnosis-history, and baseline migration diagnostics.
+4. Add deterministic local structural metrics for code units and files, starting with cyclomatic complexity, function own-line count, control-flow nesting depth, and file length. Prefer normalization of trustworthy native-tool measurements where practical rather than reimplementing language-specific parser semantics inside Pitlord. These metrics should use stable unit identities and remain distinct from Pitlord's graph-backed architecture and semantic detectors.
+5. Add automatic base-derived numeric ratchets for deterministic metrics. For each tracked unit and metric, derive the effective cap from the comparison base rather than a manually maintained baseline file: new units must meet the configured target, units already over target may not regress past their base value, and any improvement that lands on the base branch automatically becomes the tighter ceiling for subsequent changes. Preserve ratchet identity across ordinary moves/renames where deterministic identity permits it, and keep advisory-versus-blocking disposition explicit per metric.
+6. Guarantee reproducible findings for the same snapshot, Pitlord version, configuration, and generalized profile, including finding identity, ordering, severity, evidence, and exit status.
+7. Add explicit human disposition for ambiguous advisory diagnoses: create a repository guardrail, accept the structure as intentional, or leave it unresolved.
+8. Add user-friendly policy authoring that can promote a diagnosis into validated policy without requiring JSON-schema knowledge, including a current-repository match preview before publication.
+9. Keep accepted architectural decisions semantically distinct from evidence baselines and define a durable repository-owned persistence contract for them.
+10. Extend calibration evidence without weakening existing separation cases, and select any next semantic rule from demonstrated repository-wide, cross-file, boundary, or cross-language gaps rather than expanding per-language native-linter wrappers by default.
+11. Add reusable policy packs with explicit versioning and compatibility.
+12. Integrate shared documentation-policy results into Warlock repository health.
+13. Add change-aware evaluation planning without weakening full-policy correctness.
+14. Improve cross-snapshot, diagnosis-history, and baseline migration diagnostics.
 
 See [Architecture diagnosis and policy authoring](architecture-diagnosis-and-policy-authoring.md) for the product workflow and detector direction.
 
