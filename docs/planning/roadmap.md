@@ -108,7 +108,7 @@ Each planned feature must preserve deterministic evidence, explicit ownership, r
 - Real-source semantic calibration is recorded in [Semantic lint calibration](../development/calibration/semantic-lints.md) and projected into three strict machine-readable references. `pitlord calibrate` now supports exact built-in analyzer targeting plus optional rule/language/source-location selectors and fully-labelled mismatch semantics; the Lexicanter Rust, Space Rocks TypeScript, and Space Rocks Python semantic references each pass at 1 TP / 0 FP / 0 FN with no severity or unlabelled mismatches. Broader semantic precision/recall remains unclaimed.
 - The blocking `pitlord docs` documentation guard is implemented. It consumes Demon Docs' schema-1 codemap export, Arcana's code-file inventory, and Git changes from the merge base through the current worktree; every code file must have at least one codemap owner and changed mapped code must change at least one owning document. Markdown structure and schema validation remain Demon Docs responsibilities.
 - `require_content` is implemented and documented in [Policy reference](../POLICY.md).
-- Shared documentation governance is defined in [Engineering Standards](../../../engineering-standards/docs/INDEX.md).
+- Shared documentation governance is defined in [Engineering Standards](https://github.com/Lokee86/engineering-standards/blob/main/docs/INDEX.md).
 
 ## Related docs
 
