@@ -30,7 +30,7 @@ Pitlord documentation separates exact policy and CLI contracts, implemented arch
 
 ## Related docs
 
-- [Shared documentation standard](../../engineering-standards/docs/documentation-standard.md)
+- [Shared documentation standard](https://github.com/Lokee86/engineering-standards/blob/main/docs/documentation-standard.md)
 - [README](../README.md)
 
 ## Notes
